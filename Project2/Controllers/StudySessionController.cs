@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Project2.Models;
+using TrackYourStudyingApp.Models;
 
-namespace Project2.Controllers
+namespace TrackYourStudyingApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]

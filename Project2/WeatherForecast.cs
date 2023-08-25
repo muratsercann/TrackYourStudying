@@ -1,4 +1,4 @@
-namespace Project2
+namespace TrackYourStudyingApp
 {
     public class WeatherForecast
     {

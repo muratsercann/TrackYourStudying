@@ -1,4 +1,4 @@
-﻿namespace Project2.Models
+﻿namespace TrackYourStudyingApp.Models
 {
     public class StudySession
     {

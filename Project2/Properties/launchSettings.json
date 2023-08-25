@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Project2": {
+    "TrackYourStudyingApp": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7055;http://localhost:5173",
