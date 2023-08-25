@@ -17,21 +17,21 @@ export class StudySessionComponent extends Component {
             <table className="table table-striped" aria-labelledby="tableLabel">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
+                        <th>Subject</th>
+                        <th>Topic</th>
+                        <th>StudyDuration</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {sessions.map(s =>
-                        <tr key={s.date}>
-                            <td>{s.date}</td>
-                            <td>{s.temperatureC}</td>
-                            <td>{s.temperatureF}</td>
-                            <td>{s.summary}</td>
-                        </tr>
-                    )}
+                    {
+                        sessions.map(s =>
+                            <tr key={s.id}>
+                                <td>{s.subject}</td>
+                                <td>{s.topic}</td>
+                                <td>{s.studyDuration}</td>
+                            </tr>
+                        )
+                    }
                 </tbody>
             </table>
         );
@@ -53,8 +53,8 @@ export class StudySessionComponent extends Component {
     }
 
     async populateData() {
-        alert("populateData()");
-        const response = await fetch('weatherforecast');//change with getSessions
+        //alert("populateData()");
+        const response = await fetch('studysession');//change with getSessions
         const data = await response.json();
         console.log(data);
         this.setState({ sessions: data, loading: false });
