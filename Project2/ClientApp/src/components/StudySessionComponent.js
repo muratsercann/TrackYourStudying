@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { SessionCard } from './SessionCard';
 
 export class StudySessionComponent extends Component {
     static displayName = StudySessionComponent.name;
@@ -12,28 +13,15 @@ export class StudySessionComponent extends Component {
 
     }
 
-    static renderContents(sessions) {
+    static renderContents(data) {
         return (
-            <table className="table table-striped" aria-labelledby="tableLabel">
-                <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Topic</th>
-                        <th>StudyDuration</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        sessions.map(s =>
-                            <tr key={s.id}>
-                                <td>{s.subject}</td>
-                                <td>{s.topic}</td>
-                                <td>{s.studyDuration}</td>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table>
+            <div>
+                {
+                    data.map(s =>
+                        <SessionCard sessionsByDate={s} key={s.date} />
+                    )
+                }
+            </div>
         );
     }
 
@@ -45,7 +33,7 @@ export class StudySessionComponent extends Component {
 
         return (
             <div>
-                <h1>Study Sessions</h1>
+                <h1>Study Session List</h1>
                 <h2>{contents}</h2>
 
             </div>
