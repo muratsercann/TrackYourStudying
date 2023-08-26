@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
-import { StudySessionComponent } from './StudySessionComponent';
+import { SessionCardList } from './SessionCardList';
 
 export class Layout extends Component {
     static displayName = Layout.name;
@@ -14,7 +14,7 @@ export class Layout extends Component {
                 {/*    {this.props.children}*/}
                 {/*</Container>*/}
 
-                <StudySessionComponent />
+                <SessionCardList />
 
             </div>
         );

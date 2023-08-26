@@ -1,8 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { SessionCard } from './SessionCard';
 
-export class StudySessionComponent extends Component {
-    static displayName = StudySessionComponent.name;
+export class SessionCardList extends Component {
+    static displayName = SessionCardList.name;
 
     constructor(props) {
         super(props);
@@ -29,7 +29,7 @@ export class StudySessionComponent extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : StudySessionComponent.renderContents(this.state.sessions);
+            : SessionCardList.renderContents(this.state.sessions);
 
         return (
             <div>
