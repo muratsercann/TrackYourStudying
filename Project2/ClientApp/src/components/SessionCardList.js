@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { SessionCard } from './SessionCard';
-
+import './style.css';
 export class SessionCardList extends Component {
     static displayName = SessionCardList.name;
 
