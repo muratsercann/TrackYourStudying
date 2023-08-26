@@ -9,15 +9,21 @@ export class Layout extends Component {
 
     render() {
         return (
-            <div id="mainContent" class="container">
-                <NavMenu />
-                {/*<Container tag="main">*/}
-                {/*    {this.props.children}*/}
-                {/*</Container>*/}
+            <>
+                <div id="mainContent" class="container">
 
-                <SessionCardList />
+                    <NavMenu />
+                    {/*<Container tag="main">*/}
+                    {/*    {this.props.children}*/}
+                    {/*</Container>*/}
 
-            </div>
+                    <SessionCardList />
+
+                </div>
+
+                <a href="#" class="floating-button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</a>
+
+            </>
         );
     }
 }

@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { SessionHeader } from './SessionHeader';
 import { SessionItem } from './SessionItem';
+import { SessionTotal } from './SessionTotal';
 import './style.css';
 
 export class SessionCard extends Component {
@@ -19,6 +20,7 @@ export class SessionCard extends Component {
                 <div class="card-body">
                     {this.state.data.sessions.map(s => <SessionItem session={s} key={s.id} />)}
                 </div>
+                <SessionTotal total={this.state.data} />
                 <br></br>
             </div>
 

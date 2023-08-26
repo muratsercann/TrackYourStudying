@@ -109,7 +109,9 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "15:00",
                             Subject = "Math",
                             Topic = "Equation Solving",
-                            StudyDuration = 120
+                            StudyDuration = 120,
+                            DidTopicStudy = true,
+                            SolvedQuestions = 50,
                         },
                         new StudySession
                         {
@@ -118,7 +120,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "18:00",
                             Subject = "Physics",
                             Topic = "Mechanics",
-                            StudyDuration = 120
+                            StudyDuration = 120,
+                            SolvedQuestions = 35,
                         },
                         new StudySession
                         {
@@ -127,7 +130,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "20:30",
                             Subject = "English",
                             Topic = "Literary Analysis",
-                            StudyDuration = 60
+                            StudyDuration = 60,
+                            SolvedQuestions = 75,
                         }
                     }
                 },
@@ -143,7 +147,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "12:00",
                             Subject = "Biology",
                             Topic = "Cell Biology",
-                            StudyDuration = 120
+                            StudyDuration = 120,
+                            SolvedQuestions = 58,
                         },
                         new StudySession
                         {
@@ -152,7 +157,9 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "15:30",
                             Subject = "History",
                             Topic = "Ancient Civilizations",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            DidTopicStudy = true,
+                            SolvedQuestions = 85
                         },
                         new StudySession
                         {
@@ -161,7 +168,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "18:00",
                             Subject = "Chemistry",
                             Topic = "Chemical Bonding",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            SolvedQuestions = 35,
                         }
                     }
                 },
@@ -177,7 +185,9 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "13:00",
                             Subject = "Math",
                             Topic = "Trigonometry",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            DidTopicStudy = true,
+                            SolvedQuestions = 75,
                         },
                         new StudySession
                         {
@@ -186,7 +196,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "15:30",
                             Subject = "Literature",
                             Topic = "Poetry Analysis",
-                            StudyDuration = 60
+                            StudyDuration = 60,
+                            SolvedQuestions = 58,
                         },
                         new StudySession
                         {
@@ -195,7 +206,9 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "18:30",
                             Subject = "Physics",
                             Topic = "Optics",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            DidTopicStudy = true,
+                            SolvedQuestions = 65,
                         }
                     }
                 },
@@ -211,7 +224,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "12:00",
                             Subject = "Chemistry",
                             Topic = "Acids and Bases",
-                            StudyDuration = 120
+                            StudyDuration = 120,
+                            SolvedQuestions = 40,
                         },
                         new StudySession
                         {
@@ -220,7 +234,9 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "15:30",
                             Subject = "History",
                             Topic = "Modern World",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            DidTopicStudy = true,
+                            SolvedQuestions = 30,
                         },
                         new StudySession
                         {
@@ -229,7 +245,9 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "18:00",
                             Subject = "Biology",
                             Topic = "Genetics",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            DidTopicStudy = true,
+                            SolvedQuestions = 43,
                         }
                     }
                 },
@@ -245,7 +263,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "13:00",
                             Subject = "Math",
                             Topic = "Calculus",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            SolvedQuestions = 78,
                         },
                         new StudySession
                         {
@@ -254,7 +273,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "15:30",
                             Subject = "Literature",
                             Topic = "Shakespeare",
-                            StudyDuration = 60
+                            StudyDuration = 60,
+                            SolvedQuestions = 20,
                         },
                         new StudySession
                         {
@@ -263,7 +283,8 @@ namespace TrackYourStudyingApp.Controllers
                             EndTime = "18:30",
                             Subject = "Physics",
                             Topic = "Thermodynamics",
-                            StudyDuration = 90
+                            StudyDuration = 90,
+                            SolvedQuestions = 35,
                         }
                     }
                 }

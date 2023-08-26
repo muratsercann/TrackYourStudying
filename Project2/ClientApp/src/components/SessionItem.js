@@ -18,10 +18,13 @@ export class SessionItem extends Component {
                         <div>
                             <p>
                                 <strong>
-                                    {this.state.session.startTime} - {this.state.session.endTime} 
+                                    {this.state.session.startTime} - {this.state.session.endTime}
                                 </strong>
 
-                                <span>{" "} ({this.state.session.studyDuration} dk)</span> 
+                                <span class="duration">
+                                    {" "}({!this.state.session.didTopicStudy && "Konu + "}
+                                     {this.state.session.studyDuration} dk) 
+                                </span>
                             </p>
                         </div>
                     </div>
