@@ -11,7 +11,7 @@ export class SessionTotal extends Component {
 
     render() {
         return (
-            <div class="sessionTotal">
+            <div className="sessionTotal">
                 <span>{this.state.data.totalDuration} - {this.state.data.totalSolvedQuestion}</span>
             </div>
         );

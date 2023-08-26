@@ -12,7 +12,7 @@ export class SessionItem extends Component {
     render() {
         return (
             <div>
-                <div class="lesson">
+                <div className="lesson">
                     {/*<p><strong></strong></p>*/}
                     <div>
                         <div>
@@ -21,7 +21,7 @@ export class SessionItem extends Component {
                                     {this.state.session.startTime} - {this.state.session.endTime}
                                 </strong>
 
-                                <span class="duration">
+                                <span className="duration">
                                     {" "}({!this.state.session.didTopicStudy && "Konu + "}
                                      {this.state.session.studyDuration} dk) 
                                 </span>

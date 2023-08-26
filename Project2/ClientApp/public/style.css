@@ -4,9 +4,8 @@
 body {
     margin: 0;
     padding: 0;
-    color: white;
     font-family: Optimistic Text,-apple-system,ui-sans-serif,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
- 
+
 }
 
 .container {
@@ -19,28 +18,50 @@ h1 {
     margin-bottom: 20px;
 }
 
-#mainContent {
-    
-}
-
 /* Kart stil ayarları */
 .card {
     margin-bottom: 20px;
     border: none;
-    font-size : 17px;
-    background-color : red;
+    background-color: #2a2e39;
+    font-size: 12px;
 }
 
 .card-header {
-    background-color: #343a40;
-    color: white;
+    background-color: #edd000;
+    color: #3f4659;
     text-align: center;
     font-weight: bold;
+    font-size: 17px;
 }
 
 .card-body {
     padding: 10px;
 }
+
+/* Ders stil ayarları */
+.lesson {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 15px;
+    border-bottom: #95c75e6b;
+    border-bottom-style: double;
+    border-bottom-width: thin;
+}
+
+    .lesson:hover {
+        /*background-color: yellow;*/
+    }
+
+    .lesson::before {
+        content: '';
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background-color: #17b8b6;
+        border-radius: 50%;
+        top: 3px;
+        left: 0;
+    }
 
 /* Zaman çizgi stili */
 .time-line {
@@ -62,26 +83,50 @@ h1 {
         left: -3px;
     }
 
-/* Ders stil ayarları */
-.lesson {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 15px;
+
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    background-color: #009688;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Yüksek bir z-index değeri verin */
 }
 
-    .lesson::before {
-        content: '';
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: #17a2b8;
-        border-radius: 50%;
-        top: 3px;
-        left: 0;
-    }
+a {
+    text-decoration: none; /* Alt çizgiyi kaldırma */
+}
+
+
 
 /* Ayraç stili */
 .separator {
     margin: 20px 0;
     border-bottom: 1px solid #dee2e6;
+}
+
+.sessionTotal {
+    padding: 0px 10px 0px 10px;
+    color: #17c35d;
+    font-size: small;
+    text-align: right;
+}
+
+.duration {
+    color: #30cb3e;
+}
+
+.sessionForm{
+
+    padding: 8px;
+
 }

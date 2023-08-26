@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 import { SessionCardList } from './session/SessionCardList';
+import { SessionForm } from './forms/SessionForm';
 import './session/style.css'
 
 export class Layout extends Component {
@@ -10,18 +11,20 @@ export class Layout extends Component {
     render() {
         return (
             <>
-                <div id="mainContent" class="container">
+                <div id="mainContent" className="container">
 
                     <NavMenu />
                     {/*<Container tag="main">*/}
                     {/*    {this.props.children}*/}
                     {/*</Container>*/}
 
-                    <SessionCardList />
+                    {/*<SessionCardList />*/}
+
+                    <SessionForm/>
 
                 </div>
 
-                <a href="#" class="floating-button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</a>
+                <a href="#" className="floating-button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</a>
 
             </>
         );

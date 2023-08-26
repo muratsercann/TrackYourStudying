@@ -18,7 +18,7 @@ export class SessionHeader extends Component {
     render() {
         var dateString = this.formatDateToCustomString(new Date(this.state.date))
         return (
-            <div class="card-header">
+            <div className="card-header">
                 {dateString}
             </div>
         );

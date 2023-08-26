@@ -29,17 +29,23 @@ export class NavMenu extends Component {
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                         <ul className="navbar-nav flex-grow">
+                            {/*<NavItem>*/}
+                            {/*    <NavLink tag={Link} className="text-white" to="/">Home</NavLink>*/}
+                            {/*</NavItem>*/}
+                            {/*<NavItem>*/}
+                            {/*    <NavLink tag={Link} className="text-white" to="/counter">Counter</NavLink>*/}
+                            {/*</NavItem>*/}
+                            {/*<NavItem>*/}
+                            {/*    <NavLink tag={Link} className="text-white" to="/fetch-data">Fetch data</NavLink>*/}
+                            {/*</NavItem>*/}
+                            {/*<NavItem>*/}
+                            {/*    <NavLink tag={Link} className="text-white" to="/get-sessions">Get Sessions</NavLink>*/}
+                            {/*</NavItem>*/}
                             <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/">Home</NavLink>
+                                <NavLink tag={Link} className="text-white">Grafikler</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/counter">Counter</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/fetch-data">Fetch data</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/get-sessions">Get Sessions</NavLink>
+                                <NavLink tag={Link} className="text-white">Denemelerim</NavLink>
                             </NavItem>
                         </ul>
                     </Collapse>

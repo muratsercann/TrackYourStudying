@@ -15,9 +15,9 @@ export class SessionCard extends Component {
     render() {
         return (
 
-            <div class="card">
+            <div className="card">
                 <SessionHeader date={this.state.data.date} />
-                <div class="card-body">
+                <div className="card-body">
                     {this.state.data.sessions.map(s => <SessionItem session={s} key={s.id} />)}
                 </div>
                 <SessionTotal total={this.state.data} />
