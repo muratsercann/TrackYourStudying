@@ -1,7 +1,7 @@
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import { SessionCardList } from "./components/SessionCardList";
+import { SessionCardList } from "./components/session/SessionCardList";
 
 const AppRoutes = [
     {
