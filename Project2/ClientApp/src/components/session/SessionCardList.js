@@ -41,7 +41,6 @@ export class SessionCardList extends Component {
     }
 
     async populateData() {
-        //alert("populateData()");
         const response = await fetch('studysession');//change with getSessions
         const data = await response.json();
         console.log(data);
