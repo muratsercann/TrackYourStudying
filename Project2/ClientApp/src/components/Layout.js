@@ -3,6 +3,7 @@ import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 import { SessionCardList } from './session/SessionCardList';
 import { SessionForm } from './forms/SessionForm';
+import { Main } from './ReactPlayGround/Main'
 import './session/style.css'
 
 export class Layout extends Component {
@@ -21,6 +22,8 @@ export class Layout extends Component {
                     {/*<SessionCardList />*/}
 
                     <SessionForm/>
+
+                 {/*   <Main />*/}
 
                 </div>
 

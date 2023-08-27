@@ -16,31 +16,31 @@ namespace TrackYourStudyingApp.Controllers
                 {
                     Id = 1,
                     Name = "Mathematics",
-                    Topics = GenerateTopics(12)
+                    Topics = GenerateTopics(12,"Math")
                 },
                 new Subject
                 {
                     Id = 2,
                     Name = "Physics",
-                    Topics = GenerateTopics(7)
+                    Topics = GenerateTopics(7,"Phys")
                 },
                 new Subject
                 {
                     Id = 3,
                     Name = "Chemistry",
-                    Topics = GenerateTopics(10)
+                    Topics = GenerateTopics(10,"Chem")
                 }
             };
 
             return subjects;
         }
 
-        public List<Topic> GenerateTopics(int count)
+        public List<Topic> GenerateTopics(int count , string prefix)
         {
             List<Topic> topics = new List<Topic>();
             for (int i = 1; i <= count; i++)
             {
-                topics.Add(new Topic { Id = i, Name = $"Topic {i}" });
+                topics.Add(new Topic { Id = i, Name = $"{prefix} Topic {i}" });
             }
             return topics;
         }
