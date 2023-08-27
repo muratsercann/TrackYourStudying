@@ -1,5 +1,7 @@
-﻿import React, { Component } from 'react';
+﻿
+import React, { Component } from 'react';
 import { SessionCard } from './SessionCard';
+import { SessionForm } from '../forms/SessionForm.js';
 import './style.css';
 export class SessionCardList extends Component {
     static displayName = SessionCardList.name;
@@ -21,6 +23,8 @@ export class SessionCardList extends Component {
                         <SessionCard sessionsByDate={s} key={s.date} />
                     )
                 }
+
+
             </div>
         );
     }
@@ -35,7 +39,7 @@ export class SessionCardList extends Component {
             <div>
                 <h1>Study Session List</h1>
                 <h2>{contents}</h2>
-
+                <SessionForm />
             </div>
         );
     }

@@ -300,5 +300,36 @@ namespace TrackYourStudyingApp.Controllers
             List<SessionByDate> sessions = GetSessionByDateList();
             return sessions;
         }
+
+        [HttpPost("addNewSession")]
+        public IActionResult AddNewSession([FromBody] FormData formData)
+        {
+            try
+            {
+                // formData nesnesini burada işleyebilirsiniz
+                // Örneğin, veritabanına kaydetme veya başka işlemler yapabilirsiniz
+
+                // Başarılı yanıt
+                return Ok(new { message = "Veriler başarıyla kaydedildi." });
+            }
+            catch (Exception ex)
+            {
+                // Hata durumu
+                return BadRequest(new { error = "Bir hata oluştu: " + ex.Message });
+            }
+        }
+
+        public class FormData
+        {
+            public DateTime Date { get; set; }
+            public string? StartTime { get; set; }
+            public string? EndTime { get; set; }
+            public string? Subject { get; set; }
+            public string? Topic { get; set; }
+            public int StudyDuration { get; set; }
+            public int SolvedQuestions { get; set; }
+            public bool DidTopicStudy { get; set; }
+        }
     }
 }
+

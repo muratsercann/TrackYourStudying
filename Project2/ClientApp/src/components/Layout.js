@@ -4,28 +4,31 @@ import { NavMenu } from './NavMenu';
 import { SessionCardList } from './session/SessionCardList';
 import { SessionForm } from './forms/SessionForm';
 import { Main } from './ReactPlayGround/Main'
+import { DropdownTest } from './ReactPlayGround/DropdownTest'
 import './session/style.css'
 
-export function Layout() {
+export function Layout(props) {
 
     return (
         <>
             <div id="mainContent" className="container">
 
                 <NavMenu />
+
                 {/*<Container tag="main">*/}
-                {/*    {this.props.children}*/}
+                {/*    {props.children}*/}
                 {/*</Container>*/}
 
                 <SessionCardList />
+                {/*<SessionForm /> */}
 
-                {/*<SessionForm/>*/}
-
+                {/*<DropdownTest/>*/}
+                <SessionForm/>
                 {/* <Main />*/}
 
             </div>
 
-            <a href="#" className="floating-button" data-bs-toggle="modal" data-bs-target="#exampleModal">+</a>
+            
 
         </>
     );

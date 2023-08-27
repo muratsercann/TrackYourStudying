@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 
+
 // Modal stilini özelleştirin
 const customStyles = {
     content: {
@@ -32,6 +33,7 @@ export function Main() {
 
     useEffect(() => {
         populateData();
+        Modal.setAppElement('#app');
     }, []);
 
     async function populateData() {
