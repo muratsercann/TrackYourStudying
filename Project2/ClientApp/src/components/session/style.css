@@ -23,14 +23,14 @@
 .lesson {
     position: relative;
     padding-left: 20px;
-    margin-bottom: 15px;
     border-bottom: #95c75e6b;
     border-bottom-style: double;
     border-bottom-width: thin;
+    padding: 8px 8px 8px 21px;
 }
 
     .lesson:hover {
-        /*background-color: yellow;*/
+        background-color: #5353539c;
     }
 
     .lesson::before {
@@ -38,10 +38,10 @@
         position: absolute;
         width: 7px;
         height: 7px;
-        background-color: #17b8b6;
+        background-color: #ede954;
         border-radius: 50%;
-        top: 3px;
-        left: 0;
+        top: 12px;
+        left: 6px;
     }
 
 /* Zaman çizgi stili */
@@ -84,3 +84,5 @@
 .sessionForm {
     padding: 8px;
 }
+
+

@@ -23,7 +23,7 @@ export function Layout(props) {
                 {/*<SessionForm /> */}
 
                 {/*<DropdownTest/>*/}
-                <SessionForm/>
+                {/*<SessionForm/>*/}
                 {/* <Main />*/}
 
             </div>

@@ -1,37 +1,37 @@
-﻿import React, { Component } from 'react';
+﻿import React, { useState } from 'react';
 import './style.css';
 
-export class SessionItem extends Component {
-    static displayName = SessionItem.name;
+export function SessionItem(props) {
+    const [session, setSession] = useState(props.session);
 
-    constructor(props) {
-        super(props);
-        this.state = { session: this.props.session, loading: true };
+    function onHandleClick() {
+        //alert("tıklandıı");
+        console.log("Tıklanan session bilgisi :");
+        console.log(session);
     }
 
-    render() {
-        return (
-            <div>
-                <div className="lesson">
-                    {/*<p><strong></strong></p>*/}
+    return (
+        <div>
+            <div onClick={onHandleClick} className="lesson">
+                {/*<p><strong></strong></p>*/}
+                <div>
                     <div>
-                        <div>
-                            <p>
-                                <strong>
-                                    {this.state.session.startTime} - {this.state.session.endTime}
-                                </strong>
+                        <p>
+                            <strong>
+                                {session.startTime} - {session.endTime}
+                            </strong>
 
-                                <span className="duration">
-                                    {" "}({!this.state.session.didTopicStudy && "Konu + "}
-                                     {this.state.session.studyDuration} dk) 
-                                </span>
-                            </p>
-                        </div>
+                            <span className="duration">
+                                {" "}({!session.didTopicStudy && "Konu + "}
+                                {session.studyDuration} dk)
+                            </span>
+                        </p>
                     </div>
-
-                    <p>{this.state.session.subject} - {this.state.session.topic}</p>
                 </div>
+
+                <p>{session.subject} - {session.topic}</p>
             </div>
-        );
-    }
+        </div>
+    );
+
 }

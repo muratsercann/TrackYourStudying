@@ -7,92 +7,6 @@ namespace TrackYourStudyingApp.Controllers
     [Route("[controller]")]
     public class StudySessionController : ControllerBase
     {
-
-        private List<StudySession> GetStudySessions()
-        {
-            List<StudySession> sessions = new List<StudySession>();
-
-            sessions.Add(new StudySession
-            {
-                Id = 1,
-                Date = DateTime.Today,
-                StartTime = "09:00",
-                EndTime = "11:00",
-                Subject = "Mathematics",
-                Topic = "Trigonometry",
-                StudyDuration = 120,
-                SolvedQuestions = 20,
-                DidTopicStudy = true
-            });
-
-            sessions.Add(new StudySession
-            {
-                Id = 2,
-                Date = DateTime.Today,
-                StartTime = "12:00",
-                EndTime = "14:00",
-                Subject = "Physics",
-                Topic = "Motion and Force",
-                StudyDuration = 120,
-                SolvedQuestions = 15,
-                DidTopicStudy = false
-            });
-
-            sessions.Add(new StudySession
-            {
-                Id = 3,
-                Date = DateTime.Today.AddDays(-1),
-                StartTime = "10:30",
-                EndTime = "12:30",
-                Subject = "Chemistry",
-                Topic = "Elements and Periodic Table",
-                StudyDuration = 120,
-                SolvedQuestions = 25,
-                DidTopicStudy = true
-            });
-
-            sessions.Add(new StudySession
-            {
-                Id = 4,
-                Date = DateTime.Today.AddDays(-1),
-                StartTime = "14:00",
-                EndTime = "16:00",
-                Subject = "Literature",
-                Topic = "Analysis of Novels",
-                StudyDuration = 120,
-                SolvedQuestions = 10,
-                DidTopicStudy = false
-            });
-
-            sessions.Add(new StudySession
-            {
-                Id = 5,
-                Date = DateTime.Today.AddDays(-2),
-                StartTime = "09:30",
-                EndTime = "11:30",
-                Subject = "Biology",
-                Topic = "Cell Division",
-                StudyDuration = 120,
-                SolvedQuestions = 30,
-                DidTopicStudy = true
-            });
-
-            sessions.Add(new StudySession
-            {
-                Id = 6,
-                Date = DateTime.Today.AddDays(-2),
-                StartTime = "13:00",
-                EndTime = "15:00",
-                Subject = "History",
-                Topic = "Medieval Europe",
-                StudyDuration = 120,
-                SolvedQuestions = 18,
-                DidTopicStudy = false
-            });
-
-            return sessions;
-        }
-
         private List<SessionByDate> GetSessionByDateList()
         {
             List<SessionByDate> sessionList = new List<SessionByDate>
@@ -105,6 +19,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 1,
+                            Date = DateTime.Parse("2023-08-25"),
                             StartTime = "13:00",
                             EndTime = "15:00",
                             Subject = "Math",
@@ -116,6 +31,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 2,
+                            Date = DateTime.Parse("2023-08-25"),
                             StartTime = "16:00",
                             EndTime = "18:00",
                             Subject = "Physics",
@@ -126,6 +42,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 3,
+                            Date = DateTime.Parse("2023-08-25"),
                             StartTime = "19:30",
                             EndTime = "20:30",
                             Subject = "English",
@@ -143,6 +60,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 4,
+                            Date = DateTime.Parse("2023-08-26"),
                             StartTime = "10:00",
                             EndTime = "12:00",
                             Subject = "Biology",
@@ -153,6 +71,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 5,
+                            Date = DateTime.Parse("2023-08-26"),
                             StartTime = "14:00",
                             EndTime = "15:30",
                             Subject = "History",
@@ -164,6 +83,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 6,
+                            Date = DateTime.Parse("2023-08-26"),
                             StartTime = "16:30",
                             EndTime = "18:00",
                             Subject = "Chemistry",
@@ -181,6 +101,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 7,
+                            Date = DateTime.Parse("2023-08-27"),
                             StartTime = "11:30",
                             EndTime = "13:00",
                             Subject = "Math",
@@ -192,6 +113,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 8,
+                            Date = DateTime.Parse("2023-08-27"),
                             StartTime = "14:30",
                             EndTime = "15:30",
                             Subject = "Literature",
@@ -202,6 +124,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 9,
+                            Date = DateTime.Parse("2023-08-27"),
                             StartTime = "17:00",
                             EndTime = "18:30",
                             Subject = "Physics",
@@ -220,6 +143,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 10,
+                            Date = DateTime.Parse("2023-08-28"),
                             StartTime = "10:00",
                             EndTime = "12:00",
                             Subject = "Chemistry",
@@ -230,6 +154,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 11,
+                            Date = DateTime.Parse("2023-08-28"),
                             StartTime = "14:00",
                             EndTime = "15:30",
                             Subject = "History",
@@ -241,6 +166,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 12,
+                            Date = DateTime.Parse("2023-08-28"),
                             StartTime = "16:30",
                             EndTime = "18:00",
                             Subject = "Biology",
@@ -259,6 +185,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 13,
+                            Date = DateTime.Parse("2023-08-29"),
                             StartTime = "11:30",
                             EndTime = "13:00",
                             Subject = "Math",
@@ -269,6 +196,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 14,
+                            Date = DateTime.Parse("2023-08-29"),
                             StartTime = "14:30",
                             EndTime = "15:30",
                             Subject = "Literature",
@@ -279,6 +207,7 @@ namespace TrackYourStudyingApp.Controllers
                         new StudySession
                         {
                             Id = 15,
+                            Date = DateTime.Parse("2023-08-29"),
                             StartTime = "17:00",
                             EndTime = "18:30",
                             Subject = "Physics",
@@ -306,9 +235,7 @@ namespace TrackYourStudyingApp.Controllers
         {
             try
             {
-                // formData nesnesini burada işleyebilirsiniz
-                // Örneğin, veritabanına kaydetme veya başka işlemler yapabilirsiniz
-
+                //veritabanı kayıt işlemleri
                 // Başarılı yanıt
                 return Ok(new { message = "Veriler başarıyla kaydedildi." });
             }
