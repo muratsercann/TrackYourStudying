@@ -10,7 +10,7 @@ internal class Program
     private static void Main(string[] args)
     {
         //CreateSubjects();
-        CreateTopics();
+        //CreateTopics();
 
     }
     /// <summary>
