@@ -12,5 +12,7 @@ namespace DbManagement.Models
         public string? Name { get; set; }
         public string? Code { get; set; }
 
+        public ICollection<Topic>? Topics {  get; set; }
+
     }
 }

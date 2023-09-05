@@ -247,6 +247,18 @@ namespace TrackYourStudyingApp.Controllers
         {
             try
             {
+                DbManagement.Models.StudySession session = new DbManagement.Models.StudySession();
+
+                session.Date = formData.Date;
+                session.StartTime = formData.StartTime;
+                session.EndTime = formData.EndTime;
+                session.Subject = formData.Subject;
+                session.Topic = formData.Topic;
+                session.SolvedQuestions = formData.SolvedQuestions;
+                session.DidTopicStudy = formData.DidTopicStudy;
+
+                TrackYourStudyContext.CreateSession(session);
+
                 //veritabanı kayıt işlemleri
                 // Başarılı yanıt
                 return Ok(new { message = "Veriler başarıyla kaydedildi." });

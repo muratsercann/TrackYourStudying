@@ -12,6 +12,10 @@ internal class Program
         //CreateSubjects();
         //CreateTopics();
 
+        using var db = new TrackYourStudyContext();
+
+        List<DbManagement.Models.Subject> subjects = db.GetSubjects();
+
     }
     /// <summary>
     /// It creates firt seed for subject table..
@@ -72,7 +76,6 @@ internal class Program
         }
 
     }
-
 
     private static void CreateTopics()
     {

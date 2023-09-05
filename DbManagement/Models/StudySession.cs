@@ -14,9 +14,9 @@ namespace DbManagement.Models
         public string? EndTime { get; set; }
         public string? Subject { get; set; } //Ders Adı
         public string? Topic { get; set; } //Ders konusu
-        public int StudyDuration { get; set; }
         public int SolvedQuestions { get; set; }
         public bool DidTopicStudy { get; set; }
+        public string? Description { get; set; }
     }
 
 }
