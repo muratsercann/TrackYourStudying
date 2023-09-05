@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DbManagement;
+using Microsoft.AspNetCore.Mvc;
 using TrackYourStudyingApp.Models;
 
 namespace TrackYourStudyingApp.Controllers
@@ -229,10 +230,11 @@ namespace TrackYourStudyingApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<SessionByDate> Get()
+        public IEnumerable<StudySessionByDate> Get()
         {
             //List<StudySession> sessions = GetStudySessions();
-            List<SessionByDate> sessions = GetSessionByDateList();
+            using var db = new TrackYourStudyContext();
+            List<StudySessionByDate> sessions = db.GetStudySessionsByDate();
             return sessions;
         }
 

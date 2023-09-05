@@ -1,21 +1,15 @@
 ﻿
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SessionCard } from './SessionCard';
 import { SessionForm } from '../forms/SessionForm.js';
 import './style.css';
-export class SessionCardList extends Component {
-    static displayName = SessionCardList.name;
+export function SessionCardList() {
 
-    constructor(props) {
-        super(props);
-        this.state = { sessions: [], loading: true };
-    }
-    componentDidMount() {
-        this.populateData();
+    const [sessions, setSessions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [reload, setReload] = useState(false);
 
-    }
-
-    static renderContents(data) {
+    function renderContents(data) {
         return (
             <div>
                 {
@@ -29,26 +23,33 @@ export class SessionCardList extends Component {
         );
     }
 
+    let contents = loading
+        ? <p><em>Loading...</em></p>
+        : renderContents(sessions);
 
-    render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : SessionCardList.renderContents(this.state.sessions);
-
-        return (
-            <div>
-                <h1>Study Session List</h1>
-                <h2>{contents}</h2>
-                <SessionForm />
-            </div>
-        );
+    let reloadlist = function (data) {
+        setReload(true);
     }
 
-    async populateData() {
+    useEffect(() => {
+        populateData();
+    }, [reload]);
+
+
+    async function populateData() {
         const response = await fetch('studysession');//change with getSessions
         const data = await response.json();
         console.log(data);
-        this.setState({ sessions: data, loading: false });
+        setSessions(data);
+        setLoading(false);
 
     }
+
+    return (
+        <div>
+            <h1>Study Session List</h1>
+            <h2>{contents}</h2>
+            <SessionForm reloadList={ reloadlist } />
+        </div>
+    );
 }

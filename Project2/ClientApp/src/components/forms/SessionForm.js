@@ -24,7 +24,7 @@ const customStyles = {
     },
 };
 
-export function SessionForm() {
+export function SessionForm({ reloadList }) {
     const [subjects, setSubjects] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState({});
     const [topics, setTopics] = useState([]);
@@ -102,7 +102,7 @@ export function SessionForm() {
             setFormData(formData);
         }
 
-    
+
 
         return (
             <form >
@@ -206,6 +206,8 @@ export function SessionForm() {
 
                 if (response.ok) {
                     alert("Kayıt Başarılı");
+                    reloadList(formData); //Dikkat bu şekilde güncelleme yaparsak sessionın bir ID si elimizde olmayacak.
+
                     // Başarılı durum işlemleri
                 } else {
                     alert("Kayıt Başarısız");
@@ -229,7 +231,7 @@ export function SessionForm() {
         };
 
 
-       
+
         var form = createForm(data, selectedSubject);
         return (
             <div>

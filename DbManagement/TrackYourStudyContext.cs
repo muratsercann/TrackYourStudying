@@ -1,4 +1,5 @@
-﻿using DbManagement.Models;
+﻿using DbManagement;
+using DbManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
@@ -39,6 +40,10 @@ public class TrackYourStudyContext : DbContext
 
     }
 
+    /// <summary>
+    /// Tüm dersler ve konularını döndürür
+    /// </summary>
+    /// <returns></returns>
     public List<Subject> GetSubjects()
     {
         using var db = new TrackYourStudyContext();
@@ -59,6 +64,26 @@ public class TrackYourStudyContext : DbContext
          }).ToList();
 
         return subjects;
+    }
+
+    public List<StudySession> GetSessions()
+    {
+        using var db = new TrackYourStudyContext();
+
+        return db.StudySessions.ToList();
+    }
+
+    public List<StudySessionByDate> GetStudySessionsByDate()
+    {
+        List<StudySession> sessions = GetSessions();
+
+        List<StudySessionByDate> result = (from s in sessions
+                                           group s by s.Date into newGroup
+                                           orderby newGroup.Key descending
+                                           select
+                                           new StudySessionByDate { Date = newGroup.Key, Sessions = newGroup.ToList() }).ToList();
+
+        return result;
     }
 
 }
