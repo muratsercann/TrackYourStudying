@@ -7,6 +7,7 @@ namespace TrackYourStudyingApp.Controllers
     [Route("[controller]")]
     public class StudySessionController : ControllerBase
     {
+        
         private List<SessionByDate> GetSessionByDateList()
         {
             List<SessionByDate> sessionList = new List<SessionByDate>
@@ -222,6 +223,11 @@ namespace TrackYourStudyingApp.Controllers
             return sessionList;
         }
 
+
+        /// <summary>
+        /// Hangi tarihte hangi derslerin çalışıldığı bilgisini sunar
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<SessionByDate> Get()
         {
@@ -230,6 +236,12 @@ namespace TrackYourStudyingApp.Controllers
             return sessions;
         }
 
+
+        /// <summary>
+        /// Yeni çalışmayı veritabanına kaydeder.
+        /// </summary>
+        /// <param name="formData"></param>
+        /// <returns></returns>
         [HttpPost("addNewSession")]
         public IActionResult AddNewSession([FromBody] FormData formData)
         {

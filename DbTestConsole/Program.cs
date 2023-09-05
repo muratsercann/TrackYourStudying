@@ -18,7 +18,7 @@ internal class Program
     /// </summary>
     private static void CreateSubjects()
     {
-        using var db = new TracYourStudyContext();
+        using var db = new TrackYourStudyContext();
         try
         {
             List<Subject> subjects = new List<Subject>();
@@ -52,7 +52,7 @@ internal class Program
     /// </summary>
     private static void CreateTopics(string[] topics, int subjectId)
     {
-        using var db = new TracYourStudyContext();
+        using var db = new TrackYourStudyContext();
         try
         {
             foreach (string str in topics)

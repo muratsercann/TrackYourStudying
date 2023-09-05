@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbManagement.Migrations
 {
-    [DbContext(typeof(TracYourStudyContext))]
+    [DbContext(typeof(TrackYourStudyContext))]
     partial class TracYourStudyContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

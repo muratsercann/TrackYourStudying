@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-public class TracYourStudyContext : DbContext
+public class TrackYourStudyContext : DbContext
 {
     public DbSet<StudySession> StudySessions { get; set; }
     public DbSet<Subject> Subjects { get; set; }
@@ -11,7 +11,7 @@ public class TracYourStudyContext : DbContext
 
     public string DbPath { get; }
 
-    public TracYourStudyContext()
+    public TrackYourStudyContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
@@ -24,6 +24,8 @@ public class TracYourStudyContext : DbContext
     {
         options.UseSqlite($"Data Source={DbPath}");
     }
+
+
 }
 
 
