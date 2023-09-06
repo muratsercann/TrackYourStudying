@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -28,15 +29,41 @@ namespace DbManagement.Models
                 {
                     return 0;
                 }
-                DateTime tarih1 = DateTime.ParseExact(StartTime!, "HH:mm", null);
-                DateTime tarih2 = DateTime.ParseExact(EndTime!, "HH:mm", null);
 
-                // Farkı hesaplayın
-                TimeSpan fark = tarih2 - tarih1;
+                TimeSpan fark = CalculateTime(StartTime, EndTime);
                 return (int)fark.TotalMinutes;
             }
         }
 
+        [NotMapped]
+        public string StudyDurationString
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(StartTime) || string.IsNullOrEmpty(EndTime))
+                {
+                    return "";
+                }
+
+                return ConvertMinutesToHours(StudyDuration);
+            }
+        }
+        private string ConvertMinutesToHours(int minutes)
+        {
+            int hours = minutes / 60;
+            int minutesRemaining = minutes % 60;
+            return $"{hours}sa {minutesRemaining}dk";
+        }
+
+        private TimeSpan CalculateTime(string time1, string time2)
+        {
+            DateTime tarih1 = DateTime.ParseExact(time1!, "HH:mm", null);
+            DateTime tarih2 = DateTime.ParseExact(time2!, "HH:mm", null);
+
+            // Farkı hesaplayın
+            TimeSpan fark = tarih2 - tarih1;
+            return fark;
+        }
 
     }
 

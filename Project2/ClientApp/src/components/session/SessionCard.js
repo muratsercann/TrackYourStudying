@@ -1,30 +1,29 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, useState } from 'react';
 import { SessionHeader } from './SessionHeader';
 import { SessionItem } from './SessionItem';
 import { SessionTotal } from './SessionTotal';
 import './style.css';
 
-export class SessionCard extends Component {
-    static displayName = SessionCard.name;
+export function SessionCard({ sessionsByDate }) {
+    const [data, setData] = useState(sessionsByDate);
+    const [loading, setLoading] = useState(true);
 
-    constructor(props) {
-        super(props);
-        this.state = { data: this.props.sessionsByDate, loading: true };
-    }
 
-    render() {
-        return (
+    return (
 
-            <div className="card">
-                <SessionHeader date={this.state.data.date} />
-                <div className="card-body">
-                    {this.state.data.sessions.map(s => <SessionItem session={s} key={s.id} />)}
-                </div>
-                <SessionTotal total={this.state.data} />
-                <br></br>
+        <div className="card">
+            <SessionHeader date={data.date} />
+            <div className="card-body">
+                {
+                    data.sessions.map(s =>
+                    <SessionItem session={s} key={s.id} />
+                )}
             </div>
+            <SessionTotal total={data} />
+            <br></br>
+        </div>
 
-        )
+    )
 
-    }
+
 }

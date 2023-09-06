@@ -5,7 +5,6 @@ export function SessionItem(props) {
     const [session, setSession] = useState(props.session);
 
     function onHandleClick() {
-        //alert("tıklandıı");
         console.log("Tıklanan session bilgisi :");
         console.log(session);
     }
@@ -13,7 +12,6 @@ export function SessionItem(props) {
     return (
         <div>
             <div onClick={onHandleClick} className="lesson">
-                {/*<p><strong></strong></p>*/}
                 <div>
                     <div>
                         <p>
@@ -22,14 +20,17 @@ export function SessionItem(props) {
                             </strong>
 
                             <span className="duration">
-                                {" "}({!session.didTopicStudy && "Konu + "}
-                                {session.studyDuration} dk)
+                                {"  "} {session.studyDurationString} 
                             </span>
                         </p>
                     </div>
                 </div>
 
-                <p>{session.subject} - {session.topic}</p>
+                <p>
+                    {session.subject} - {session.topic} 
+                    {" "}({session.didTopicStudy && "Konu + "}
+                    {session.solvedQuestions} Soru)
+                </p>
             </div>
         </div>
     );
