@@ -27,7 +27,7 @@ export function SessionItem(props) {
                 </div>
 
                 <p>
-                    {session.subject} - {session.topic} 
+                    {session.subjectId} - {session.topicId} 
                     {" "}({session.didTopicStudy && "Konu + "}
                     {session.solvedQuestions} Soru)
                 </p>

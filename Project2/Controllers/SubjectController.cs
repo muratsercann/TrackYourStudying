@@ -36,7 +36,7 @@ namespace TrackYourStudyingApp.Controllers
             List<Topic> topics = new List<Topic>();
             for (int i = 1; i <= count; i++)
             {
-                topics.Add(new Topic { Id = i, Name = $"{prefix} Topic {i}" });
+                topics.Add(new Topic { Id = i, Name = $"{prefix} TopicId {i}" });
             }
             return topics;
         }

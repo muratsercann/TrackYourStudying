@@ -40,10 +40,10 @@ namespace DbManagement.Migrations
                     b.Property<string>("StartTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Subject")
+                    b.Property<string>("SubjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Topic")
+                    b.Property<string>("TopicId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -51,7 +51,7 @@ namespace DbManagement.Migrations
                     b.ToTable("StudySessions");
                 });
 
-            modelBuilder.Entity("DbManagement.Models.Subject", b =>
+            modelBuilder.Entity("DbManagement.Models.SubjectId", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace DbManagement.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("DbManagement.Models.Topic", b =>
+            modelBuilder.Entity("DbManagement.Models.TopicId", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,18 +87,18 @@ namespace DbManagement.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("DbManagement.Models.Topic", b =>
+            modelBuilder.Entity("DbManagement.Models.TopicId", b =>
                 {
-                    b.HasOne("DbManagement.Models.Subject", "Subject")
+                    b.HasOne("DbManagement.Models.SubjectId", "SubjectId")
                         .WithMany("Topics")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Subject");
+                    b.Navigation("SubjectId");
                 });
 
-            modelBuilder.Entity("DbManagement.Models.Subject", b =>
+            modelBuilder.Entity("DbManagement.Models.SubjectId", b =>
                 {
                     b.Navigation("Topics");
                 });

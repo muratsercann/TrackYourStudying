@@ -14,11 +14,14 @@ namespace DbManagement.Models
         public DateTime Date { get; set; }
         public string? StartTime { get; set; }
         public string? EndTime { get; set; }
-        public string? Subject { get; set; } //Ders Adı
-        public string? Topic { get; set; } //Ders konusu
+        public int? SubjectId { get; set; } //Ders Adı
+        public int? TopicId { get; set; } //Ders konusu
         public int SolvedQuestions { get; set; }
         public bool DidTopicStudy { get; set; }
         public string? Description { get; set; }
+        public Topic? Topic { get; set; }
+
+        public Subject? Subject { get; set; }
 
         [NotMapped]
         public int StudyDuration
