@@ -41,36 +41,55 @@ public class TrackYourStudyContext : DbContext
     }
 
     /// <summary>
-    /// Tüm dersler ve konularını döndürür
+    /// Tüm derslerin ham bilgilerini çeker.
     /// </summary>
     /// <returns></returns>
     public List<Subject> GetSubjects()
     {
         using var db = new TrackYourStudyContext();
-        List<Subject> subjects = db.Subjects.Select(e => new Subject { Id = e.Id, Name = e.Name, Code = e.Code }).OrderBy(x => x.Id).ToList<Subject>();
+        return db.Subjects.ToList();
+    }
 
-        List<Topic> topics = db.Topics.Select(t => new Topic { Id = t.Id, Name = t.Name, SubjectId = t.SubjectId }).ToList<Topic>();
+    public Subject GetSubject(int id)
+    {
+        using var db = new TrackYourStudyContext();
+        return db.Subjects.Where(subject => subject.Id == id).FirstOrDefault();
+    }
 
+    /// <summary>
+    /// Tüm konuların ham verilerini çeker
+    /// </summary>
+    /// <returns></returns>
+    public List<Topic> GetTopics()
+    {
+        using var db = new TrackYourStudyContext();
+        return db.Topics.ToList();
+    }
 
-        List<Subject> query =
-        (from s in subjects
-         join topic in topics on s.Id equals topic.SubjectId into groupJoining
-         select new Subject
-         {
-             Id = s.Id,
-             Name = s.Name,
-             Code = s.Code,
-             Topics = groupJoining.ToList()
-         }).ToList();
+    /// <summary>
+    /// Belli bir dersin konularını veritabanından çeker
+    /// </summary>
+    /// <param name="subjectId"></param>
+    /// <returns></returns>
+    public List<Topic> GetTopics(int subjectId)
+    {
+        using var db = new TrackYourStudyContext();
+        return db.Topics.Where(topic => topic.SubjectId == subjectId).ToList();
+    }
 
-        return subjects;
+    public Topic GetTopic(int id)
+    {
+        using var db = new TrackYourStudyContext();
+        return db.Topics.Where(topic => topic.Id == id).FirstOrDefault();
     }
 
     public List<StudySession> GetSessions()
     {
         using var db = new TrackYourStudyContext();
 
-        return db.StudySessions.ToList();
+        var sessions = db.StudySessions.ToList();
+
+        return sessions;
     }
 
     public List<StudySessionByDate> GetStudySessionsByDate()

@@ -11,9 +11,10 @@ internal class Program
     {
         //CreateSubjects();
         //CreateTopics();
-        using var db = new TrackYourStudyContext();
 
-        List<StudySessionByDate> s = db.GetStudySessionsByDate();
+        using var db = new TrackYourStudyContext();
+        //List<Subject> subjects = db.GetSubjects();
+        //List<Topic> topics = db.GetTopics(1);
 
     }
     /// <summary>

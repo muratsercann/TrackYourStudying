@@ -42,12 +42,31 @@ export function SessionForm({ reloadList }) {
             solvedQuestions: 0
         });
 
+
     useEffect(() => {
-        populateData();
+        //ders seçildiğinde konular burada yüklenir
+        populateTopics(); 
+    }, [selectedSubject]);//seçilen ders değiştiğinde devreye girer.
+
+
+    useEffect(() => {
+        //dersler burada yüklenir
+        populateSubject();
         Modal.setAppElement('#app');
     }, []);
 
-    async function populateData() {
+    async function populateTopics() {
+        if (!(selectedSubject && selectedSubject.id)) {
+            return;
+        }
+
+        const response = await fetch('topic/getTopicsBySubjectId/' + selectedSubject.id); // API URL'i burada olmalı
+        const data = await response.json();
+        console.log("Seçilen Ders konuları :");
+        console.log(data);
+        setTopics(data);
+    }
+    async function populateSubject() {
         const response = await fetch('subject'); // API URL'i burada olmalı
         const data = await response.json();
         setSubjects(data);
@@ -78,7 +97,6 @@ export function SessionForm({ reloadList }) {
             // Ders seçildiğinde yapılacak işlemler burada
             const selectedOption = subjects.find(s => s.id.toString() === event.target.value);
             setSelectedSubject(selectedOption);
-            setTopics(selectedOption.topics);
 
             formData.subject = event.target.value;
             setFormData(formData);
@@ -126,7 +144,7 @@ export function SessionForm({ reloadList }) {
                             <label htmlFor="subject" className="form-label">Ders:</label>
                             <select className="form-select" id="subject" onChange={handleSubjectChange} >
                                 <option value="">Seçiniz</option>
-                                {subjects.map(s => (
+                                {subjects && subjects.map(s => (
                                     <option key={s.id} value={s.id}>
                                         {s.name}
                                     </option>
@@ -139,7 +157,7 @@ export function SessionForm({ reloadList }) {
                             <label htmlFor="subject" className="form-label">Konu :</label>
                             <select className="form-select" id="subject" onChange={handleTopicChange}>
                                 <option value="">Seçiniz</option>
-                                {topics.map(t => (
+                                {topics && topics.map(t => (
                                     <option key={t.id} value={t.id}>
                                         {t.name}
                                     </option>
@@ -188,7 +206,7 @@ export function SessionForm({ reloadList }) {
                 topic: "",
                 solvedQuestions: 0
             });
-            setSelectedSubject(-1);
+            setSelectedSubject({});
             setTopics([]);
 
         };
@@ -266,6 +284,5 @@ export function SessionForm({ reloadList }) {
 
     return (
         <div id="app">{contents}</div>
-
     );
 }
