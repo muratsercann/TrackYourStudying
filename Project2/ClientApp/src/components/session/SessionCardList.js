@@ -23,12 +23,14 @@ export function SessionCardList() {
         );
     }
 
+
     let contents = loading
         ? <p><em>Loading...</em></p>
         : renderContents(sessions);
 
     let reloadlist = function (data) {
-        setReload(true);
+        setLoading(true);
+        setReload(!reload);
     }
 
     useEffect(() => {
@@ -46,7 +48,9 @@ export function SessionCardList() {
     }
 
     return (
+
         <div>
+            {console.log("in SessionCardList return function \n constents : \n" + contents)}
             <h1>Study Session List</h1>
             <h2>{contents}</h2>
             <SessionForm reloadList={ reloadlist } />
