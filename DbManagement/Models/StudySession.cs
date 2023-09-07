@@ -60,11 +60,17 @@ namespace DbManagement.Models
 
         private TimeSpan CalculateTime(string time1, string time2)
         {
-            DateTime tarih1 = DateTime.ParseExact(time1!, "HH:mm", null);
-            DateTime tarih2 = DateTime.ParseExact(time2!, "HH:mm", null);
+            TimeSpan t1 = TimeSpan.Parse(time1);
+            TimeSpan t2 = TimeSpan.Parse(time2);
+
+            //Ör: t1 = 23:30, t2 00:45 ikinci saate bir gün ekleyerek eksi değer çıkması engelleniyor.
+            if (t1> t2)
+            {
+                t2 = t2.Add(new TimeSpan(24, 0, 0));
+            }
 
             // Farkı hesaplayın
-            TimeSpan fark = tarih2 - tarih1;
+            TimeSpan fark = t2 - t1;
             return fark;
         }
 
