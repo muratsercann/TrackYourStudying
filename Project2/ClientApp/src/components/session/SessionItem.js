@@ -20,8 +20,8 @@ export function SessionItem(props) {
         }
         return (
             <p>
-                {console.log("session --> : ")}
-                {console.log(session)}
+                {/*{console.log("session --> : ")}*/}
+                {/*{console.log(session)}*/}
                 {
                     dersAdi
                 }

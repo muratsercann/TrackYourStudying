@@ -98,13 +98,13 @@ export function SessionForm({ reloadList }) {
             const selectedOption = subjects.find(s => s.id.toString() === event.target.value);
             setSelectedSubject(selectedOption);
 
-            formData.subject = event.target.value;
+            formData.subjectId = event.target.value;
             setFormData(formData);
         }
 
         function handleTopicChange(event) {
             // Konu seçildiğinde yapılacak işlemler burada
-            formData.topic = event.target.value;
+            formData.topicId = event.target.value;
             setFormData(formData);
         }
 
@@ -202,8 +202,8 @@ export function SessionForm({ reloadList }) {
                 startTime: "",
                 endTime: "",
                 didTopicStudy: false,
-                subject: "",
-                topic: "",
+                subjectId: "",
+                topicId:"",
                 solvedQuestions: 0
             });
             setSelectedSubject({});
