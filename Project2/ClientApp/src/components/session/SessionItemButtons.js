@@ -9,6 +9,11 @@ export function SessionItemButtons({ session, reload }) {
     }
 
     async function onDeleteClick() {
+        const userConfirmed = window.confirm("Bu öğeyi silmek istediğinize emin misiniz?");
+        if (!userConfirmed) {
+            return;
+        }
+
         console.log("silinecek session : ");
         console.log(session);
 
@@ -19,7 +24,6 @@ export function SessionItemButtons({ session, reload }) {
             .catch(error => console.error(error));
 
         reload();
-        alert("Silindi : sessionId" + session.id);
     }
 
     return (
