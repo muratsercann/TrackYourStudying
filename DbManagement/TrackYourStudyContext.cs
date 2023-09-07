@@ -87,7 +87,7 @@ public class TrackYourStudyContext : DbContext
     {
         using var db = new TrackYourStudyContext();
 
-        var sessions = db.StudySessions.ToList();
+        var sessions = db.StudySessions.Include(s => s.Topic).ThenInclude(s => s.Subject).ToList();
 
         return sessions;
     }

@@ -8,7 +8,32 @@ export function SessionItem(props) {
         console.log("Tıklanan session bilgisi :");
         console.log(session);
     }
+    function SubjectAndTopic() {
+        let dersAdi = "------";
+        let konuAdi = "------";
+        if (session?.topic?.subject) {
+            dersAdi = session.topic.subject.name;
+        }
 
+        if (session?.topic) {
+            konuAdi = session.topic.name;
+        }
+        return (
+            <p>
+                {console.log("session --> : ")}
+                {console.log(session)}
+                {
+                    dersAdi
+                }
+                -
+                {
+                    konuAdi
+                }
+                {" "}({session.didTopicStudy && "Konu + "}
+                {session.solvedQuestions} Soru)
+            </p>
+        );
+    }
     return (
         <div>
             <div onClick={onHandleClick} className="lesson">
@@ -25,12 +50,8 @@ export function SessionItem(props) {
                         </p>
                     </div>
                 </div>
-
-                <p>
-                    {session.subjectId} - {session.topicId} 
-                    {" "}({session.didTopicStudy && "Konu + "}
-                    {session.solvedQuestions} Soru)
-                </p>
+                <SubjectAndTopic/>
+               
             </div>
         </div>
     );

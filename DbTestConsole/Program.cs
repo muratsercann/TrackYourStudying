@@ -2,6 +2,7 @@
 using DbManagement;
 using DbManagement.Models;
 using DbTestConsole;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 internal class Program
 {
@@ -15,6 +16,10 @@ internal class Program
         using var db = new TrackYourStudyContext();
         //List<Subject> subjects = db.GetSubjects();
         //List<Topic> topics = db.GetTopics(1);
+        //List<StudySessionByDate> sessions = db.GetStudySessionsByDate();
+
+        //CreateTopics();
+
 
     }
     /// <summary>
