@@ -92,6 +92,34 @@ public class TrackYourStudyContext : DbContext
         return sessions;
     }
 
+    public StudySession GetSession(int id)
+    {
+        using var db = new TrackYourStudyContext();
+
+        StudySession session = db.StudySessions.Where(session => session.Id == id).First();
+
+        return session;
+    }
+
+    public bool DeleteSession(int id)
+    {
+        using var db = new TrackYourStudyContext();
+        try
+        {
+            StudySession session = GetSession(id);
+
+            db.Remove(session);
+            db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            return false;
+            throw ex;
+        }
+
+        return true;
+    }
+
     public List<StudySessionByDate> GetStudySessionsByDate()
     {
         List<StudySession> sessions = GetSessions();

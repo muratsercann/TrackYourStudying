@@ -9,12 +9,18 @@ export function SessionCardList() {
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
 
+    let reloadlist = function (data) {
+        setLoading(true);
+        setReload(!reload);
+    }
+
+
     function renderContents(data) {
         return (
             <div>
                 {
                     data.map(s =>
-                        <SessionCard sessionsByDate={s} key={s.date} />
+                        <SessionCard sessionsByDate={s} key={s.date} reload={reloadlist} />
                     )
                 }
 
@@ -24,14 +30,12 @@ export function SessionCardList() {
     }
 
     let contents = loading
-        ? <p><em>Loading...</em></p>
+        ? <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
         : renderContents(sessions);
 
-    let reloadlist = function (data) {
-        setLoading(true);
-        setReload(!reload);
-    }
-
+    
     useEffect(() => {
         populateData();
     }, [reload]);
@@ -40,7 +44,10 @@ export function SessionCardList() {
     async function populateData() {
         const response = await fetch('studysession');//change with getSessions
         const data = await response.json();
+
+        console.log("in SessionCardList, await fetch('studysession') -> sessions by date :  ");
         console.log(data);
+
         setSessions(data);
         setLoading(false);
 
@@ -50,7 +57,7 @@ export function SessionCardList() {
         <div>
             <h1>Study Session List</h1>
             <h2>{contents}</h2>
-            <SessionForm reloadList={ reloadlist } />
+            <SessionForm reloadList={reloadlist} />
         </div>
     );
 }

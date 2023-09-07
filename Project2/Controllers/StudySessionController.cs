@@ -239,6 +239,20 @@ namespace TrackYourStudyingApp.Controllers
         }
 
 
+        [HttpDelete("DeleteSession/{id}")]
+        public IActionResult DeleteSession(int id)
+        {
+            //List<StudySession> sessions = GetStudySessions();
+            using var db = new TrackYourStudyContext();
+            bool result = db.DeleteSession(id);
+
+            if (!result || db.StudySessions.Where(s => s.Id == 1).Any())
+            {
+                return BadRequest($"Cannot delete session with id : {id}");
+            }
+            return Ok($"Deleted session with id : {id}");
+        }
+
         /// <summary>
         /// Yeni çalışmayı veritabanına kaydeder.
         /// </summary>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 import { SessionCardList } from './session/SessionCardList';
+import { SessionItemButtons } from './session/SessionItemButtons';
 import { SessionForm } from './forms/SessionForm';
 import { Main } from './ReactPlayGround/Main'
 import { DropdownTest } from './ReactPlayGround/DropdownTest'
@@ -24,7 +25,9 @@ export function Layout(props) {
 
                 {/*<DropdownTest/>*/}
                 {/*<SessionForm/>*/}
-                {/* <Main />*/}
+                 {/*<Main />*/}
+
+               
 
             </div>
 

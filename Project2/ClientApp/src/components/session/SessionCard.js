@@ -4,7 +4,7 @@ import { SessionItem } from './SessionItem';
 import { SessionTotal } from './SessionTotal';
 import './style.css';
 
-export function SessionCard({ sessionsByDate }) {
+export function SessionCard({ sessionsByDate ,reload }) {
     const [data, setData] = useState(sessionsByDate);
     const [loading, setLoading] = useState(true);
 
@@ -16,8 +16,8 @@ export function SessionCard({ sessionsByDate }) {
             <div className="card-body">
                 {
                     data.sessions.map(s =>
-                    <SessionItem session={s} key={s.id} />
-                )}
+                        <SessionItem session={s} key={s.id} reload={reload} />
+                    )}
             </div>
             <SessionTotal total={data} />
             <br></br>

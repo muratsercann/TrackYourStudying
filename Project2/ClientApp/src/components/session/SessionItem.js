@@ -1,8 +1,8 @@
 ﻿import React, { useState } from 'react';
+import { SessionItemButtons } from './SessionItemButtons';
 import './style.css';
 
-export function SessionItem(props) {
-    const [session, setSession] = useState(props.session);
+export function SessionItem({ session , reload}) {
 
     function onHandleClick() {
         console.log("Tıklanan session bilgisi :");
@@ -37,6 +37,7 @@ export function SessionItem(props) {
     return (
         <div>
             <div onClick={onHandleClick} className="lesson">
+                <SessionItemButtons session={session} reload={reload} />
                 <div>
                     <div>
                         <p>
@@ -45,13 +46,13 @@ export function SessionItem(props) {
                             </strong>
 
                             <span className="duration">
-                                {"  "} {session.studyDurationString} 
+                                {"  "} {session.studyDurationString}
                             </span>
                         </p>
                     </div>
                 </div>
-                <SubjectAndTopic/>
-               
+                <SubjectAndTopic />
+
             </div>
         </div>
     );
