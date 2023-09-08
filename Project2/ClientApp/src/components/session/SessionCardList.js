@@ -9,7 +9,7 @@ export function SessionCardList() {
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
 
-    let reloadlist = function (data) {
+    let reloadlist = function () {
         setLoading(true);
         setReload(!reload);
     }
@@ -57,7 +57,7 @@ export function SessionCardList() {
         <div>
             <h1>Study Session List</h1>
             <h2>{contents}</h2>
-            <SessionForm reloadList={reloadlist} />
+            <SessionForm reloadList={reloadlist} header="Yeni Çalışma" recordType="new" />
         </div>
     );
 }

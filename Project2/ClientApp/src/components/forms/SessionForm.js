@@ -24,36 +24,64 @@ const customStyles = {
     },
 };
 
-export function SessionForm({ reloadList }) {
+export function SessionForm({ session, reloadList, header, cancelEdit, recordType }) {
     const [subjects, setSubjects] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState({});
     const [topics, setTopics] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState((false || session));
     const [showAddButton, setShowAddButton] = useState(true);
     const [formData, setFormData] =
-        useState({
-            date: new Date(),
+        useState(firsData());
+
+    const getSaveButtonName = () => {
+        if (recordType == "edit") {
+            return "Güncelle"
+        }
+        else {
+            return "Kaydet";
+        }
+    }
+
+    const saveButtonName = getSaveButtonName();
+
+    function firsData() {
+        if (recordType == "edit" && session) {
+            console.log("form bu session bilgisi ile doldurulacak :");
+            console.log(session);
+            return session;
+        }
+
+        var firsData = {
+            date: new Date().toJSON(),
             startTime: "",
             endTime: "",
             didTopicStudy: false,
             subject: "",
             topic: "",
             solvedQuestions: 0
-        });
+        }
 
+        console.log("firsData");
+        console.log(firsData);
 
-    useEffect(() => {
-        //ders seçildiğinde konular burada yüklenir
-        populateTopics(); 
-    }, [selectedSubject]);//seçilen ders değiştiğinde devreye girer.
-
+        return firsData
+    }
 
     useEffect(() => {
         //dersler burada yüklenir
         populateSubject();
+
         Modal.setAppElement('#app');
     }, []);
+
+    useEffect(() => {
+        //ders seçildiğinde konular burada yüklenir
+        populateTopics();
+    }, [selectedSubject]);//seçilen ders değiştiğinde devreye girer.
+
+
+
 
     async function populateTopics() {
         if (!(selectedSubject && selectedSubject.id)) {
@@ -71,26 +99,30 @@ export function SessionForm({ reloadList }) {
         const data = await response.json();
         setSubjects(data);
         setLoading(false);
+
+        if (session) {
+            setSelectedSubject(data.filter(subject => subject.id == session.subjectId)[0]);
+        }
     }
 
     function createForm(data, selectedSubject) {
 
         function handleDateChange(event) {
             // Seçilen tarih değiştiğinde yapılacak işlemler burada
-            formData.date = event.target.value;
-            setFormData(formData);
+            const newFormData = { ...formData, date: event.target.value };
+            setFormData(newFormData);
         }
 
         function handleStartTimeChange(event) {
             // Başlangıç saati değiştiğinde yapılacak işlemler burada
-            formData.startTime = event.target.value;
-            setFormData(formData);
+            const newFormData = { ...formData, startTime: event.target.value };
+            setFormData(newFormData);
         }
 
         function handleEndTimeChange(event) {
             // Bitiş saati değiştiğinde yapılacak işlemler burada
-            formData.endTime = event.target.value;
-            setFormData(formData);
+            const newFormData = { ...formData, endTime: event.target.value };
+            setFormData(newFormData);
         }
 
         function handleSubjectChange(event) {
@@ -98,26 +130,26 @@ export function SessionForm({ reloadList }) {
             const selectedOption = subjects.find(s => s.id.toString() === event.target.value);
             setSelectedSubject(selectedOption);
 
-            formData.subjectId = event.target.value;
-            setFormData(formData);
+            const newFormData = { ...formData, subjectId: event.target.value };
+            setFormData(newFormData);
         }
 
         function handleTopicChange(event) {
             // Konu seçildiğinde yapılacak işlemler burada
-            formData.topicId = event.target.value;
-            setFormData(formData);
+            const newFormData = { ...formData, topicId: event.target.value };
+            setFormData(newFormData);
         }
 
         function handleQuestionCountChange(event) {
             // Soru sayısı değiştiğinde yapılacak işlemler burada
-            formData.solvedQuestions = event.target.value;
-            setFormData(formData);
+            const newFormData = { ...formData, solvedQuestions: event.target.value };
+            setFormData(newFormData);
         }
 
         function handleTopicReviewChange(event) {
             // Konu çalışması seçeneği değiştiğinde yapılacak işlemler burada
-            formData.didTopicStudy = event.target.checked;
-            setFormData(formData);
+            const newFormData = { ...formData, didTopicStudy: event.target.checked };
+            setFormData(newFormData);
         }
 
 
@@ -127,22 +159,22 @@ export function SessionForm({ reloadList }) {
                 <div className="dateSelector">
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Tarih :</label>
-                        <input type="date" className="form-control" id="date" onChange={handleDateChange} />
+                        <input type="date" value={formData.date.toString().split('T')[0]} className="form-control" id="date" onChange={handleDateChange} />
                     </div>
                     <div className="timeSelector">
                         <div className="mb-3">
                             <label htmlFor="time1" className="form-label">Başlangıç Saati :</label>
-                            <input type="time" className="form-control" id="time1" onChange={handleStartTimeChange} />
+                            <input type="time" value={formData.startTime} className="form-control" id="time1" onChange={handleStartTimeChange} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="time2" className="form-label">Bitiş Saati :</label>
-                            <input type="time" className="form-control" id="time2" onChange={handleEndTimeChange} />
+                            <input type="time" className="form-control" id="time2" onChange={handleEndTimeChange} value={formData.endTime} />
                         </div>
                     </div>
                     <div className="subjectDropdown">
                         <div className="mb-3">
                             <label htmlFor="subject" className="form-label">Ders:</label>
-                            <select className="form-select" id="subject" onChange={handleSubjectChange} >
+                            <select className="form-select" value={formData.subjectId > 0 && formData.subjectId} id="subject" onChange={handleSubjectChange} >
                                 <option value="">Seçiniz</option>
                                 {subjects && subjects.map(s => (
                                     <option key={s.id} value={s.id}>
@@ -155,7 +187,7 @@ export function SessionForm({ reloadList }) {
                     <div className="topicDropdown">
                         <div className="mb-3">
                             <label htmlFor="subject" className="form-label">Konu :</label>
-                            <select className="form-select" id="subject" onChange={handleTopicChange}>
+                            <select className="form-select" id="subject" onChange={handleTopicChange} value={formData.topicId > 0 && formData.topicId} >
                                 <option value="">Seçiniz</option>
                                 {topics && topics.map(t => (
                                     <option key={t.id} value={t.id}>
@@ -167,7 +199,7 @@ export function SessionForm({ reloadList }) {
                     </div>
                     <div className="mb-3 questionCountInput">
                         <label htmlFor="date" className="form-label">Soru Sayısı :</label>
-                        <input type="number" className="form-control" id="questionCount" onChange={handleQuestionCountChange} />
+                        <input type="number" className="form-control" id="questionCount" onChange={handleQuestionCountChange} value={formData.solvedQuestions} />
                     </div>
                     <div className="mb-3 topicReviewCheckbox">
                         <div className="form-check">
@@ -176,6 +208,7 @@ export function SessionForm({ reloadList }) {
                                 className="form-check-input"
                                 id="topicStudy"
                                 onChange={handleTopicReviewChange}
+                                checked={formData.didTopicStudy}
                             />
                             <label className="form-check-label" htmlFor="topicStudy">
                                 Konu Çalışması
@@ -197,19 +230,44 @@ export function SessionForm({ reloadList }) {
         const closeModal = () => {
             setIsModalOpen(false);
             setShowAddButton(true);
+            setSelectedSubject({});
+            setTopics([]);
             setFormData({
                 date: new Date(),
                 startTime: "",
                 endTime: "",
                 didTopicStudy: false,
                 subjectId: "",
-                topicId:"",
+                topicId: "",
                 solvedQuestions: 0
             });
-            setSelectedSubject({});
-            setTopics([]);
 
+            cancelEdit && cancelEdit();
         };
+
+        const updateSession = async () => {
+            try {
+                const response = await fetch(`studysession/${session.id}`, {
+                    method: 'PUT', // Veya 'POST' olarak ayarlayabilirsiniz
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                if (response.ok) {
+                    // Veri güncelleme başarılı oldu
+                    console.log('Veri güncellendi.');
+                    reloadList();
+                    // Veriyi yeniden yükleme veya kullanıcı arabiriminizi güncelleme
+                } else {
+                    // Veri güncelleme başarısız oldu
+                    console.error('Veri güncelleme başarısız oldu.');
+                }
+            } catch (error) {
+                console.error('Bir hata oluştu:', error);
+            }
+        }
 
         const handleSubmit = async () => {
 
@@ -224,7 +282,7 @@ export function SessionForm({ reloadList }) {
 
                 if (response.ok) {
                     alert("Kayıt Başarılı");
-                    reloadList(formData); //Dikkat bu şekilde güncelleme yaparsak sessionın bir ID si elimizde olmayacak.
+                    reloadList();
 
                     // Başarılı durum işlemleri
                 } else {
@@ -238,13 +296,23 @@ export function SessionForm({ reloadList }) {
         };
 
         const handleSave = () => {
+
+
             // Kaydetme işlemleri burada yapılabilir
             closeModal();
-
             console.log("Kaydedilecek veri : ");
             console.log(formData);
+            if (recordType == "new") {
+                handleSubmit();
+            }
+            else if (recordType == "edit") {
+                //burada kayıt güncelleme için gerekli kodlar yer alacak.
+                updateSession();
 
-            handleSubmit();
+            }
+            else {
+                alert("Kayıt türü belirtilmemiş.");
+            }
 
         };
 
@@ -253,7 +321,7 @@ export function SessionForm({ reloadList }) {
         var form = createForm(data, selectedSubject);
         return (
             <div>
-                {showAddButton && (
+                {(showAddButton && !session) && (
                     <a href="#" className="floating-button" onClick={openModal}>+</a>)
                 }
                 <Modal
@@ -263,12 +331,12 @@ export function SessionForm({ reloadList }) {
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
                 >
-                    <h2>Yeni Kayıt</h2>
+                    <h2>{header}</h2>
 
                     {form}
 
                     <div className="d-grid gap-2">
-                        <button type="submit" onClick={handleSave} className="btn btn-success">Kaydet</button>
+                        <button type="submit" onClick={handleSave} className="btn btn-success">{saveButtonName}</button>
                         <button onClick={closeModal} className="btn btn-secondary">İptal</button>
                     </div>
                 </Modal>

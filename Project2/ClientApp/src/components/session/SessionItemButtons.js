@@ -1,11 +1,13 @@
 ﻿import React, { useState } from 'react';
+import { SessionForm } from '../forms/SessionForm';
 import './style.css';
 
 export function SessionItemButtons({ session, reload }) {
-
+    const [showEditModal, setShowEditModal] = useState(false);
     function onEditClick() {
         console.log("düzenlenecek session : ");
         console.log(session);
+        setShowEditModal(true);
     }
 
     async function onDeleteClick() {
@@ -17,13 +19,21 @@ export function SessionItemButtons({ session, reload }) {
         console.log("silinecek session : ");
         console.log(session);
 
-        await fetch('studysession/deletesession/' + session.id, {
-            method: 'DELETE'
-        }).then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
+        const response = await fetch('studysession/deletesession/' + session.id, {
+            method: 'DELETE',
+        });
 
-        reload();
+        if (response.ok) {
+            alert("Silme işlemi başarılı.");
+            reload();
+        } else {
+            alert("Silme işlemi başarısız.");
+        }
+    }
+
+    const cancelEdit = () =>
+    {
+        setShowEditModal(false); 
     }
 
     return (
@@ -38,8 +48,9 @@ export function SessionItemButtons({ session, reload }) {
                     </div>
                 </div>
             </div>
-
+            {showEditModal && <SessionForm session={session} reloadList={reload} header="Düzenle" cancelEdit={cancelEdit} recordType="edit" />}
         </div>
+
     );
 
 }

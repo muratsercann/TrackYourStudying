@@ -286,6 +286,37 @@ namespace TrackYourStudyingApp.Controllers
             }
         }
 
+
+        /// <summary>
+        /// session güncelleme için kullanılır
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public IActionResult UpdateData(int id, [FromBody] FormData formData)
+        {
+            using var db = new TrackYourStudyContext();
+            
+            if (!db.StudySessions.Where(s => s.Id == id).Any())
+            {
+                return NotFound(new { error = $"Güncelleme yapabilmek için  - ID = {id} - olan bir session bilgisi bulunamadı !" });
+            }
+
+            DbManagement.Models.StudySession session = db.StudySessions.Where(s => s.Id == id).First();
+
+            session.Date = formData.Date;
+            session.StartTime = formData.StartTime;
+            session.EndTime = formData.EndTime;
+            session.SubjectId = formData.SubjectId;
+            session.TopicId = formData.TopicId;
+            session.SolvedQuestions = formData.SolvedQuestions;
+            session.DidTopicStudy = formData.DidTopicStudy;
+
+            db.SaveChanges();
+            return Ok(new { message = "Güncelleme başarılı." });
+        }
+
         public class FormData
         {
             public DateTime Date { get; set; }
