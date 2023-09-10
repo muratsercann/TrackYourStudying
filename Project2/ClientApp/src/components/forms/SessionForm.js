@@ -33,6 +33,8 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
     const [showAddButton, setShowAddButton] = useState(true);
     const [formData, setFormData] =
         useState(firsData());
+    const [firstLoad, setFirstLoad] = useState(true);
+
 
     const getSaveButtonName = () => {
         if (recordType === "edit") {
@@ -69,11 +71,12 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
     }
 
     useEffect(() => {
-        //dersler burada yüklenir
-        populateSubject();
-
+        if (firstLoad) {
+            populateSubject();
+            setFirstLoad(false);
+        }
         Modal.setAppElement('#app');
-    });
+    }, [firstLoad]);
 
     useEffect(() => {
         //ders seçildiğinde konular burada yüklenir
