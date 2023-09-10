@@ -30,15 +30,7 @@ public class TrackYourStudyContext : DbContext
         options.UseSqlite($"Data Source={DbPath}");
     }
 
-    public static void CreateSession(StudySession session)
-    {
 
-        using var db = new TrackYourStudyContext();
-
-        db.Add(session);
-        db.SaveChanges();
-
-    }
 
     /// <summary>
     /// Tüm derslerin ham bilgilerini çeker.
@@ -55,6 +47,8 @@ public class TrackYourStudyContext : DbContext
         using var db = new TrackYourStudyContext();
         return db.Subjects.Where(subject => subject.Id == id).FirstOrDefault();
     }
+
+    //Topic methods
 
     /// <summary>
     /// Tüm konuların ham verilerini çeker
@@ -81,6 +75,18 @@ public class TrackYourStudyContext : DbContext
     {
         using var db = new TrackYourStudyContext();
         return db.Topics.Where(topic => topic.Id == id).FirstOrDefault();
+    }
+
+
+    // Session methods
+    public static void CreateSession(StudySession session)
+    {
+
+        using var db = new TrackYourStudyContext();
+
+        db.Add(session);
+        db.SaveChanges();
+
     }
 
     public List<StudySession> GetSessions()

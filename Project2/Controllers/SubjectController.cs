@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
-using TrackYourStudyingApp.Models;
+﻿using DbManagement.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using DbManagement.Services;
 
 namespace TrackYourStudyingApp.Controllers
 {
@@ -8,33 +8,20 @@ namespace TrackYourStudyingApp.Controllers
     [Route("[controller]")]
     public class SubjectController
     {
+        private readonly SubjectService _subjectService;
+
+        public SubjectController()
+        {
+            var repo = new SubjectRepository(new TrackYourStudyContext());
+            _subjectService = new SubjectService(repo);
+        }
+
         [HttpGet]
         public IEnumerable<DbManagement.Models.Subject> Get()
         {
-            using var db = new TrackYourStudyContext();
-            return db.GetSubjects();
+            return _subjectService.GetSubjects(); ;
         }
 
     }
-
-
-    [ApiController]
-    [Route("[controller]")]
-    public class TopicController
-    {
-        [HttpGet()]
-        public IEnumerable<DbManagement.Models.Topic> Get()
-        {
-            using var db = new TrackYourStudyContext();
-            return db.GetTopics();
-        }
-
-        [HttpGet("GetTopicsBySubjectId/{subjectId}")]
-        public IEnumerable<DbManagement.Models.Topic> GetTopicsBySubjectId(int subjectId)
-        {
-            using var db = new TrackYourStudyContext();
-            return db.GetTopics(subjectId);
-        }
-
-    }
+    
 }

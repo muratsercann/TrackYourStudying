@@ -1,6 +1,8 @@
 ﻿using DbManagement;
+using DbManagement.Models;
+using DbManagement.Repositories;
+using DbManagement.Services;
 using Microsoft.AspNetCore.Mvc;
-using TrackYourStudyingApp.Models;
 
 namespace TrackYourStudyingApp.Controllers
 {
@@ -8,7 +10,16 @@ namespace TrackYourStudyingApp.Controllers
     [Route("[controller]")]
     public class StudySessionController : ControllerBase
     {
-        
+
+        private readonly SessionService _sessionService;
+
+        public StudySessionController()
+        {
+            var repo = new SessionRepository(new TrackYourStudyContext());
+            _sessionService = new SessionService(repo);
+        }
+
+
         /// <summary>
         /// Hangi tarihte hangi derslerin çalışıldığı bilgisini sunar
         /// </summary>
@@ -16,24 +27,22 @@ namespace TrackYourStudyingApp.Controllers
         [HttpGet]
         public IEnumerable<StudySessionByDate> Get()
         {
-            //List<StudySession> sessions = GetStudySessions();
-            using var db = new TrackYourStudyContext();
-            List<StudySessionByDate> sessions = db.GetStudySessionsByDate();
-            return sessions;
+            return _sessionService.GetStudySessionsByDate();
         }
 
         [HttpDelete("DeleteSession/{id}")]
         public IActionResult DeleteSession(int id)
         {
-            //List<StudySession> sessions = GetStudySessions();
-            using var db = new TrackYourStudyContext();
-            bool result = db.DeleteSession(id);
+            bool result = _sessionService.DeleteSession(id);
 
-            if (!result || db.StudySessions.Where(s => s.Id == 1).Any())
+            if (result)// if (!result || db.StudySessions.Where(s => s.Id == 1).Any())
+            {
+                return Ok($"Deleted session with id : {id}");
+            }
+            else
             {
                 return BadRequest($"Cannot delete session with id : {id}");
             }
-            return Ok($"Deleted session with id : {id}");
         }
 
         /// <summary>
@@ -42,21 +51,21 @@ namespace TrackYourStudyingApp.Controllers
         /// <param name="formData"></param>
         /// <returns></returns>
         [HttpPost("addNewSession")]
-        public IActionResult AddNewSession([FromBody] FormData formData)
+        public IActionResult AddNewSession([FromBody] StudySessionDTO formData)
         {
             try
             {
-                DbManagement.Models.StudySession session = new DbManagement.Models.StudySession();
+                StudySession session = new StudySession();
 
                 session.Date = formData.Date;
                 session.StartTime = formData.StartTime;
                 session.EndTime = formData.EndTime;
-                session.SubjectId =  formData.SubjectId;
+                session.SubjectId = formData.SubjectId;
                 session.TopicId = formData.TopicId;
                 session.SolvedQuestions = formData.SolvedQuestions;
                 session.DidTopicStudy = formData.DidTopicStudy;
 
-                TrackYourStudyContext.CreateSession(session);
+                _sessionService.CreateSession(session);
 
                 //veritabanı kayıt işlemleri
                 // Başarılı yanıt
@@ -77,16 +86,14 @@ namespace TrackYourStudyingApp.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult UpdateData(int id, [FromBody] FormData formData)
+        public IActionResult Update(int id, [FromBody] StudySessionDTO formData)
         {
-            using var db = new TrackYourStudyContext();
-            
-            if (!db.StudySessions.Where(s => s.Id == id).Any())
+            if (!_sessionService.Any(id))
             {
                 return NotFound(new { error = $"Güncelleme yapabilmek için  - ID = {id} - olan bir session bilgisi bulunamadı !" });
             }
 
-            DbManagement.Models.StudySession session = db.StudySessions.Where(s => s.Id == id).First();
+            StudySession session = _sessionService.GetSession(id);
 
             session.Date = formData.Date;
             session.StartTime = formData.StartTime;
@@ -96,11 +103,12 @@ namespace TrackYourStudyingApp.Controllers
             session.SolvedQuestions = formData.SolvedQuestions;
             session.DidTopicStudy = formData.DidTopicStudy;
 
-            db.SaveChanges();
+            _sessionService.UpdateSession(session);
+
             return Ok(new { message = "Güncelleme başarılı." });
         }
 
-        public class FormData
+        public class StudySessionDTO
         {
             public DateTime Date { get; set; }
             public string? StartTime { get; set; }

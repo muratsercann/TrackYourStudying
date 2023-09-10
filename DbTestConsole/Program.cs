@@ -1,33 +1,36 @@
 ﻿
 using DbManagement;
 using DbManagement.Models;
+using DbManagement.Repositories;
+using DbManagement.Services;
 using DbTestConsole;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 internal class Program
 {
 
-
     private static void Main(string[] args)
     {
+
+        var subjectRepository = new DbManagement.Repositories.SubjectRepository(new TrackYourStudyContext());
+
+        var subjects = subjectRepository.GetSubjects();
         //CreateSubjects();
         //CreateTopics();
 
-        using var db = new TrackYourStudyContext();
         //List<Subject> subjects = db.GetSubjects();
         //List<Topic> topics = db.GetTopics(1);
         //List<StudySessionByDate> sessions = db.GetStudySessionsByDate();
 
         //CreateTopics();
 
-
     }
     /// <summary>
     /// It creates firt seed for subject table..
     /// </summary>
     private static void CreateSubjects()
-    {
-        using var db = new TrackYourStudyContext();
+    {        
         try
         {
             List<Subject> subjects = new List<Subject>();
@@ -40,13 +43,8 @@ internal class Program
             subjects.Add(new Subject { Name = "Tyt Tarih", Code = "TYTTAR" });
             subjects.Add(new Subject { Name = "Tyt Coğrafya", Code = "TYTCOG" });
 
-            foreach (Subject item in subjects)
-            {
-                Console.WriteLine(item.Name);
-                db.Add(item);
-            }
-
-            db.SaveChanges();
+            //kayıt işlemi için servise gidecek
+            
         }
         catch (Exception ex)
         {
@@ -61,13 +59,13 @@ internal class Program
     /// </summary>
     private static void CreateTopics(string[] topics, int subjectId)
     {
-        using var db = new TrackYourStudyContext();
+        //sing var db = new TrackYourStudyContext();
         try
         {
             foreach (string str in topics)
             {
                 Console.WriteLine($"Name : {str} SubjectId : {subjectId}");
-                db.Add(new Topic() { SubjectId = subjectId, Name = str });
+                //db.Add(new Topic() { SubjectId = subjectId, Name = str });
             }
             Console.WriteLine("----------------------------------");
         }
@@ -77,7 +75,7 @@ internal class Program
         }
         finally
         {
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
     }
