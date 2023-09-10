@@ -1,5 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
+﻿import Modal from 'react-modal';
+import React, { useState, useEffect } from 'react';
 
 
 // Modal stilini özelleştirin
@@ -35,7 +35,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
         useState(firsData());
 
     const getSaveButtonName = () => {
-        if (recordType == "edit") {
+        if (recordType === "edit") {
             return "Güncelle"
         }
         else {
@@ -46,7 +46,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
     const saveButtonName = getSaveButtonName();
 
     function firsData() {
-        if (recordType == "edit" && session) {
+        if (recordType === "edit" && session) {
             console.log("form bu session bilgisi ile doldurulacak :");
             console.log(session);
             return session;
@@ -73,7 +73,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
         populateSubject();
 
         Modal.setAppElement('#app');
-    }, []);
+    });
 
     useEffect(() => {
         //ders seçildiğinde konular burada yüklenir
@@ -101,7 +101,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
         setLoading(false);
 
         if (session) {
-            setSelectedSubject(data.filter(subject => subject.id == session.subjectId)[0]);
+            setSelectedSubject(data.filter(subject => subject.id === session.subjectId)[0]);
         }
     }
 
@@ -302,10 +302,10 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             closeModal();
             console.log("Kaydedilecek veri : ");
             console.log(formData);
-            if (recordType == "new") {
+            if (recordType === "new") {
                 handleSubmit();
             }
-            else if (recordType == "edit") {
+            else if (recordType === "edit") {
                 //burada kayıt güncelleme için gerekli kodlar yer alacak.
                 updateSession();
 

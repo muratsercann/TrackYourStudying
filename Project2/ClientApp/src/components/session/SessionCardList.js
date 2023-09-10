@@ -1,8 +1,8 @@
-﻿
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { SessionCard } from './SessionCard';
 import { SessionForm } from '../forms/SessionForm.js';
-import './style.css';
+import './style.css'; 
+
 export function SessionCardList() {
 
     const [sessions, setSessions] = useState([]);
@@ -30,8 +30,8 @@ export function SessionCardList() {
     }
 
     let contents = loading
-        ? <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+        ? <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
         </div>
         : renderContents(sessions);
 

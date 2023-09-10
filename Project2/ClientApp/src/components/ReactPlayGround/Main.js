@@ -140,11 +140,10 @@ export function Main() {
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
                 >
-                    <h2>Yeni Kayıt</h2>
-                    {form}
+                    <h2>Seçili çalışmayı silmek istediğinizden emin misiniz?</h2>
 
-                    <div className="d-grid gap-2">
-                        <button onClick={handleSave} className="btn btn-success">Kaydet</button>
+                    <div className="d-grid gap-1">
+                        <button onClick={handleSave} className="btn btn-success">Sil</button>
                         <button onClick={closeModal} className="btn btn-secondary">İptal</button>
                     </div>
                 </Modal>
