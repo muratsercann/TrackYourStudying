@@ -57,7 +57,7 @@ namespace TrackYourStudyingApp.Controllers
             {
                 StudySession session = new StudySession();
 
-                session.Date = formData.Date;
+                session.Date = formData.Date.Date;
                 session.StartTime = formData.StartTime;
                 session.EndTime = formData.EndTime;
                 session.SubjectId = formData.SubjectId;
