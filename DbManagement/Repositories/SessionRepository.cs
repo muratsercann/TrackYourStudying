@@ -72,8 +72,9 @@ namespace DbManagement.Repositories
         {
             List<StudySession> sessions = GetSessions();
 
-            List<StudySessionByDate> result = (from s in sessions
-                                               group s by s.Date into newGroup
+            List<StudySessionByDate> result = (from s in sessions orderby 
+                                               s.StartTime, s.EndTime
+                                               group s by s.Date.Date into newGroup
                                                orderby newGroup.Key descending
                                                select
                                                new StudySessionByDate { Date = newGroup.Key, Sessions = newGroup.ToList() }).ToList();
