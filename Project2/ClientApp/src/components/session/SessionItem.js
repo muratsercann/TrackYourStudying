@@ -2,7 +2,7 @@
 import { SessionItemButtons } from './SessionItemButtons';
 import './style.css';
 
-export function SessionItem({ session , reload}) {
+export function SessionItem({ session, reloadSessions, changeAddButtonVisibility }) {
 
     function onHandleClick() {
         console.log("Tıklanan session bilgisi :");
@@ -37,7 +37,7 @@ export function SessionItem({ session , reload}) {
     return (
         <div>
             <div onClick={onHandleClick} className="lesson">
-                <SessionItemButtons session={session} reload={reload} />
+                <SessionItemButtons session={session} reloadSessions={reloadSessions} changeAddButtonVisibility={changeAddButtonVisibility} />
                 <div>
                     <div>
                         <p>

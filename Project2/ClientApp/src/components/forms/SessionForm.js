@@ -24,19 +24,24 @@ const customStyles = {
     },
 };
 
-export function SessionForm({ session, reloadList, header, cancelEdit, recordType }) {
+export function SessionForm({
+    session,
+    reloadSessions,
+    header,
+    recordType,
+    onClose,
+    changeAddButtonVisibility }) {
+
+
     const [subjects, setSubjects] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState({});
     const [topics, setTopics] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState((false || session));
-    const [showAddButton, setShowAddButton] = useState(true);
-    const [formData, setFormData] =
-        useState(firsData());
+
+    const [formData, setFormData] = useState(firsData());
     const [firstLoad, setFirstLoad] = useState(true);
 
-
-    const getSaveButtonName = () => {
+    const getSubmitButtonName = () => {
         if (recordType === "edit") {
             return "Güncelle"
         }
@@ -45,7 +50,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
         }
     }
 
-    const saveButtonName = getSaveButtonName();
+    const saveButtonName = getSubmitButtonName();
 
     function firsData() {
         if (recordType === "edit" && session) {
@@ -54,7 +59,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             return session;
         }
 
-        var firsData = {
+        let firsData = {
             date: new Date().toJSON(),
             startTime: "",
             endTime: "",
@@ -75,6 +80,9 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             populateSubject();
             setFirstLoad(false);
         }
+        if (recordType === "edit") {
+            //setShowAddButton(false);
+        }
         Modal.setAppElement('#app');
     }, [firstLoad]);
 
@@ -82,9 +90,6 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
         //ders seçildiğinde konular burada yüklenir
         populateTopics();
     }, [selectedSubject]);//seçilen ders değiştiğinde devreye girer.
-
-
-
 
     async function populateTopics() {
         if (!(selectedSubject && selectedSubject.id)) {
@@ -107,8 +112,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             setSelectedSubject(data.filter(subject => subject.id === session.subjectId)[0]);
         }
     }
-
-    function createForm(data, selectedSubject) {
+    function DateSelector() {
 
         function handleDateChange(event) {
             // Seçilen tarih değiştiğinde yapılacak işlemler burada
@@ -116,6 +120,143 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             setFormData(newFormData);
         }
 
+        return <> <div className="dateSelector mb-3">
+            <label htmlFor="date" className="form-label">Tarih :</label>
+            <input type="date" value={formData.date.toString().split('T')[0]} className="form-control" id="date" onChange={handleDateChange} />
+        </div>
+        </>
+    }
+
+    function TimeSelector() {
+        function handleStartTimeChange(event) {
+            // Başlangıç saati değiştiğinde yapılacak işlemler burada
+            const newFormData = { ...formData, startTime: event.target.value };
+            setFormData(newFormData);
+        }
+
+        function handleEndTimeChange(event) {
+            // Bitiş saati değiştiğinde yapılacak işlemler burada
+            const newFormData = { ...formData, endTime: event.target.value };
+            setFormData(newFormData);
+        }
+
+        return <>
+            <div className="timeSelector">
+                <div className="mb-3">
+                    <label htmlFor="time1" className="form-label">Başlangıç Saati :</label>
+                    <input type="time" value={formData.startTime} className="form-control" id="time1" onChange={handleStartTimeChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="time2" className="form-label">Bitiş Saati :</label>
+                    <input type="time" className="form-control" id="time2" onChange={handleEndTimeChange} value={formData.endTime} />
+                </div>
+            </div>
+        </>
+
+    }
+
+    function SubjectDropdown() {
+
+        function handleSubjectChange(event) {
+            // Ders seçildiğinde yapılacak işlemler burada
+            const selectedOption = subjects.find(s => s.id.toString() === event.target.value);
+            setSelectedSubject(selectedOption);
+
+            const newFormData = { ...formData, subjectId: event.target.value };
+            setFormData(newFormData);
+        }
+
+        return <>
+            <div className="subjectDropdown">
+                <div className="mb-3">
+                    <label htmlFor="subject" className="form-label">Ders:</label>
+                    <select className="form-select" value={formData.subjectId > 0 && formData.subjectId} id="subject" onChange={handleSubjectChange} >
+                        <option value="">Seçiniz</option>
+                        {subjects && subjects.map(s => (
+                            <option key={s.id} value={s.id}>
+                                {s.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+        </>
+    }
+
+    function TopicDropDown() {
+
+        function handleTopicChange(event) {
+            // Konu seçildiğinde yapılacak işlemler burada
+            const newFormData = { ...formData, topicId: event.target.value };
+            setFormData(newFormData);
+        }
+
+        return <>
+            <div className="topicDropdown">
+                <div className="mb-3">
+                    <label htmlFor="subject" className="form-label">Konu :</label>
+                    <select className="form-select" id="subject" onChange={handleTopicChange} value={formData.topicId > 0 && formData.topicId} >
+                        <option value="">Seçiniz</option>
+                        {topics && topics.map(t => (
+                            <option key={t.id} value={t.id}>
+                                {t.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+        </>
+    }
+
+    function QuestionCountInput() {
+
+        function handleQuestionCountChange(event) {
+            // Soru sayısı değiştiğinde yapılacak işlemler burada
+            const newFormData = { ...formData, solvedQuestions: event.target.value };
+            setFormData(newFormData);
+
+        }
+        return <>
+            <div>
+                <div className="mb-3 questionCountInput">
+                    <label htmlFor="date" className="form-label">Soru Sayısı :</label>
+                    <input type="number" className="form-control" id="questionCount" onChange={handleQuestionCountChange} value={formData.solvedQuestions} />
+                </div>
+            </div>
+        </>
+    }
+
+    function TopicReviewCheckBox() {
+        function handleTopicReviewChange(event) {
+            // Konu çalışması seçeneği değiştiğinde yapılacak işlemler burada
+            const newFormData = { ...formData, didTopicStudy: event.target.checked };
+            setFormData(newFormData);
+        }
+
+        return <>
+            <div className="mb-3 topicReviewCheckbox">
+                <div className="form-check">
+                    <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="topicStudy"
+                        onChange={handleTopicReviewChange}
+                        checked={formData.didTopicStudy}
+                    />
+                    <label className="form-check-label" htmlFor="topicStudy">
+                        Konu Çalışması
+                    </label>
+                </div>
+            </div>
+        </>
+    }
+
+    function createForm(data, selectedSubject) {
+        function handleDateChange(event) {
+            // Seçilen tarih değiştiğinde yapılacak işlemler burada
+            const newFormData = { ...formData, date: event.target.value };
+            setFormData(newFormData);
+        }
         function handleStartTimeChange(event) {
             // Başlangıç saati değiştiğinde yapılacak işlemler burada
             const newFormData = { ...formData, startTime: event.target.value };
@@ -147,6 +288,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             // Soru sayısı değiştiğinde yapılacak işlemler burada
             const newFormData = { ...formData, solvedQuestions: event.target.value };
             setFormData(newFormData);
+
         }
 
         function handleTopicReviewChange(event) {
@@ -155,15 +297,17 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
             setFormData(newFormData);
         }
 
-
-
         return (
             <form >
-                <div className="dateSelector">
-                    <div className="mb-3">
+                <div>
+                    {/*<DateSelector />*/}
+                    <div className="dateSelector mb-3">
                         <label htmlFor="date" className="form-label">Tarih :</label>
                         <input type="date" value={formData.date.toString().split('T')[0]} className="form-control" id="date" onChange={handleDateChange} />
                     </div>
+
+                    {/*<TimeSelector />*/}
+
                     <div className="timeSelector">
                         <div className="mb-3">
                             <label htmlFor="time1" className="form-label">Başlangıç Saati :</label>
@@ -174,6 +318,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
                             <input type="time" className="form-control" id="time2" onChange={handleEndTimeChange} value={formData.endTime} />
                         </div>
                     </div>
+                    {/*<SubjectDropdown />*/}
                     <div className="subjectDropdown">
                         <div className="mb-3">
                             <label htmlFor="subject" className="form-label">Ders:</label>
@@ -187,6 +332,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
                             </select>
                         </div>
                     </div>
+                    {/*<TopicDropDown />*/}
                     <div className="topicDropdown">
                         <div className="mb-3">
                             <label htmlFor="subject" className="form-label">Konu :</label>
@@ -200,10 +346,13 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
                             </select>
                         </div>
                     </div>
-                    <div className="mb-3 questionCountInput">
-                        <label htmlFor="date" className="form-label">Soru Sayısı :</label>
-                        <input type="number" className="form-control" id="questionCount" onChange={handleQuestionCountChange} value={formData.solvedQuestions} />
+                    <div>
+                        <div className="mb-3 questionCountInput">
+                            <label htmlFor="date" className="form-label">Soru Sayısı :</label>
+                            <input type="number" className="form-control" id="questionCount" onChange={handleQuestionCountChange} value={formData.solvedQuestions} />
+                        </div>
                     </div>
+                    {/*<TopicReviewCheckBox />*/}
                     <div className="mb-3 topicReviewCheckbox">
                         <div className="form-check">
                             <input
@@ -225,29 +374,6 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
 
     function renderFormElements(data, selectedSubject) {
 
-        const openModal = () => {
-            setIsModalOpen(true);
-            setShowAddButton(false);
-        };
-
-        const closeModal = () => {
-            setIsModalOpen(false);
-            setShowAddButton(true);
-            setSelectedSubject({});
-            setTopics([]);
-            setFormData({
-                date: new Date(),
-                startTime: "",
-                endTime: "",
-                didTopicStudy: false,
-                subjectId: "",
-                topicId: "",
-                solvedQuestions: 0
-            });
-
-            cancelEdit && cancelEdit();
-        };
-
         const updateSession = async () => {
             try {
                 const response = await fetch(`studysession/${session.id}`, {
@@ -261,7 +387,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
                 if (response.ok) {
                     // Veri güncelleme başarılı oldu
                     console.log('Veri güncellendi.');
-                    reloadList();
+                    reloadSessions();
                     // Veriyi yeniden yükleme veya kullanıcı arabiriminizi güncelleme
                 } else {
                     // Veri güncelleme başarısız oldu
@@ -285,7 +411,7 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
 
                 if (response.ok) {
                     alert("Kayıt Başarılı");
-                    reloadList();
+                    reloadSessions();
 
                     // Başarılı durum işlemleri
                 } else {
@@ -299,10 +425,8 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
         };
 
         const handleSave = () => {
-
-
             // Kaydetme işlemleri burada yapılabilir
-            closeModal();
+            onClose();
             console.log("Kaydedilecek veri : ");
             console.log(formData);
             if (recordType === "new") {
@@ -319,17 +443,15 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
 
         };
 
-
-
-        var form = createForm(data, selectedSubject);
+        const form = createForm(data, selectedSubject);
+        if (changeAddButtonVisibility) {
+            changeAddButtonVisibility(false);
+        }
         return (
             <div>
-                {(showAddButton && !session) && (
-                    <a href="#" className="floating-button" onClick={openModal}>+</a>)
-                }
                 <Modal
-                    isOpen={isModalOpen}
-                    onRequestClose={closeModal}
+                    isOpen={true}
+                    onRequestClose={onClose}
                     contentLabel="Örnek Modal"
                     shouldCloseOnOverlayClick={false}
                     style={customStyles}
@@ -339,8 +461,8 @@ export function SessionForm({ session, reloadList, header, cancelEdit, recordTyp
                     {form}
 
                     <div className="d-grid gap-2">
-                        <button type="submit" onClick={handleSave} className="btn btn-success">{saveButtonName}</button>
-                        <button onClick={closeModal} className="btn btn-secondary">İptal</button>
+                        <button type="submit" onClick={handleSave} className="btn btn-success">{getSubmitButtonName()}</button>
+                        <button onClick={onClose} className="btn btn-secondary">İptal</button>
                     </div>
                 </Modal>
             </div>

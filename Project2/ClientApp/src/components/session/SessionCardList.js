@@ -1,17 +1,23 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { SessionCard } from './SessionCard';
 import { SessionForm } from '../forms/SessionForm.js';
-import './style.css'; 
+import './style.css';
 
 export function SessionCardList() {
 
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [reload, setReload] = useState(false);
+    const [isReload, setIsReload] = useState(false);
+    const [addButtonVisibility, setAddButtonVisibility] = useState(true);
+    const [isSessionFormOpen, setIsSessionFormOpen] = useState(false);
 
-    let reloadlist = function () {
+    let reloadSessions = function () {
         setLoading(true);
-        setReload(!reload);
+        setIsReload(!isReload);/*Burda true geçilip*/
+    }
+
+    function changeAddButtonVisibility(visible) {
+        setAddButtonVisibility(visible);
     }
 
 
@@ -20,7 +26,11 @@ export function SessionCardList() {
             <div>
                 {
                     data.map(s =>
-                        <SessionCard sessionsByDate={s} key={s.date} reload={reloadlist} />
+                        <SessionCard sessionsByDate={s}
+                            key={s.date}
+                            reloadSessions={reloadSessions}
+                            changeAddButtonVisibility={changeAddButtonVisibility}
+                        />
                     )
                 }
 
@@ -35,13 +45,14 @@ export function SessionCardList() {
         </div>
         : renderContents(sessions);
 
-    
+
     useEffect(() => {
-        populateData();
-    }, [reload]);
+        //burda if(isReload) { populateSessions }şeklinde yapılabilir. 
+        populateSessions();
+    }, [isReload]);
 
 
-    async function populateData() {
+    async function populateSessions() {
         const response = await fetch('studysession');//change with getSessions
         const data = await response.json();
 
@@ -53,11 +64,33 @@ export function SessionCardList() {
 
     }
 
+    const openSessionForm = () => {
+        setIsSessionFormOpen(true);
+    };
+
+    const AddNewSessionButton = () => {
+        return <>
+            <a href="#" className="floating-button" onClick={openSessionForm}>+</a>
+        </>
+    };
+
+    const closeSessionForm = () => {
+        setIsSessionFormOpen(false);
+        setAddButtonVisibility(true);
+    };
+
     return (
         <div>
             <h1>Study Session List</h1>
             <h2>{contents}</h2>
-            <SessionForm reloadList={reloadlist} header="Yeni Çalışma" recordType="new" />
+
+            {(addButtonVisibility && !isSessionFormOpen) && <AddNewSessionButton />}
+            {isSessionFormOpen && < SessionForm
+                reloadSessions={reloadSessions}
+                changeAddButtonVisibility={changeAddButtonVisibility}
+                onClose={closeSessionForm}
+                header="Yeni Çalışma"
+                recordType="new" />}
         </div>
     );
 }

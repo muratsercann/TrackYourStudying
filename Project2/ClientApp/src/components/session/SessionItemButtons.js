@@ -2,7 +2,7 @@
 import { SessionForm } from '../forms/SessionForm';
 import './style.css';
 
-export function SessionItemButtons({ session, reload }) {
+export function SessionItemButtons({ session, reloadSessions, changeAddButtonVisibility }) {
     const [showEditModal, setShowEditModal] = useState(false);
     function onEditClick() {
         console.log("düzenlenecek session : ");
@@ -25,16 +25,21 @@ export function SessionItemButtons({ session, reload }) {
 
         if (response.ok) {
             alert("Silme işlemi başarılı.");
-            reload();
+            reloadSessions();
         } else {
             alert("Silme işlemi başarısız.");
         }
     }
 
-    const cancelEdit = () =>
-    {
-        setShowEditModal(false); 
-    }
+    const cancelEdit = () => {
+        setShowEditModal(false);
+    };
+
+    const closeModal = () => {
+        setShowEditModal(false);
+        changeAddButtonVisibility(true);
+        //En baştaki button Ekleme butonu görünürlüğü değiştirilecek.
+    };
 
     return (
         <div className="sessionItemButtons">
@@ -48,7 +53,15 @@ export function SessionItemButtons({ session, reload }) {
                     </div>
                 </div>
             </div>
-            {showEditModal && <SessionForm session={session} reloadList={reload} header="Düzenle" cancelEdit={cancelEdit} recordType="edit" />}
+            {showEditModal &&
+                <SessionForm
+                    session={session}
+                    changeAddButtonVisibility={changeAddButtonVisibility}
+                    onClose={closeModal}
+                    reloadSessions={reloadSessions}
+                    header="Düzenle"
+                    cancelEdit={cancelEdit}
+                    recordType="edit" />}
         </div>
 
     );
