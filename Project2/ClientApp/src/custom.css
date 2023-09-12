@@ -80,13 +80,18 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 .sessionTotal {
     padding: 0px 10px 0px 10px;
     color: #17c35d;
+    color: #ffc107;
     font-size: small;
     text-align: right;
+    font-weight: 500;
+    font-size: 1.2em;
 }
 
 .duration {
     color: #30cb3e;
+    color: #eef956;
 }
+
 
 .sessionForm {
     padding: 8px;

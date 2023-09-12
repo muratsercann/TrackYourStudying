@@ -7,18 +7,10 @@ import { SessionCardList } from "./components/session/SessionCardList";
 const AppRoutes = [
     {
         index: true,
-        element: <Home />
+        element: <SessionCardList />/*Home*/
     },
     {
-        path: '/counter',
-        element: <Counter />
-    },
-    {
-        path: '/fetch-data',
-        element: <FetchData />
-    },
-    {
-        path: '/get-sessions',
+        path: '/sessions',
         element: <SessionCardList />
     },
     {

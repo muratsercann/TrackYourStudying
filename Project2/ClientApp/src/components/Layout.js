@@ -6,34 +6,51 @@ import { SessionItemButtons } from './session/SessionItemButtons';
 import { SessionForm } from './forms/SessionForm';
 import { Main } from './ReactPlayGround/Main'
 import { DropdownTest } from './ReactPlayGround/DropdownTest'
+import { Graphics } from './Graphics'
 import './session/style.css'
 
-export function Layout(props) {
+export class Layout extends Component {
+    static displayName = Layout.name;
 
-    return (
-        <>
-            <div id="mainContent" className="container">
-
+    render() {
+        return (
+            <div>
                 <NavMenu />
-
-                {/*<Container tag="main">*/}
-                {/*    {props.children}*/}
-                {/*</Container>*/}
-
-                <SessionCardList />
-                {/*<SessionForm /> */}
-
-                {/*<DropdownTest/>*/}
-                {/*<SessionForm/>*/}
-                 {/*<Main />*/}
-
-               
-
+                <Container tag="main">
+                    {this.props.children}
+                </Container>
             </div>
-
-            
-
-        </>
-    );
-
+        );
+    }
 }
+
+
+//export function Layout(props) {
+
+//    return (
+//        <>
+//            <div id="mainContent" className="container">
+
+//                <NavMenu />
+
+//                {/*<Container tag="main">*/}
+//                {/*    {props.children}*/}
+//                {/*</Container>*/}
+
+//                <SessionCardList />
+//                {/*<SessionForm /> */}
+
+//                {/*<DropdownTest/>*/}
+//                {/*<SessionForm/>*/}
+//                {/* <Main />*/}
+
+//                {/*<Graphics />*/}
+
+//            </div>
+
+
+
+//        </>
+//    );
+
+//}
