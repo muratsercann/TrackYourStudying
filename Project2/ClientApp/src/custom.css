@@ -5,6 +5,14 @@ body {
     font-family: Optimistic Text,-apple-system,ui-sans-serif,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 }
 
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+}
+
 .container {
     padding: 20px;
 }
@@ -87,21 +95,21 @@ body {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  /*box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;*/
+    /*box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;*/
 }
 
 code {
-  color: #E01A76;
+    color: #E01A76;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 
@@ -111,7 +119,7 @@ code {
     margin-bottom: 20px;
     border: none;
     background-color: #2a2e39;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .card-header {
@@ -220,4 +228,8 @@ code {
 
 .btnDelete:hover {
     background-color: red;
+}
+
+button.btn-success.btn, button.btn-secondary.btn {
+    color: white;
 }
