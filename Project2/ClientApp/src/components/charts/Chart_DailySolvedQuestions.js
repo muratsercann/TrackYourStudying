@@ -40,7 +40,6 @@ export function Chart_DailySolvedQuestions() {
         },
         axisX: {
             //title: "Tarih",
-            //prefix: "W",
             //interval: 2
         },
         data: [{

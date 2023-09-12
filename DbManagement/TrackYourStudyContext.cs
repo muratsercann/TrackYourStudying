@@ -18,9 +18,11 @@ public class TrackYourStudyContext : DbContext
 
     public TrackYourStudyContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "TrackYourStudyDB.db");
+        //var f = AppDomain.CurrentDomain.BaseDirectory;
+        //var f2 = AppDomain.CurrentDomain.DynamicDirectory;
+        //var folder = Environment.SpecialFolder.LocalApplicationData;
+        //var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join("D:\\TrackYourStudying\\DbManagement\\Database\\TrackYourStudyDB.db");
     }
 
     // The following configures EF to create a Sqlite database file in the
