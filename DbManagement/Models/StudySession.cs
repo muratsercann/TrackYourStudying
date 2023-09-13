@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,21 +11,28 @@ namespace DbManagement.Models
 {
     public class StudySession
     {
+        [Key]
         public int Id { get; set; }
         public DateTime Date { get; set; }
+
+        [MaxLength(5)]
         public string? StartTime { get; set; }
+
+        [MaxLength(5)]
         public string? EndTime { get; set; }
         public int? SubjectId { get; set; } //Ders Adı
         public int? TopicId { get; set; } //Ders konusu
         public int SolvedQuestions { get; set; }
         public bool DidTopicStudy { get; set; }
+
+        [MaxLength(1000)]
         public string? Description { get; set; }
         public Topic? Topic { get; set; }
 
         public Subject? Subject { get; set; }
 
         [NotMapped]
-        public int StudyDuration
+        public int StudyDurationMinutes
         {
             get
             {
@@ -48,14 +56,23 @@ namespace DbManagement.Models
                     return "";
                 }
 
-                return ConvertMinutesToHours(StudyDuration);
+                return ConvertMinutesToHours(StudyDurationMinutes);
             }
         }
         private string ConvertMinutesToHours(int minutes)
         {
+            string result = "";
             int hours = minutes / 60;
             int minutesRemaining = minutes % 60;
-            return $"{hours}sa {minutesRemaining}dk";
+            if (hours > 0)
+            {
+                result = $"{hours}sa";
+            }
+
+            result += $"{minutesRemaining}dk";
+
+
+            return result;
         }
 
         private TimeSpan CalculateTime(string time1, string time2)
