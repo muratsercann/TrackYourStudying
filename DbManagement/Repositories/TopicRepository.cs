@@ -17,6 +17,22 @@ namespace DbManagement.Repositories
             _dbContext = dbContext;
         }
 
+        public void Create(Topic topic)
+        {
+            _dbContext.Topics.Add(topic);
+            _dbContext.SaveChanges();
+        }
+
+        public void Create(List<Topic> topics)
+        {
+            foreach (Topic topic in topics)
+            {
+                _dbContext.Topics.Add(topic);
+            }
+
+            _dbContext.SaveChanges();
+        }
+
         public Topic GetTopic(int id)
         {
             //TODO : belirtilen id ile topic var mı kontrolü
@@ -62,5 +78,7 @@ namespace DbManagement.Repositories
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+       
     }
 }

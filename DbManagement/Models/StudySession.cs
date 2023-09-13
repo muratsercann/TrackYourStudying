@@ -64,7 +64,7 @@ namespace DbManagement.Models
             TimeSpan t2 = TimeSpan.Parse(time2);
 
             //Ör: t1 = 23:30, t2 00:45 ikinci saate bir gün ekleyerek eksi değer çıkması engelleniyor.
-            if (t1> t2)
+            if (t1 > t2)
             {
                 t2 = t2.Add(new TimeSpan(24, 0, 0));
             }

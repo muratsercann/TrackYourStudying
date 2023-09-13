@@ -10,9 +10,11 @@ using System.Security.Cryptography.X509Certificates;
 
 public class TrackYourStudyContext : DbContext
 {
+
     public DbSet<StudySession> StudySessions { get; set; }
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<Topic> Topics { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public string DbPath { get; }
 
@@ -22,6 +24,8 @@ public class TrackYourStudyContext : DbContext
         //var f2 = AppDomain.CurrentDomain.DynamicDirectory;
         //var folder = Environment.SpecialFolder.LocalApplicationData;
         //var path = Environment.GetFolderPath(folder);
+        //DbPath = System.IO.Path.Join("D:\\TrackYourStudying\\TrackYourStudyDB.db");
+
         DbPath = System.IO.Path.Join("D:\\TrackYourStudying\\DbManagement\\Database\\TrackYourStudyDB.db");
     }
 
@@ -31,8 +35,6 @@ public class TrackYourStudyContext : DbContext
     {
         options.UseSqlite($"Data Source={DbPath}");
     }
-
-
 
     /// <summary>
     /// Tüm derslerin ham bilgilerini çeker.

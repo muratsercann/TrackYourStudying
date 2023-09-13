@@ -12,7 +12,7 @@ namespace DbManagement
 
         public DateTime Date { get; set; }
         public string? TotalSolvedQuestion { get { return calcTotalSolvedQuestion(); } }
-        public string? TotalDuration { get { return calcTotalDuration(); } }
+        public int? TotalDurationMinutes { get { return calcTotalDuration(); } }
         public List<StudySession>? Sessions { get; set; }
 
         private string calcTotalSolvedQuestion()
@@ -30,23 +30,21 @@ namespace DbManagement
             return total.ToString() + " Soru";
         }
 
-        private string calcTotalDuration()
+        private int calcTotalDuration()
         {
             if (Sessions == null || Sessions.Count == 0)
             {
-                return "";
+                return 0;
             }
 
             int minutes = 0;
 
             foreach (StudySession item in Sessions)
             {
-                minutes += item.StudyDuration;
+                minutes += item.StudyDurationMinutes;
             }
 
-            string result = ConvertMinutesToHours(minutes);
-
-            return result;
+            return minutes;
         }
 
         private string ConvertMinutesToHours(int minutes)

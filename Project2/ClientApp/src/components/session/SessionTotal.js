@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import './style.css';
+import utils from '../../utils.js'
 
 export class SessionTotal extends Component {
     static displayName = SessionTotal.name;
@@ -12,7 +13,7 @@ export class SessionTotal extends Component {
     render() {
         return (
             <div className="sessionTotal">
-                <span>{this.state.data.totalDuration} - {this.state.data.totalSolvedQuestion}</span>
+                <span>{utils.minutestToHours(this.state.data.totalDurationMinutes)} - {this.state.data.totalSolvedQuestion}</span>
             </div>
         );
     }

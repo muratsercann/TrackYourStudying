@@ -22,6 +22,19 @@ export function SessionCardList() {
 
 
     function renderContents(data) {
+        const mystyle = {
+            color: "white",
+            padding: "10px",
+            fontFamily: "Arial",
+            fontSize: "16px",
+        };
+
+        if (!data || data.length === 0) {
+            return (
+                <div style={mystyle}>
+                    Gösterilecek kayıt bulunamadı..
+                </div>)
+        }
         return (
             <div>
                 {

@@ -4,6 +4,7 @@ using DbManagement.Models;
 using DbManagement.Repositories;
 using DbManagement.Services;
 using DbTestConsole;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,12 +13,13 @@ internal class Program
 
     private static void Main(string[] args)
     {
+        using var repo = new DbManagement.Repositories.TopicRepository(new TrackYourStudyContext());
 
-        var subjectRepository = new DbManagement.Repositories.SubjectRepository(new TrackYourStudyContext());
+        List<Topic> topics = repo.GetTopics();
 
-        var subjects = subjectRepository.GetSubjects();
-        //CreateSubjects();
-        //CreateTopics();
+
+        CreateSubjects();
+        CreateTopics();
 
         //List<Subject> subjects = db.GetSubjects();
         //List<Topic> topics = db.GetTopics(1);
@@ -30,7 +32,7 @@ internal class Program
     /// It creates firt seed for subject table..
     /// </summary>
     private static void CreateSubjects()
-    {        
+    {
         try
         {
             List<Subject> subjects = new List<Subject>();
@@ -43,8 +45,13 @@ internal class Program
             subjects.Add(new Subject { Name = "Tyt Tarih", Code = "TYTTAR" });
             subjects.Add(new Subject { Name = "Tyt Coğrafya", Code = "TYTCOG" });
 
+
+            using var repo = new DbManagement.Repositories.SubjectRepository(new TrackYourStudyContext());
+            repo.CreateSubjects(subjects);
+
             //kayıt işlemi için servise gidecek
-            
+
+
         }
         catch (Exception ex)
         {
@@ -57,21 +64,25 @@ internal class Program
     /// <summary>
     /// Creates first seed for Tyt Mat. topics
     /// </summary>
-    private static void CreateTopics(string[] topics, int subjectId)
+    private static List<Topic> CreateTopics(string[] topics, int subjectId)
     {
         //sing var db = new TrackYourStudyContext();
+        List<Topic> topicList = new List<Topic>();
         try
         {
+            int seq = 1;
             foreach (string str in topics)
             {
-                Console.WriteLine($"Name : {str} SubjectId : {subjectId}");
-                //db.Add(new Topic() { SubjectId = subjectId, Name = str });
+                topicList.Add(new Topic() { SubjectId = subjectId, Name = str, Sequence = seq });
+
+                seq += 1;
             }
-            Console.WriteLine("----------------------------------");
+
+            return topicList;
         }
         catch (Exception ex)
         {
-            throw;
+            throw ex;
         }
         finally
         {
@@ -82,14 +93,30 @@ internal class Program
 
     private static void CreateTopics()
     {
-        CreateTopics(SeedingData.TytTurkce_Topics, 1);
-        CreateTopics(SeedingData.TytMatematik_Topics, 2);
-        CreateTopics(SeedingData.TytGeometri_Topics, 3);
-        CreateTopics(SeedingData.TytFizik_Topics, 4);
-        CreateTopics(SeedingData.TytKimya_Topics, 5);
-        CreateTopics(SeedingData.TytBiyoloji_Topics, 6);
-        CreateTopics(SeedingData.TytTarih_Topics, 7);
-        CreateTopics(SeedingData.TytCografya_Topics, 8);
+        using var repo = new TopicRepository(new TrackYourStudyContext());
+
+
+        List<Topic> allTopics = new List<Topic>();
+        List<Topic> tur = CreateTopics(SeedingData.TytTurkce_Topics, 1);
+        List<Topic> mat = CreateTopics(SeedingData.TytMatematik_Topics, 2);
+        List<Topic> geo = CreateTopics(SeedingData.TytGeometri_Topics, 3);
+        List<Topic> fiz = CreateTopics(SeedingData.TytFizik_Topics, 4);
+        List<Topic> kim = CreateTopics(SeedingData.TytKimya_Topics, 5);
+        List<Topic> biy = CreateTopics(SeedingData.TytBiyoloji_Topics, 6);
+        List<Topic> tar = CreateTopics(SeedingData.TytTarih_Topics, 7);
+        List<Topic> cog = CreateTopics(SeedingData.TytCografya_Topics, 8);
+
+        allTopics.AddRange(tur);
+        allTopics.AddRange(mat);
+        allTopics.AddRange(geo);
+        allTopics.AddRange(fiz);
+        allTopics.AddRange(kim);
+        allTopics.AddRange(biy);
+        allTopics.AddRange(tar);
+        allTopics.AddRange(cog);
+
+        repo.Create(allTopics);
+
     }
 
 

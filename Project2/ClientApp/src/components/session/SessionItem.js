@@ -1,6 +1,7 @@
 ﻿import React, { useState } from 'react';
 import { SessionItemButtons } from './SessionItemButtons';
 import './style.css';
+import utils from '../../utils.js'
 
 export function SessionItem({ session, reloadSessions, changeAddButtonVisibility }) {
 
@@ -46,7 +47,7 @@ export function SessionItem({ session, reloadSessions, changeAddButtonVisibility
                             </strong>
 
                             <span className="duration">
-                                {"  "} {session.studyDurationString}
+                                {"  "} {utils.minutestToHours(session.studyDurationMinutes)}
                             </span>
                         </p>
                     </div>

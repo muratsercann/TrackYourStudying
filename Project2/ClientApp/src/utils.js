@@ -3,16 +3,19 @@
         var hours = Math.floor(minutes / 60);
         var remainingMinutes = minutes % 60;
 
-        var hoursStr = hours < 10 ? "" + hours : hours.toString();
-        var minutesStr = remainingMinutes < 10 ? "0" + remainingMinutes : remainingMinutes.toString();
+        var minutesStr = "";
 
-        let str = "";
+        let result = "";
         if (hours > 0) {
-            str += (hoursStr + "sa ")
+            result += (hours.toString() + "sa ")
         }
 
-        str += minutesStr + "dk";
-        return str;
+        if (remainingMinutes > 0) {
+            result += remainingMinutes < 10 ? ("0" + remainingMinutes) : remainingMinutes.toString();
+            result += "dk";
+        }
+
+        return result;
     }
     
 }
