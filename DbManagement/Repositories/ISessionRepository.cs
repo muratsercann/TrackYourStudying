@@ -24,5 +24,9 @@ namespace DbManagement.Repositories
 
         bool Any(int id);
 
+        List<DateStudyDuration> GetDateStudyDurationStatistic();
+        List<DateSolvedQuestions> GetDateSolvedQuestionsStatistic();
+        List<SubjectDuration> GetSubjectDurationStatistic();
+        List<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic();
     }
 }

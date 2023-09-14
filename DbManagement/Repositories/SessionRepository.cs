@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace DbManagement.Repositories
 {
@@ -96,6 +98,71 @@ namespace DbManagement.Repositories
             _dbContext.SaveChanges();
         }
 
+        #region İstatistiksel Metodlar
+
+        public List<DateStudyDuration> GetDateStudyDurationStatistic()
+        {
+            List<DateStudyDuration> result = (from s in _dbContext.StudySessions
+                                              group s by s.Date.Date into newGroup
+                                              orderby newGroup.Key descending
+                                              select new DateStudyDuration()
+                                              {
+                                                  Date = newGroup.Key,
+                                                  StudyDurationMinutes = newGroup.Sum(x => x.StudyDurationMinutes),
+                                              }).ToList();
+
+            return result;
+        }
+
+        public List<DateSolvedQuestions> GetDateSolvedQuestionsStatistic()
+        {
+            List<DateSolvedQuestions> result = (from s in _dbContext.StudySessions
+                                                group s by s.Date.Date into newGroup
+                                                orderby newGroup.Key descending
+                                                select new DateSolvedQuestions()
+                                                {
+                                                    Date = newGroup.Key,
+                                                    SolvedQuestion = newGroup.Sum(x => x.SolvedQuestions),
+                                                }).ToList();
+
+            return result;
+        }
+
+        public List<SubjectDuration> GetSubjectDurationStatistic()
+        {
+            List<SubjectDuration> result = (from session in _dbContext.StudySessions.Include(s => s.Subject)
+                                            group session by 
+                                            new { session.SubjectId, SubjectName = session.Subject.Name } into newGroup
+                                            orderby newGroup.Key.SubjectId descending
+                                            select new SubjectDuration()
+                                            {
+                                                SubjectName = newGroup.Key.SubjectName,
+                                                StudyDurationMinutes = newGroup.Sum(x => x.StudyDurationMinutes),
+                                            }).ToList();
+
+
+
+            return result;
+        }
+
+        public List<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic()
+        {
+            List<SubjectSolvedQuestions> result = (from session in _dbContext.StudySessions.Include(s => s.Subject) 
+                                                   where session.SolvedQuestions > 0
+                                                   group session by new 
+                                                   { session.SubjectId, SubjectName = session.Subject.Name } into newGroup
+                                                   orderby newGroup.Key.SubjectId descending
+                                                   select new SubjectSolvedQuestions()
+                                                   {
+                                                       SubjectName = newGroup.Key.SubjectName,
+                                                       SolvedQuestions = newGroup.Sum(x => x.SolvedQuestions),
+                                                   }).ToList();
+
+            return result;
+        }
+
+        #endregion
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -124,5 +191,7 @@ namespace DbManagement.Repositories
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+
     }
 }
