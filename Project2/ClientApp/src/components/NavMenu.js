@@ -15,7 +15,7 @@ export class NavMenu extends Component {
         };
     }
 
-    toggleNavbar() {
+    toggleNavbar() { 
         this.setState({
             collapsed: !this.state.collapsed
         });
@@ -42,13 +42,13 @@ export class NavMenu extends Component {
                             {/*    <NavLink tag={Link} className="text-white" to="/get-sessions">Get Sessions</NavLink>*/}
                             {/*</NavItem>*/}
                             <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/sessions">Study Sessions</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/sessions">Çalışmalar</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/graphics">Graphics</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/graphics">Grafikler</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-white">Denemelerim</NavLink>
+                                <NavLink tag={Link} className="text-white">Denemeler</NavLink>
                             </NavItem>
                         </ul>
                     </Collapse>

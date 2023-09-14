@@ -2,12 +2,12 @@
 import { SessionHeader } from './SessionHeader';
 import { SessionItem } from './SessionItem';
 import { SessionTotal } from './SessionTotal';
-import './style.css';
+
 
 export function SessionCard({ sessionsByDate, reloadSessions, changeAddButtonVisibility }) {
+
     const [data, setData] = useState(sessionsByDate);
     const [loading, setLoading] = useState(true);
-
 
     return (
 

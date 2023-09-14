@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import './style.css';
 import utils from '../../utils.js'
 
 export class SessionTotal extends Component {

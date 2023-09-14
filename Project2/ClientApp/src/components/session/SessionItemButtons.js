@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { SessionForm } from '../forms/SessionForm';
-import './style.css';
+
 
 export function SessionItemButtons({ session, reloadSessions, changeAddButtonVisibility }) {
     const [showEditModal, setShowEditModal] = useState(false);

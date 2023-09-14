@@ -1,6 +1,5 @@
 ﻿import React, { useState } from 'react';
 import { SessionItemButtons } from './SessionItemButtons';
-import './style.css';
 import utils from '../../utils.js'
 
 export function SessionItem({ session, reloadSessions, changeAddButtonVisibility }) {

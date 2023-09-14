@@ -1,7 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { SessionCard } from './SessionCard';
 import { SessionForm } from '../forms/SessionForm.js';
-import './style.css';
 
 export function SessionCardList() {
 
@@ -94,7 +93,7 @@ export function SessionCardList() {
 
     return (
         <div>
-            <h1>Study Session List</h1>
+            <h1>Günlük Çalışmalar</h1>
             <h2>{contents}</h2>
 
             {(addButtonVisibility && !isSessionFormOpen) && <AddNewSessionButton />}
