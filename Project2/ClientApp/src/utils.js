@@ -11,7 +11,7 @@
         }
 
         if (remainingMinutes > 0) {
-            result += remainingMinutes < 10 ? ("0" + remainingMinutes) : remainingMinutes.toString();
+            result += remainingMinutes < 10 ? ("" + remainingMinutes) : remainingMinutes.toString();
             result += "dk";
         }
 

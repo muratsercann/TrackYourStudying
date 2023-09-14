@@ -13,19 +13,31 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        using var repo = new DbManagement.Repositories.TopicRepository(new TrackYourStudyContext());
+        //using var repo = new DbManagement.Repositories.TopicRepository(new TrackYourStudyContext());
 
-        List<Topic> topics = repo.GetTopics();
+        //List<Topic> topics = repo.GetTopics();
+        using var db = new TrackYourStudyContext();
+        //var sessions = db.StudySessions;
+
+        List<StudySessionByDate> result = (from s in 
+                                        db.StudySessions.Include(s =>                                              s.Topic).ThenInclude(s => s.Subject)
+                                           orderby s.StartTime, s.EndTime
+                                           group s by s.Date.Date into newGroup
+                                           orderby newGroup.Key descending
+                                           select
+                                           new StudySessionByDate
+                                           {
+
+                                               Date = newGroup.Key,
+                                               Sessions = newGroup.ToList(),
+                                               TotalSolvedQuestion =
+                                               newGroup.Sum(x => x.SolvedQuestions),
+                                               TotalDurationMinutes =
+                                               newGroup.Sum(x => x.StudyDurationMinutes)
+                                           }).ToList();
 
 
-        CreateSubjects();
-        CreateTopics();
 
-        //List<Subject> subjects = db.GetSubjects();
-        //List<Topic> topics = db.GetTopics(1);
-        //List<StudySessionByDate> sessions = db.GetStudySessionsByDate();
-
-        //CreateTopics();
 
     }
     /// <summary>

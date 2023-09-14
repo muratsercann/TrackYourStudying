@@ -70,14 +70,22 @@ namespace DbManagement.Repositories
 
         public List<StudySessionByDate> GetStudySessionsByDate()
         {
-            List<StudySession> sessions = GetSessions();
-
-            List<StudySessionByDate> result = (from s in sessions orderby 
-                                               s.StartTime, s.EndTime
+            List<StudySessionByDate> result = (from s in
+                                        _dbContext.StudySessions.Include(s => s.Topic).ThenInclude(s => s.Subject)
+                                               orderby s.StartTime, s.EndTime
                                                group s by s.Date.Date into newGroup
                                                orderby newGroup.Key descending
                                                select
-                                               new StudySessionByDate { Date = newGroup.Key, Sessions = newGroup.ToList() }).ToList();
+                                               new StudySessionByDate
+                                               {
+
+                                                   Date = newGroup.Key,
+                                                   Sessions = newGroup.ToList(),
+                                                   TotalSolvedQuestion =
+                                                   newGroup.Sum(x => x.SolvedQuestions),
+                                                   TotalDurationMinutes =
+                                                   newGroup.Sum(x => x.StudyDurationMinutes)
+                                               }).ToList();
 
             return result;
         }

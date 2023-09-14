@@ -45,6 +45,29 @@ namespace TrackYourStudyingApp.Controllers
             }
         }
 
+        private int CalculateMinutes(string time1, string time2)
+        {
+            int minutes = 0;
+
+            if (string.IsNullOrEmpty(time1) || string.IsNullOrEmpty(time2))
+            {
+                return 0;
+            }
+
+            TimeSpan t1 = TimeSpan.Parse(time1);
+            TimeSpan t2 = TimeSpan.Parse(time2);
+
+            //Ör: t1 = 23:30, t2 00:45 ikinci saate bir gün ekleyerek eksi değer çıkması engelleniyor.
+            if (t1 > t2)
+            {
+                t2 = t2.Add(new TimeSpan(24, 0, 0));
+            }
+
+            // Farkı hesaplayın
+            TimeSpan fark = t2 - t1;
+            return (int)fark.TotalMinutes;
+        }
+
         /// <summary>
         /// Yeni çalışmayı veritabanına kaydeder.
         /// </summary>
@@ -64,7 +87,7 @@ namespace TrackYourStudyingApp.Controllers
                 session.TopicId = formData.TopicId;
                 session.SolvedQuestions = formData.SolvedQuestions;
                 session.DidTopicStudy = formData.DidTopicStudy;
-
+                session.StudyDurationMinutes = CalculateMinutes(formData.StartTime, formData.EndTime);
                 _sessionService.CreateSession(session);
 
                 //veritabanı kayıt işlemleri
@@ -102,6 +125,7 @@ namespace TrackYourStudyingApp.Controllers
             session.TopicId = formData.TopicId;
             session.SolvedQuestions = formData.SolvedQuestions;
             session.DidTopicStudy = formData.DidTopicStudy;
+            session.StudyDurationMinutes = CalculateMinutes(formData.StartTime, formData.EndTime);
 
             _sessionService.UpdateSession(session);
 
@@ -111,13 +135,14 @@ namespace TrackYourStudyingApp.Controllers
         public class StudySessionDTO
         {
             public DateTime Date { get; set; }
-            public string? StartTime { get; set; }
-            public string? EndTime { get; set; }
+            public string StartTime { get; set; }
+            public string EndTime { get; set; }
             public int? SubjectId { get; set; }
             public int? TopicId { get; set; }
             public int StudyDuration { get; set; }
             public int SolvedQuestions { get; set; }
             public bool DidTopicStudy { get; set; }
+
         }
     }
 }
