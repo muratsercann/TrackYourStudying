@@ -35,7 +35,7 @@ export function Chart_SubjectsStudyDuration() {
             fontSize: 14,
             contentFormatter: function (e) {
                 var content = e.entries[0].dataPoint.label;
-                content += " (" + utils.minutestToHours(e.entries[0].dataPoint.y) + ")"
+                content += " (" + utils.minutesToHours(e.entries[0].dataPoint.y) + ")"
                 console.log(e)
                 return content;
             }
@@ -44,7 +44,7 @@ export function Chart_SubjectsStudyDuration() {
             type: "pie",
             startAngle: 75,
             indexLabelFormatter: function (e) {
-                return e.dataPoint.label + " " + utils.minutestToHours(e.dataPoint.y);
+                return e.dataPoint.label + " " + utils.minutesToHours(e.dataPoint.y);
             },
             showInLegend: false,
             legendText: "{label}",

@@ -24,12 +24,13 @@ export function Chart_DailyStudyHours() {
         animationEnabled: true,
         title: {
             text: "Günlük Çalışma Süresi",
-            fontFamily: "tahoma", 
+            fontFamily: "tahoma",
             padding: 15,
         },
         axisY: {
-            //title: "Çözülen Soru",
-            /*suffix: "%"*/
+            labelFormatter: function (e) {
+                return utils.convertMinutesToTimeFormat(e.value);
+            }
         },
         axisX: {
             //title: "Tarih",
@@ -38,7 +39,7 @@ export function Chart_DailyStudyHours() {
         },
         toolTip: {
             contentFormatter: function (e) {
-                return utils.minutestToHours(e.entries[0].dataPoint.y);
+                return utils.minutesToHours(e.entries[0].dataPoint.y);
             }
         },
         data: [{

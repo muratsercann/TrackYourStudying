@@ -12,7 +12,7 @@ export class SessionTotal extends Component {
     render() {
         return (
             <div className="sessionTotal">
-                <span>{utils.minutestToHours(this.state.data.totalDurationMinutes)} - {this.state.data.totalSolvedQuestion} Soru</span>
+                <span>{utils.minutesToHours(this.state.data.totalDurationMinutes)} - {this.state.data.totalSolvedQuestion} Soru</span>
             </div>
         );
     }

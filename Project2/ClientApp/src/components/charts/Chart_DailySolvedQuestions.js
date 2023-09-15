@@ -30,8 +30,9 @@ export function Chart_DailySolvedQuestions() {
             padding: 15,
         },
         axisY: {
-            //title: "Çözülen Soru",
-            /*suffix: "%"*/
+            labelFormatter: function (e) {
+                return e.value;
+            }
         },
         axisX: {
             //title: "Tarih",

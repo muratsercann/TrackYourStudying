@@ -46,7 +46,7 @@ export function SessionItem({ session, reloadSessions, changeAddButtonVisibility
                             </strong>
 
                             <span className="duration">
-                                {"  "} {utils.minutestToHours(session.studyDurationMinutes)}
+                                {"  "} {utils.minutesToHours(session.studyDurationMinutes)}
                             </span>
                         </p>
                     </div>
