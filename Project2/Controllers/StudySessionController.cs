@@ -23,7 +23,7 @@ namespace TrackYourStudyingApp.Controllers
             _sessionService = new SessionService(repo);
         }
 
-
+        #region Charts Api
         /// <summary>
         /// Hangi tarihte hangi derslerin çalışıldığı bilgisini sunar
         /// </summary>
@@ -62,6 +62,8 @@ namespace TrackYourStudyingApp.Controllers
             var data = _sessionService.GetSubjectSolvedQuestionsStatistic();
             return data;
         }
+
+        #endregion Charts Api
 
         [HttpDelete("DeleteSession/{id}")]
         public IActionResult DeleteSession(int id)

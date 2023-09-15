@@ -34,7 +34,7 @@ namespace DbManagement.Repositories
 
         public void CreateSessions(List<StudySession> sessions)
         {
-
+            throw new NotImplementedException();  
         }
 
         public bool DeleteSession(int id)
