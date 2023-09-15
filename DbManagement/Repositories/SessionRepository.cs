@@ -104,7 +104,7 @@ namespace DbManagement.Repositories
         {
             List<DateStudyDuration> result = (from s in _dbContext.StudySessions
                                               group s by s.Date.Date into newGroup
-                                              orderby newGroup.Key descending
+                                              orderby newGroup.Key ascending
                                               select new DateStudyDuration()
                                               {
                                                   Date = newGroup.Key,
@@ -118,7 +118,7 @@ namespace DbManagement.Repositories
         {
             List<DateSolvedQuestions> result = (from s in _dbContext.StudySessions
                                                 group s by s.Date.Date into newGroup
-                                                orderby newGroup.Key descending
+                                                orderby newGroup.Key ascending
                                                 select new DateSolvedQuestions()
                                                 {
                                                     Date = newGroup.Key,
@@ -133,7 +133,7 @@ namespace DbManagement.Repositories
             List<SubjectDuration> result = (from session in _dbContext.StudySessions.Include(s => s.Subject)
                                             group session by 
                                             new { session.SubjectId, SubjectName = session.Subject.Name } into newGroup
-                                            orderby newGroup.Key.SubjectId descending
+                                            orderby newGroup.Key.SubjectId ascending
                                             select new SubjectDuration()
                                             {
                                                 SubjectName = newGroup.Key.SubjectName,
@@ -151,7 +151,7 @@ namespace DbManagement.Repositories
                                                    where session.SolvedQuestions > 0
                                                    group session by new 
                                                    { session.SubjectId, SubjectName = session.Subject.Name } into newGroup
-                                                   orderby newGroup.Key.SubjectId descending
+                                                   orderby newGroup.Key.SubjectId ascending
                                                    select new SubjectSolvedQuestions()
                                                    {
                                                        SubjectName = newGroup.Key.SubjectName,

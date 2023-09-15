@@ -18,37 +18,14 @@ internal class Program
 
 
 
-        var  tarihSoru = service.GetDateSolvedQuestionsStatistic();
+        var tarihSoru = service.GetDateSolvedQuestionsStatistic();
         var tarihSure = service.GetDateStudyDurationStatistic();
         var konuSure = service.GetSubjectDurationStatistic();
         var konuSoru = service.GetSubjectSolvedQuestionsStatistic();
 
-
-
-
         //List<Topic> topics = repo.GetTopics();
         //using var db = new TrackYourStudyContext();
         ////var sessions = db.StudySessions;
-
-        //List<StudySessionByDate> result = (from s in 
-        //                                db.StudySessions.Include(s =>                                              s.Topic).ThenInclude(s => s.Subject)
-        //                                   orderby s.StartTime, s.EndTime
-        //                                   group s by s.Date.Date into newGroup
-        //                                   orderby newGroup.Key descending
-        //                                   select
-        //                                   new StudySessionByDate
-        //                                   {
-
-        //                                       Date = newGroup.Key,
-        //                                       Sessions = newGroup.ToList(),
-        //                                       TotalSolvedQuestion =
-        //                                       newGroup.Sum(x => x.SolvedQuestions),
-        //                                       TotalDurationMinutes =
-        //                                       newGroup.Sum(x => x.StudyDurationMinutes)
-        //                                   }).ToList();
-
-
-
 
     }
     /// <summary>

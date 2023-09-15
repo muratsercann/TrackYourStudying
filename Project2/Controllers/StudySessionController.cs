@@ -3,6 +3,10 @@ using DbManagement.Models;
 using DbManagement.Repositories;
 using DbManagement.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using System.Collections;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace TrackYourStudyingApp.Controllers
 {
@@ -28,6 +32,35 @@ namespace TrackYourStudyingApp.Controllers
         public IEnumerable<StudySessionByDate> Get()
         {
             return _sessionService.GetStudySessionsByDate();
+        }
+
+        [HttpGet("GetDateStudyDurationStatistic")]
+        public IEnumerable<DateStudyDuration> GetDateStudyDurationStatistic()
+        {
+            var data = _sessionService.GetDateStudyDurationStatistic();
+            return data;
+        }
+
+        [HttpGet("GetDateSolvedQuestionsStatistic")]
+        public IEnumerable<DateSolvedQuestions> GetDateSolvedQuestionsStatistic()
+        {
+            var data = _sessionService.GetDateSolvedQuestionsStatistic();
+            return data;
+        }
+
+        [HttpGet("GetSubjectDurationStatistic")]
+        public IEnumerable<SubjectDuration> GetSubjectDurationStatistic()
+        {
+            var data = _sessionService.GetSubjectDurationStatistic();
+            return data;
+        }
+
+
+        [HttpGet("GetSubjectSolvedQuestionsStatistic")]
+        public IEnumerable<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic()
+        {
+            var data = _sessionService.GetSubjectSolvedQuestionsStatistic();
+            return data;
         }
 
         [HttpDelete("DeleteSession/{id}")]

@@ -17,7 +17,7 @@ namespace DbManagement.Models
     public class DateStudyDuration
     {
         public DateTime Date { get; set; }
-        public int StudyDurationMinutes;
+        public int StudyDurationMinutes { get; set; }
     }
     public class DateSolvedQuestions
     {

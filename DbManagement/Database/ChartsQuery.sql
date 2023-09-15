@@ -10,9 +10,8 @@ left join Subjects on StudySessions.SubjectId = Subjects.Id
 where StudySessions.SolvedQuestions > 0
 group by StudySessions.SubjectId;
 --ders - harcanan zaman (dakika)
-select  Subjects.Name, SUM(StudySessions.StudyDurationMinutes) TotalMinutes from StudySessions 
+select  Subjects.Name, SUM(StudySessions.StudyDurationMinutes) TotalMinutes from StudySessions
 left join Subjects on StudySessions.SubjectId = Subjects.Id
-where StudySessions.SolvedQuestions > 0
 group by StudySessions.SubjectId;
 --Ders çalışma süresi ve çözülen soru
 select 

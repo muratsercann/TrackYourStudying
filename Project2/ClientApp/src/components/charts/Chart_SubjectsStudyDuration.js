@@ -5,31 +5,40 @@ var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 export function Chart_SubjectsStudyDuration() {
     const [data, setData] = useState([]);
+
     useEffect(() => {
-        let data = [
-            { subject: "Tyt Matematik", duration: 40 },
-            { subject: "Tyt Kimya", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Tyt Fizik", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Tyt Biyoloji", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Ayt Edebiyat", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Ayt Tarih", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Ayt Coğrafya", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Ayt Kimya", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Ayt Fizik", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 },
-            { subject: "Ayt Biyoloji", duration: Math.floor(Math.random() * (500 - 360 + 1)) + 360 }
-        ];
-        setData(data);
+        populateChartData();
     }, []);
+
+    async function populateChartData() {
+
+        const response = await fetch('studysession/getSubjectDurationStatistic'); // API URL'i burada olmalı
+        const data = await response.json();
+        console.log("Subject - Duration Chart Data :");
+        console.log(data);
+        setData(data);
+    }
+ 
 
     const options = {
         theme: "dark2",
         animationEnabled: true,
-        exportFileName: "Ders-Soru Çözüm Dağılımı",
+        exportFileName: "Ders-Çalışma Süresi Dağılımı",
         exportEnabled: true,
         title: {
-            text: "Derslere Göre Toplam Çalışma Süresi Dağılımı",
+            text: "Ders-Çalışma Süresi Dağılımı",
             fontFamily: "tahoma",
             padding: 25,
+        },
+        toolTip: {
+            enabled: true,
+            fontSize: 14,
+            contentFormatter: function (e) {
+                var content = e.entries[0].dataPoint.label;
+                content += " (" + utils.minutestToHours(e.entries[0].dataPoint.y) + ")"
+                console.log(e)
+                return content;
+            }
         },
         data: [{
             type: "pie",
@@ -42,8 +51,8 @@ export function Chart_SubjectsStudyDuration() {
             indexLabelPlacement: "outside",
             dataPoints: data && data.map(d => {
                 return {
-                    label: d.subject,
-                    y: d.duration
+                    label: d.subjectName,
+                    y: d.studyDurationMinutes
                 }
             }),
 

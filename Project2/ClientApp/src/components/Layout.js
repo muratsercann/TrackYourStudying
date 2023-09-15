@@ -6,7 +6,7 @@ import { SessionItemButtons } from './session/SessionItemButtons';
 import { SessionForm } from './forms/SessionForm';
 import { Main } from './ReactPlayGround/Main'
 import { DropdownTest } from './ReactPlayGround/DropdownTest'
-import { Graphics } from './Graphics'
+import { Charts } from './Charts'
 
 export class Layout extends Component {
     static displayName = Layout.name;
@@ -43,7 +43,7 @@ export class Layout extends Component {
 //                {/*<SessionForm/>*/}
 //                {/* <Main />*/}
 
-//                {/*<Graphics />*/}
+//                {/*<Charts />*/}
 
 //            </div>
 

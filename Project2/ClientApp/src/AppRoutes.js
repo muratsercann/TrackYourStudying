@@ -1,6 +1,6 @@
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
-import { Graphics } from "./components/Graphics";
+import { Charts } from "./components/Charts";
 import { Home } from "./components/Home";
 import { SessionCardList } from "./components/session/SessionCardList";
 
@@ -15,7 +15,7 @@ const AppRoutes = [
     },
     {
         path: '/graphics',
-        element: <Graphics />
+        element: <Charts />
     }
 ];
 
