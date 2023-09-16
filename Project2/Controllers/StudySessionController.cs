@@ -118,9 +118,12 @@ namespace TrackYourStudyingApp.Controllers
                 session.Date = formData.Date.Date;
                 session.StartTime = formData.StartTime;
                 session.EndTime = formData.EndTime;
-                session.SubjectId = formData.SubjectId;
-                session.TopicId = formData.TopicId;
+                session.SubjectId = formData.SubjectId == 0 ? null : formData.SubjectId;
+                session.TopicId = formData.TopicId == 0 ? null : formData.TopicId;
                 session.SolvedQuestions = formData.SolvedQuestions;
+                session.Correct = formData.Correct;
+                session.InCorrect = formData.InCorrect;
+                session.UnAnswered = formData.UnAnswered;
                 session.DidTopicStudy = formData.DidTopicStudy;
                 session.StudyDurationMinutes = CalculateMinutes(formData.StartTime, formData.EndTime);
                 _sessionService.CreateSession(session);
@@ -156,9 +159,12 @@ namespace TrackYourStudyingApp.Controllers
             session.Date = formData.Date;
             session.StartTime = formData.StartTime;
             session.EndTime = formData.EndTime;
-            session.SubjectId = formData.SubjectId;
-            session.TopicId = formData.TopicId;
+            session.SubjectId = formData.SubjectId == 0 ? null : formData.SubjectId;
+            session.TopicId = formData.TopicId == 0 ? null : formData.TopicId;
             session.SolvedQuestions = formData.SolvedQuestions;
+            session.Correct = formData.Correct;
+            session.InCorrect = formData.InCorrect;
+            session.UnAnswered = formData.UnAnswered;
             session.DidTopicStudy = formData.DidTopicStudy;
             session.StudyDurationMinutes = CalculateMinutes(formData.StartTime, formData.EndTime);
 
@@ -172,11 +178,17 @@ namespace TrackYourStudyingApp.Controllers
             public DateTime Date { get; set; }
             public string StartTime { get; set; }
             public string EndTime { get; set; }
-            public int SubjectId { get; set; }
-            public int TopicId { get; set; }
+            public int? SubjectId { get; set; }
+            public int? TopicId { get; set; }
             public int StudyDuration { get; set; }
             public int SolvedQuestions { get; set; }
             public bool DidTopicStudy { get; set; }
+
+            public int Correct { get; set; }
+
+            public int InCorrect { get; set; }
+            public int UnAnswered { get; set; }
+
 
         }
     }

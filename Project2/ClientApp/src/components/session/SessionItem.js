@@ -18,20 +18,37 @@ export function SessionItem({ session, reloadSessions, changeAddButtonVisibility
         if (session?.topic) {
             konuAdi = session.topic.name;
         }
-        return (
-            <p>
-                {/*{console.log("session --> : ")}*/}
-                {/*{console.log(session)}*/}
-                {
-                    dersAdi
-                }
-                -
-                {
-                    konuAdi
-                }
-                {" "}({session.didTopicStudy && "Konu + "}
-                {session.solvedQuestions} Soru)
-            </p>
+        return (<>
+            <div className="row">
+                <div className="col">{dersAdi} - {konuAdi}
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    {" "}{session.didTopicStudy && "Konu + "}
+                    {session.solvedQuestions} Soru {
+                        (() => {
+                            let result = "";
+                            if (session.correct && session.correct > 0) {
+                                result += "- " + session.correct + "D ";
+
+                                if (session.inCorrect !== undefined) {
+                                    result += session.inCorrect + "Y ";
+                                }
+
+                                if (session.unAnswered !== undefined) {
+                                    result += session.unAnswered + "B ";
+                                }
+                            }
+                            return result;
+                        })()
+                    }
+
+                </div>
+
+            </div>
+
+        </>
         );
     }
     return (
@@ -39,19 +56,20 @@ export function SessionItem({ session, reloadSessions, changeAddButtonVisibility
             <div onClick={onHandleClick} className="lesson">
                 <SessionItemButtons session={session} reloadSessions={reloadSessions} changeAddButtonVisibility={changeAddButtonVisibility} />
                 <div>
-                    <div>
-                        <p>
+                    <div className="row">
+                        <div className="col">
                             <strong>
                                 {session.startTime} - {session.endTime}
                             </strong>
-
                             <span className="duration">
                                 {"  "} {utils.minutesToHours(session.studyDurationMinutes)}
                             </span>
-                        </p>
+                        </div>
+                    </div>
+                    <SubjectAndTopic />
+                    <div>
                     </div>
                 </div>
-                <SubjectAndTopic />
 
             </div>
         </div>

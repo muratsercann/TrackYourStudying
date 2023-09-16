@@ -38,7 +38,7 @@ export function SessionForm({
     const [topics, setTopics] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [formData, setFormData] = useState(firsData());
+    const [formData, setFormData] = useState(getFirsData());
     const [firstLoad, setFirstLoad] = useState(true);
 
     const getSubmitButtonName = () => {
@@ -52,7 +52,7 @@ export function SessionForm({
 
     const saveButtonName = getSubmitButtonName();
 
-    function firsData() {
+    function getFirsData() {
         if (recordType === "edit" && session) {
             console.log("form bu session bilgisi ile doldurulacak :");
             console.log(session);
@@ -66,13 +66,15 @@ export function SessionForm({
             didTopicStudy: false,
             subject: "",
             topic: "",
-            solvedQuestions: 0
+            solvedQuestions: 0,
+            correct: 0,
+            inCorrect: 0,
         }
 
-        console.log("firsData");
+        console.log("getFirsData");
         console.log(firsData);
 
-        return firsData
+        return firsData;
     }
 
     useEffect(() => {
@@ -286,10 +288,53 @@ export function SessionForm({
 
         function handleQuestionCountChange(event) {
             // Soru sayısı değiştiğinde yapılacak işlemler burada
-            const newFormData = { ...formData, solvedQuestions: event.target.value };
+            let correct = formData.correct;
+            let inCorrect = formData.inCorrect;
+            if (event.target.valueAsNumber < formData.correct + formData.inCorrect) {
+                correct = 0;
+                inCorrect = 0;
+            }
+            const newFormData = {
+                ...formData,
+                correct: correct,
+                inCorrect: inCorrect,
+                solvedQuestions: event.target.valueAsNumber
+            };
             setFormData(newFormData);
 
         }
+
+        function handleCorrectCountChange(event) {
+            // Soru sayısı değiştiğinde yapılacak işlemler burada
+            let correct = event.target.valueAsNumber;
+            let inCorrect = formData.inCorrect;
+            if (event.target.valueAsNumber > formData.solvedQuestions) {
+                correct = formData.solvedQuestions;
+                inCorrect = 0;
+            }
+            else if ((event.target.valueAsNumber + formData.inCorrect) > formData.solvedQuestions) {
+                inCorrect = formData.solvedQuestions - correct;
+            }
+            const newFormData = { ...formData, correct: correct, inCorrect: inCorrect };
+            setFormData(newFormData);
+
+        }
+
+        function handleInCorrectCountChange(event) {
+            // Soru sayısı değiştiğinde yapılacak işlemler burada
+            let inCorrect = event.target.valueAsNumber;
+            if (event.target.valueAsNumber + formData.correct > formData.solvedQuestions) {
+                if (formData.solvedQuestions - formData.correct >= 0) {
+                    inCorrect = formData.solvedQuestions - formData.correct;
+                }
+            }
+
+            const newFormData = { ...formData, inCorrect: inCorrect };
+            setFormData(newFormData);
+
+        }
+
+
 
         function handleTopicReviewChange(event) {
             // Konu çalışması seçeneği değiştiğinde yapılacak işlemler burada
@@ -348,8 +393,32 @@ export function SessionForm({
                     </div>
                     <div>
                         <div className="mb-3 questionCountInput">
-                            <label htmlFor="date" className="form-label">Soru Sayısı :</label>
-                            <input type="number" className="form-control" id="questionCount" onChange={handleQuestionCountChange} value={formData.solvedQuestions} />
+                            <div class="row">
+                                <div className="col">
+                                    <input type="number" className="form-control" id="questionCount" placeHolder="Soru" onChange={handleQuestionCountChange} value={(() => {
+                                        if (formData.solvedQuestions > 0) {
+                                            return formData.solvedQuestions;
+                                        }
+                                    })()} />
+                                </div>
+                                <div className="col">
+                                    <input type="number" onChange={handleCorrectCountChange} className="form-control" placeholder="Doğru" value={(() => {
+                                        if (formData.correct > 0) {
+                                            return formData.correct;
+                                        }
+                                    })()} />
+                                </div>
+                                <div className="col">
+                                    <input type="number" onChange={handleInCorrectCountChange} className="form-control" placeholder="Yanlış" value={(() => {
+                                        if (formData.inCorrect > 0) {
+
+                                            return formData.inCorrect;
+                                        }
+                                        else return "";
+                                    })()} />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     {/*<TopicReviewCheckBox />*/}
@@ -425,10 +494,25 @@ export function SessionForm({
         };
 
         const handleSave = () => {
-            // Kaydetme işlemleri burada yapılabilir
-            onClose();
             console.log("Kaydedilecek veri : ");
             console.log(formData);
+
+            formData.correct = formData.correct ? formData.correct : 0;
+            formData.inCorrect = formData.inCorrect ? formData.inCorrect : 0;
+
+            if ((formData.correct + formData.inCorrect) > formData.solvedQuestions) {
+                alert("Doğru ve yanlışların toplamı çözülen sorudan fazla olamaz !");
+                return;
+            }
+
+
+
+            if (formData.solvedQuestions > 0 && formData.correct > 0) {
+                let unAnswered = formData.solvedQuestions - (formData.correct + formData.inCorrect)
+
+                formData.unAnswered = unAnswered;
+            }
+
             if (recordType === "new") {
                 handleSubmit();
             }
@@ -440,6 +524,8 @@ export function SessionForm({
             else {
                 alert("Kayıt türü belirtilmemiş.");
             }
+
+            onClose();
 
         };
 

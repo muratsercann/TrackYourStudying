@@ -18,35 +18,35 @@ namespace DbManagement.Models
         public DateTime Date { get; set; }
 
         [MaxLength(5)]      
-        public string StartTime { get; set; }
+        public string? StartTime { get; set; }
 
         [MaxLength(5)]        
-        public string EndTime { get; set; }        
+        public string? EndTime { get; set; }        
 
-        public int StudyDurationMinutes { get; set; }
+        public int? StudyDurationMinutes { get; set; }
 
-        public int SubjectId { get; set; } //Ders Id
+        public int? SubjectId { get; set; } //Ders Id
                                            
-        public int TopicId { get; set; } //Konu Id
+        public int? TopicId { get; set; } //Konu Id
                                          
-        public int SolvedQuestions { get; set; }    
+        public int? SolvedQuestions { get; set; }    
         
-        public bool DidTopicStudy { get; set; }
+        public bool? DidTopicStudy { get; set; }
 
         [MaxLength(1000)]        
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public Topic? Topic { get; set; }
 
         public Subject? Subject { get; set; }        
 
-        public int Correct { get; set; }        
+        public int? Correct { get; set; }        
 
-        public int InCorrect { get; set; }     
+        public int? InCorrect { get; set; }     
         
-        public int UnAnswered { get; set; }    
+        public int? UnAnswered { get; set; }    
         
-        public decimal Net { get; set; }
+        public decimal? Net { get; set; }
     }
 
 }

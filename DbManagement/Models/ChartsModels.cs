@@ -17,23 +17,23 @@ namespace DbManagement.Models
     public class DateStudyDuration
     {
         public DateTime Date { get; set; }
-        public int StudyDurationMinutes { get; set; }
+        public int? StudyDurationMinutes { get; set; }
     }
     public class DateSolvedQuestions
     {
         public DateTime Date { get; set; }
-        public int SolvedQuestion { get; set; }
+        public int? SolvedQuestion { get; set; }
     }
 
     public class SubjectDuration
     {
         public string SubjectName { get; set; }
-        public int StudyDurationMinutes { get; set; }
+        public int? StudyDurationMinutes { get; set; }
     }
 
     public class SubjectSolvedQuestions
     {
         public string SubjectName { get; set; }
-        public int SolvedQuestions { get; set; }
+        public int? SolvedQuestions { get; set; }
     }
 }
