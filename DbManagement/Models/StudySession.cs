@@ -17,6 +17,8 @@ namespace DbManagement.Models
 
         public DateTime Date { get; set; }
 
+        public string UserName { get; set; }
+
         [MaxLength(5)]      
         public string? StartTime { get; set; }
 

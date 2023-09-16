@@ -21,9 +21,9 @@ namespace DbManagement.Models
 
         public int InCorrect { get; set; }
 
-        public int UnAnswered { get; set; }
+        public int? UnAnswered { get; set; }
 
-        public decimal Net { get; set; }
+        public decimal? Net { get; set; }
 
 
     }

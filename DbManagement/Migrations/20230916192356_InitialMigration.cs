@@ -72,6 +72,7 @@ namespace DbManagement.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Code = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Type = table.Column<string>(type: "TEXT", maxLength: 8, nullable: true),
                     Description = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: true),
                     Sequence = table.Column<int>(type: "INTEGER", nullable: true)
                 },
@@ -99,7 +100,7 @@ namespace DbManagement.Migrations
                     PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: true),
                     ExamType = table.Column<string>(type: "TEXT", nullable: true),
-                    ExamSubType = table.Column<string>(type: "TEXT", nullable: true),
+                    ExamSubType = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -155,14 +156,12 @@ namespace DbManagement.Migrations
                         name: "FK_StudySessions_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_StudySessions_Topics_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

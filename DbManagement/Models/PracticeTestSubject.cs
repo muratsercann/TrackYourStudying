@@ -27,13 +27,13 @@ namespace DbManagement.Models
         public string Name { get; set; }
 
         [MaxLength(1000)]        
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// TYT, AYTSAY, AYTFEN, LGS vs.
         /// </summary>
         public string Type { get; set; }
         
-        public int NumberOfQuestion { get; set; }
+        public int? NumberOfQuestion { get; set; }
     }
 }

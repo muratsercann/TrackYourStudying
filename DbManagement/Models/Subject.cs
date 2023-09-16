@@ -20,6 +20,13 @@ namespace DbManagement.Models
         [MaxLength(50)]         
         public string? Code { get; set; }
 
+        /// <summary>
+        /// TYT,AYTSAY, AYTEA gibi
+        /// </summary>
+        [MaxLength(8)]
+        public string? Type { get; set; }
+
+
         [MaxLength(1000)]        
         public string? Description { get; set; }
         

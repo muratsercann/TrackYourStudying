@@ -15,43 +15,43 @@ namespace DbManagement.Models
 
         [Required] // Bu alanın gereklilik olduğunu belirtir
         [MaxLength(50)] // Maksimum uzunluğunu 50 karakter olarak sınırlar
-        public string? Username { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         [MaxLength(50)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [MaxLength(50)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [MaxLength(100)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
-        public DateTime LastLoginDate { get; set; }
+        public DateTime? LastLoginDate { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         [MaxLength(50)]
-        public string UserRole { get; set; }
+        public string? UserRole { get; set; }
 
         [MaxLength(200)]
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 
         [MaxLength(20)]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         //YKS,LGS
-        public string ExamTpye { get; set; }
+        public string? ExamType { get; set; }
 
         //Alan SAY,EA,SOZ gibi
-        public string ExamSubType { get; set; }
+        public string? ExamSubType { get; set; }
     }
 }
 

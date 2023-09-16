@@ -28,13 +28,14 @@ namespace DbManagement.Repositories
         }
 
         public Subject GetSubject(int id)
-        {
-            //TODO : subject Id var mı diye kontrol edilebilir.
+        {   
+            //TODO : (msercan)subject Id var mı diye kontrol edilecek mi ?
             return _dbContext.Subjects.Where(subject => subject.Id == id).First();
         }
 
         public List<Subject> GetSubjects()
         {
+            //TODO : (msercan) kullanıcının durumuna göre yalnızca ilgili dersler çekilecek.
             return _dbContext.Subjects.ToList();
         }
 

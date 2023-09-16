@@ -171,7 +171,7 @@ export function SessionForm({
         return <>
             <div className="subjectDropdown">
                 <div className="mb-3">
-                    <label htmlFor="subject" className="form-label">Ders:</label>
+                    <label htmlFor="subject" className="form-label">Ders :</label>
                     <select className="form-select" value={formData.subjectId > 0 && formData.subjectId} id="subject" onChange={handleSubjectChange} >
                         <option value="">Seçiniz</option>
                         {subjects && subjects.map(s => (
@@ -366,7 +366,7 @@ export function SessionForm({
                     {/*<SubjectDropdown />*/}
                     <div className="subjectDropdown">
                         <div className="mb-3">
-                            <label htmlFor="subject" className="form-label">Ders:</label>
+                            <label htmlFor="subject" className="form-label">Ders :</label>
                             <select className="form-select" value={formData.subjectId > 0 && formData.subjectId} id="subject" onChange={handleSubjectChange} >
                                 <option value="">Seçiniz</option>
                                 {subjects && subjects.map(s => (

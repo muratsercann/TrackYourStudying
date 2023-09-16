@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbManagement.Migrations
 {
     [DbContext(typeof(TrackYourStudyContext))]
-    [Migration("20230915214754_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230916195853_AddUserNameToStudySessionTable")]
+    partial class AddUserNameToStudySessionTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,13 +34,13 @@ namespace DbManagement.Migrations
                     b.Property<int>("InCorrect")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Net")
+                    b.Property<decimal?>("Net")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Score")
+                    b.Property<decimal?>("Score")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UnAnswered")
+                    b.Property<int?>("UnAnswered")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
@@ -63,7 +63,7 @@ namespace DbManagement.Migrations
                     b.Property<int>("InCorrect")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Net")
+                    b.Property<decimal?>("Net")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PracticeTestId")
@@ -72,7 +72,7 @@ namespace DbManagement.Migrations
                     b.Property<int>("PracticeTestSubjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UnAnswered")
+                    b.Property<int?>("UnAnswered")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -87,7 +87,6 @@ namespace DbManagement.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
@@ -96,7 +95,7 @@ namespace DbManagement.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NumberOfQuestion")
+                    b.Property<int?>("NumberOfQuestion")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Type")
@@ -114,50 +113,51 @@ namespace DbManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Correct")
+                    b.Property<int?>("Correct")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("DidTopicStudy")
+                    b.Property<bool?>("DidTopicStudy")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EndTime")
-                        .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("InCorrect")
+                    b.Property<int?>("InCorrect")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Net")
+                    b.Property<decimal?>("Net")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("SolvedQuestions")
+                    b.Property<int?>("SolvedQuestions")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("StartTime")
-                        .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StudyDurationMinutes")
+                    b.Property<int?>("StudyDurationMinutes")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("SubjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TopicId")
+                    b.Property<int?>("TopicId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UnAnswered")
+                    b.Property<int?>("UnAnswered")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -175,12 +175,10 @@ namespace DbManagement.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
@@ -189,8 +187,12 @@ namespace DbManagement.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Sequence")
+                    b.Property<int?>("Sequence")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(8)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -204,7 +206,6 @@ namespace DbManagement.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
@@ -213,7 +214,7 @@ namespace DbManagement.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Sequence")
+                    b.Property<int?>("Sequence")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("SubjectId")
@@ -232,34 +233,33 @@ namespace DbManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreationDate")
+                    b.Property<DateTime?>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ExamSubType")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ExamType")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("LastLoginDate")
+                    b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
@@ -269,17 +269,14 @@ namespace DbManagement.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserRole")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
@@ -297,15 +294,11 @@ namespace DbManagement.Migrations
                 {
                     b.HasOne("DbManagement.Models.Subject", "Subject")
                         .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubjectId");
 
                     b.HasOne("DbManagement.Models.Topic", "Topic")
                         .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TopicId");
 
                     b.Navigation("Subject");
 

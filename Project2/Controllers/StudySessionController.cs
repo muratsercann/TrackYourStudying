@@ -155,7 +155,7 @@ namespace TrackYourStudyingApp.Controllers
             }
 
             StudySession session = _sessionService.GetSession(id);
-
+            session.UserName = "esercan";//TODO : kullanıcı bilgisi burada geçilecek..
             session.Date = formData.Date;
             session.StartTime = formData.StartTime;
             session.EndTime = formData.EndTime;
