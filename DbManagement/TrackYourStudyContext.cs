@@ -15,6 +15,9 @@ public class TrackYourStudyContext : DbContext
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<Topic> Topics { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<PracticeTestSubject> PracticeTestSubjects { get; set; }
+    public DbSet<PracticeTest> PracticeTests { get; set; }
+    public DbSet<PracticeTestResult> PracticeTestResults { get; set; }
 
     public string DbPath { get; }
 

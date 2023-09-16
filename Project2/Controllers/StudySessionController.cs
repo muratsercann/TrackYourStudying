@@ -172,8 +172,8 @@ namespace TrackYourStudyingApp.Controllers
             public DateTime Date { get; set; }
             public string StartTime { get; set; }
             public string EndTime { get; set; }
-            public int? SubjectId { get; set; }
-            public int? TopicId { get; set; }
+            public int SubjectId { get; set; }
+            public int TopicId { get; set; }
             public int StudyDuration { get; set; }
             public int SolvedQuestions { get; set; }
             public bool DidTopicStudy { get; set; }

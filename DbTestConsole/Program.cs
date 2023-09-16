@@ -18,10 +18,10 @@ internal class Program
 
 
 
-        var tarihSoru = service.GetDateSolvedQuestionsStatistic();
-        var tarihSure = service.GetDateStudyDurationStatistic();
-        var konuSure = service.GetSubjectDurationStatistic();
-        var konuSoru = service.GetSubjectSolvedQuestionsStatistic();
+        //var tarihSoru = service.GetDateSolvedQuestionsStatistic();
+        //var tarihSure = service.GetDateStudyDurationStatistic();
+        //var konuSure = service.GetSubjectDurationStatistic();
+        //var konuSoru = service.GetSubjectSolvedQuestionsStatistic();
 
         //List<Topic> topics = repo.GetTopics();
         //using var db = new TrackYourStudyContext();
@@ -97,14 +97,14 @@ internal class Program
 
 
         List<Topic> allTopics = new List<Topic>();
-        List<Topic> tur = CreateTopics(SeedingData.TytTurkce_Topics, 1);
-        List<Topic> mat = CreateTopics(SeedingData.TytMatematik_Topics, 2);
-        List<Topic> geo = CreateTopics(SeedingData.TytGeometri_Topics, 3);
-        List<Topic> fiz = CreateTopics(SeedingData.TytFizik_Topics, 4);
-        List<Topic> kim = CreateTopics(SeedingData.TytKimya_Topics, 5);
-        List<Topic> biy = CreateTopics(SeedingData.TytBiyoloji_Topics, 6);
-        List<Topic> tar = CreateTopics(SeedingData.TytTarih_Topics, 7);
-        List<Topic> cog = CreateTopics(SeedingData.TytCografya_Topics, 8);
+        List<Topic> tur = CreateTopics(DbTestConsole.SeedingData.Topics.TytTurkce_Topics, 1);
+        List<Topic> mat = CreateTopics(DbTestConsole.SeedingData.Topics.TytMatematik_Topics, 2);
+        List<Topic> geo = CreateTopics(DbTestConsole.SeedingData.Topics.TytGeometri_Topics, 3);
+        List<Topic> fiz = CreateTopics(DbTestConsole.SeedingData.Topics.TytFizik_Topics, 4);
+        List<Topic> kim = CreateTopics(DbTestConsole.SeedingData.Topics.TytKimya_Topics, 5);
+        List<Topic> biy = CreateTopics(DbTestConsole.SeedingData.Topics.TytBiyoloji_Topics, 6);
+        List<Topic> tar = CreateTopics(DbTestConsole.SeedingData.Topics.TytTarih_Topics, 7);
+        List<Topic> cog = CreateTopics(DbTestConsole.SeedingData.Topics.TytCografya_Topics, 8);
 
         allTopics.AddRange(tur);
         allTopics.AddRange(mat);

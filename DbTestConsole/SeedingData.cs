@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
@@ -6,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace DbTestConsole
+namespace DbTestConsole.SeedingData
 {
-    internal class SeedingData
+    internal class Topics
     {
-        internal static string[] TytMatematik_Topics = new string[] {
+            internal static string[] TytMatematik_Topics = new string[] {
              "İşlem Yeteneği"
             ,"Temel Kavramlar"
             ,"Tek - Çift Sayılar"
@@ -35,8 +36,7 @@ namespace DbTestConsole
             ,"Deneme"
         };
 
-
-        internal static string[] TytTurkce_Topics = new string[] {
+            internal static string[] TytTurkce_Topics = new string[] {
 
              "Sözcükte Anlam"
             ,"Cümlede Anlam"
@@ -49,7 +49,7 @@ namespace DbTestConsole
             ,"Deneme"
         };
 
-        internal static string[] TytGeometri_Topics = new string[] {
+            internal static string[] TytGeometri_Topics = new string[] {
              "Açılar ve Üçgenler"
             ,"Çokgenler"
             ,"Yamuk"
@@ -64,8 +64,7 @@ namespace DbTestConsole
             ,"Karma"
         };
 
-
-        internal static string[] TytFizik_Topics = new string[]{
+            internal static string[] TytFizik_Topics = new string[]{
             "Fizik Bilimine Giriş"
             ,"Madde Ve Özellikleri"
             ,"Sıvıların Kaldırma Kuvveti"
@@ -84,7 +83,7 @@ namespace DbTestConsole
             ,"Karma"
         };
 
-        internal static string[] TytKimya_Topics = new string[]{
+            internal static string[] TytKimya_Topics = new string[]{
             "Kimya Bilimi"
             ,"Atomun Yapısı"
             ,"Periyodik Tablo"
@@ -99,7 +98,7 @@ namespace DbTestConsole
             ,"Karma"
         };
 
-        internal static string[] TytBiyoloji_Topics = new string[] {
+            internal static string[] TytBiyoloji_Topics = new string[] {
              "Canlıların Ortak Özellikleri"
             ,"Canlıların Temel Bileşenleri"
             ,"Hücre ve Organelleri"
@@ -113,7 +112,7 @@ namespace DbTestConsole
             ,"Karma"
         };
 
-        internal static string[] TytTarih_Topics = new string[] {
+            internal static string[] TytTarih_Topics = new string[] {
             "Tarih ve Zaman"
             ,"İlk ve Orta Çağlarda Türk Dünyası"
             ,"İslam Medeniyetinin Doğuşu"
@@ -130,8 +129,7 @@ namespace DbTestConsole
 
         };
 
-
-        internal static string[] TytCografya_Topics = new string[] {
+            internal static string[] TytCografya_Topics = new string[] {
              "Doğa ve İnsan"
             ,"Dünya’nın Şekli ve Hareketleri"
             ,"Coğrafi Konum"
@@ -154,7 +152,10 @@ namespace DbTestConsole
             ,"Deneme"
             ,"Karma"
         };
+    }
 
-
+    internal class Subjecs
+    {
+        
     }
 }
