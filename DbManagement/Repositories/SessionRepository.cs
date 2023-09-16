@@ -72,6 +72,7 @@ namespace DbManagement.Repositories
 
         public List<StudySessionByDate> GetStudySessionsByDate()
         {
+            //TODO : (msercan) Burada kullanıcıya göre de filtreleme yapılacak 
             List<StudySessionByDate> result = (from s in
                                         _dbContext.StudySessions.Include(s => s.Topic).ThenInclude(s => s.Subject)
                                                orderby s.StartTime, s.EndTime
