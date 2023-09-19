@@ -1,5 +1,6 @@
 ﻿using DbManagement.Repositories;
 using DbManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TrackYourStudyingApp.Controllers
@@ -15,13 +16,15 @@ namespace TrackYourStudyingApp.Controllers
             _topicService = new TopicService(repo);
         }
 
-        [HttpGet()]
+        [HttpGet]
+        [Authorize]
         public IEnumerable<DbManagement.Models.Topic> Get()
         {
             return _topicService.GetTopics();
         }
 
         [HttpGet("GetTopicsBySubjectId/{subjectId}")]
+        [Authorize]
         public IEnumerable<DbManagement.Models.Topic> GetTopicsBySubjectId(int subjectId)
         {
             return _topicService.GetTopics(subjectId);

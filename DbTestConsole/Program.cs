@@ -13,8 +13,8 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        using SessionRepository repo = new SessionRepository(new TrackYourStudyContext());
-        SessionService service = new SessionService(repo);
+        //using SessionRepository repo = new SessionRepository(new TrackYourStudyContext());
+        //SessionService service = new SessionService(repo);
 
 
 
@@ -35,21 +35,21 @@ internal class Program
     {
         try
         {
-            List<Subject> subjects = new List<Subject>();
-            subjects.Add(new Subject { Name = "Tyt Türkçe", Code = "TYTTUR" });
-            subjects.Add(new Subject { Name = "Tyt Matematik", Code = "TYTMAT" });
-            subjects.Add(new Subject { Name = "Tyt Geometri", Code = "TYTGEO" });
-            subjects.Add(new Subject { Name = "Tyt Fizik", Code = "TYTFIZ" });
-            subjects.Add(new Subject { Name = "Tyt Kimya", Code = "TYTKIM" });
-            subjects.Add(new Subject { Name = "Tyt Biyoloji", Code = "TYTBIY" });
-            subjects.Add(new Subject { Name = "Tyt Tarih", Code = "TYTTAR" });
-            subjects.Add(new Subject { Name = "Tyt Coğrafya", Code = "TYTCOG" });
+            //List<Subject> subjects = new List<Subject>();
+            //subjects.Add(new Subject { Name = "Tyt Türkçe", Code = "TYTTUR" });
+            //subjects.Add(new Subject { Name = "Tyt Matematik", Code = "TYTMAT" });
+            //subjects.Add(new Subject { Name = "Tyt Geometri", Code = "TYTGEO" });
+            //subjects.Add(new Subject { Name = "Tyt Fizik", Code = "TYTFIZ" });
+            //subjects.Add(new Subject { Name = "Tyt Kimya", Code = "TYTKIM" });
+            //subjects.Add(new Subject { Name = "Tyt Biyoloji", Code = "TYTBIY" });
+            //subjects.Add(new Subject { Name = "Tyt Tarih", Code = "TYTTAR" });
+            //subjects.Add(new Subject { Name = "Tyt Coğrafya", Code = "TYTCOG" });
 
 
-            using var repo = new DbManagement.Repositories.SubjectRepository(new TrackYourStudyContext());
-            repo.CreateSubjects(subjects);
+            ////using var repo = new DbManagement.Repositories.SubjectRepository(new TrackYourStudyContext());
+            //repo.CreateSubjects(subjects);
 
-            //kayıt işlemi için servise gidecek
+            ////kayıt işlemi için servise gidecek
 
 
         }
@@ -93,7 +93,7 @@ internal class Program
 
     private static void CreateTopics()
     {
-        using var repo = new TopicRepository(new TrackYourStudyContext());
+        //using var repo = new TopicRepository(new TrackYourStudyContext());
 
 
         List<Topic> allTopics = new List<Topic>();
@@ -115,7 +115,7 @@ internal class Program
         allTopics.AddRange(tar);
         allTopics.AddRange(cog);
 
-        repo.Create(allTopics);
+        //repo.Create(allTopics);
 
     }
 

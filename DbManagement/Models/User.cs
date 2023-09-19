@@ -18,8 +18,11 @@ namespace DbManagement.Models
         public string Username { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        public string Password { get; set; }
+        public string PasswordSalt { get; set; }
+
+        [Required]
+        public string PasswordHash { get; set; }
+
 
         [MaxLength(50)]
         public string? FirstName { get; set; }
@@ -52,6 +55,7 @@ namespace DbManagement.Models
 
         //Alan SAY,EA,SOZ gibi
         public string? ExamSubType { get; set; }
+       
     }
 }
 

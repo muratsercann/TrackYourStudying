@@ -2,11 +2,13 @@
 using DbManagement.Models;
 using DbManagement.Repositories;
 using DbManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using TrackYourStudyingApp.DTO;
 
 namespace TrackYourStudyingApp.Controllers
 {
@@ -28,12 +30,14 @@ namespace TrackYourStudyingApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public IEnumerable<StudySessionByDate> Get()
         {
             return _sessionService.GetStudySessionsByDate();
         }
 
         [HttpGet("GetDateStudyDurationStatistic")]
+        [Authorize]
         public IEnumerable<DateStudyDuration> GetDateStudyDurationStatistic()
         {
             var data = _sessionService.GetDateStudyDurationStatistic();
@@ -41,6 +45,7 @@ namespace TrackYourStudyingApp.Controllers
         }
 
         [HttpGet("GetDateSolvedQuestionsStatistic")]
+        [Authorize]
         public IEnumerable<DateSolvedQuestions> GetDateSolvedQuestionsStatistic()
         {
             var data = _sessionService.GetDateSolvedQuestionsStatistic();
@@ -48,6 +53,7 @@ namespace TrackYourStudyingApp.Controllers
         }
 
         [HttpGet("GetSubjectDurationStatistic")]
+        [Authorize]
         public IEnumerable<SubjectDuration> GetSubjectDurationStatistic()
         {
             var data = _sessionService.GetSubjectDurationStatistic();
@@ -56,6 +62,7 @@ namespace TrackYourStudyingApp.Controllers
 
 
         [HttpGet("GetSubjectSolvedQuestionsStatistic")]
+        [Authorize]
         public IEnumerable<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic()
         {
             var data = _sessionService.GetSubjectSolvedQuestionsStatistic();
@@ -65,6 +72,7 @@ namespace TrackYourStudyingApp.Controllers
         #endregion Charts Api
 
         [HttpDelete("DeleteSession/{id}")]
+        [Authorize]
         public IActionResult DeleteSession(int id)
         {
             bool result = _sessionService.DeleteSession(id);
@@ -108,6 +116,7 @@ namespace TrackYourStudyingApp.Controllers
         /// <param name="formData"></param>
         /// <returns></returns>
         [HttpPost("addNewSession")]
+        [Authorize]
         public IActionResult AddNewSession([FromBody] StudySessionDTO formData)
         {
             try
@@ -146,6 +155,7 @@ namespace TrackYourStudyingApp.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Update(int id, [FromBody] StudySessionDTO formData)
         {
             if (!_sessionService.Any(id))
@@ -172,24 +182,7 @@ namespace TrackYourStudyingApp.Controllers
             return Ok(new { message = "Güncelleme başarılı." });
         }
 
-        public class StudySessionDTO
-        {
-            public DateTime Date { get; set; }
-            public string StartTime { get; set; }
-            public string EndTime { get; set; }
-            public int? SubjectId { get; set; }
-            public int? TopicId { get; set; }
-            public int StudyDuration { get; set; }
-            public int SolvedQuestions { get; set; }
-            public bool DidTopicStudy { get; set; }
-
-            public int Correct { get; set; }
-
-            public int InCorrect { get; set; }
-            public int UnAnswered { get; set; }
-
-
-        }
+        
     }
 }
 

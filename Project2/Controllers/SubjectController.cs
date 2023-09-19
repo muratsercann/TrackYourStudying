@@ -1,6 +1,7 @@
 ﻿using DbManagement.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using DbManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TrackYourStudyingApp.Controllers
 {
@@ -16,6 +17,7 @@ namespace TrackYourStudyingApp.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<DbManagement.Models.Subject> Get()
         {
             return _subjectService.GetSubjects(); ;

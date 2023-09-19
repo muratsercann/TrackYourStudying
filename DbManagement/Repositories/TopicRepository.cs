@@ -10,7 +10,6 @@ namespace DbManagement.Repositories
     public class TopicRepository : ITopicRepository
     {
         private readonly TrackYourStudyContext _dbContext;
-        private bool disposedValue;
 
         public TopicRepository(TrackYourStudyContext dbContext)
         {
