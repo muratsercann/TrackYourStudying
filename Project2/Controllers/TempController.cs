@@ -1,18 +1,18 @@
 ﻿using DbManagement.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using DbManagement.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TrackYourStudyingApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SubjectController
+    public class TempController : Controller
     {
-        private readonly SubjectService _subjectService;
-
-        public SubjectController(ISubjectRepository repo)
+        private readonly ITempRepo _subjectService;
+        public TempController(ITempRepo repo)
         {
-            _subjectService = new SubjectService(repo);
+            //var repo = new SubjectRepository(new TrackYourStudyContext());
+            _subjectService = repo;
         }
 
         [HttpGet]
@@ -20,7 +20,5 @@ namespace TrackYourStudyingApp.Controllers
         {
             return _subjectService.GetSubjects(); ;
         }
-
     }
-    
 }

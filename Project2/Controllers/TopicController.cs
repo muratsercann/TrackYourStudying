@@ -10,9 +10,8 @@ namespace TrackYourStudyingApp.Controllers
     {
         private readonly TopicService _topicService;
 
-        public TopicController()
+        public TopicController(ITopicRepository repo)
         {
-            var repo = new TopicRepository(new TrackYourStudyContext());
             _topicService = new TopicService(repo);
         }
 

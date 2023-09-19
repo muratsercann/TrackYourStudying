@@ -17,9 +17,8 @@ namespace TrackYourStudyingApp.Controllers
 
         private readonly SessionService _sessionService;
 
-        public StudySessionController()
+        public StudySessionController(ISessionRepository repo)
         {
-            var repo = new SessionRepository(new TrackYourStudyContext());
             _sessionService = new SessionService(repo);
         }
 
