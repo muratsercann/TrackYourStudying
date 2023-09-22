@@ -15,13 +15,19 @@ export class NavMenu extends Component {
         };
     }
 
-    toggleNavbar() { 
+    toggleNavbar() {
         this.setState({
             collapsed: !this.state.collapsed
         });
     }
 
     render() {
+
+        const handleSignOut = () => {
+            this.props.clearToken();
+        };
+
+
         return (
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-dark border-bottom box-shadow mb-3" container dark>
@@ -31,16 +37,6 @@ export class NavMenu extends Component {
                         <ul className="navbar-nav flex-grow">
                             {/*<NavItem>*/}
                             {/*    <NavLink tag={Link} className="text-white" to="/">Home</NavLink>*/}
-                            {/*</NavItem>*/}
-                            {/*<NavItem>*/}
-                            {/*    <NavLink tag={Link} className="text-white" to="/counter">Counter</NavLink>*/}
-                            {/*</NavItem>*/}
-                            {/*<NavItem>*/}
-                            {/*    <NavLink tag={Link} className="text-white" to="/fetch-data">Fetch data</NavLink>*/}
-                            {/*</NavItem>*/}
-                            {/*<NavItem>*/}
-                            {/*    <NavLink tag={Link} className="text-white" to="/get-sessions">Get Sessions</NavLink>*/}
-                            {/*</NavItem>*/}
                             <NavItem>
                                 <NavLink tag={Link} className="text-white" to="/sessions">Çalışmalar</NavLink>
                             </NavItem>
@@ -50,7 +46,11 @@ export class NavMenu extends Component {
                             <NavItem>
                                 <NavLink tag={Link} className="text-white">Denemeler</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} onClick={handleSignOut} className="text-white" >Çıkış</NavLink>
+                            </NavItem>
                         </ul>
+
                     </Collapse>
                 </Navbar>
             </header>

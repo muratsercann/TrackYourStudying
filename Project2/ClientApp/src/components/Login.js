@@ -1,11 +1,11 @@
 ﻿import React, { useState } from "react"
-import { Redirect, Route, Routes, Navigate, redirect } from 'react-router-dom';
-export function Login() {
+
+export function Login({ setToken }) {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [token, setToken] = useState("");
     function handleSubmit(e){
         e.preventDefault();
+        handleLogin();
     }
 
     async function handleLogin() {
@@ -40,10 +40,6 @@ export function Login() {
         setPassword(e.target.value);
     }
 
-    if (localStorage.getItem('token') !== null) {
-        return <Navigate to="/sessions" />;
-    }
-
     return <>
         <div className="container mt-5">
             <div className="row justify-content-center">
@@ -60,7 +56,7 @@ export function Login() {
                                     <label htmlFor="password">Parola:</label>
                                     <input type="password" className="form-control" id="password" onChange={handlePasswordChange} placeholder="Parola" />
                                 </div>
-                                <button type="submit" className="btn btn-primary" onClick={handleLogin}>Giriş Yap </button>
+                                <button type="submit" className="btn btn-primary">Giriş Yap </button>
                             </form>
                         </div>
                     </div>

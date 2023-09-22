@@ -18,10 +18,6 @@ const AppRoutes = [
         path: '/graphics',
         element: <Charts />
     },
-    {
-        path: '/login', 
-        element: <Login />
-    }
 ];
 
 export default AppRoutes;

@@ -407,9 +407,9 @@ export function SessionForm({
                     </div>
                     <div>
                         <div className="mb-3 questionCountInput">
-                            <div class="row">
+                            <div className="row">
                                 <div className="col">
-                                    <input type="number" className="form-control" id="questionCount" placeHolder="Soru" onChange={handleQuestionCountChange} value={(() => {
+                                    <input type="number" className="form-control" id="questionCount" placeholder="Soru" onChange={handleQuestionCountChange} value={(() => {
                                         if (formData.solvedQuestions > 0) {
                                             return formData.solvedQuestions;
                                         }

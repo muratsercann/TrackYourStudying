@@ -8,12 +8,12 @@ import { Main } from './ReactPlayGround/Main'
 import { DropdownTest } from './ReactPlayGround/DropdownTest'
 import { Charts } from './Charts'
 
-export function Layout({ children }) {
+export function Layout({ clearToken, children }) {
 
 
     return (
         <div>
-            <NavMenu />
+            <NavMenu clearToken={clearToken} />
             <Container tag="main">
                 {children}
             </Container>
