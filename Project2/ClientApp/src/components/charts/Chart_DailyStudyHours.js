@@ -12,7 +12,14 @@ export function Chart_DailyStudyHours() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getDateStudyDurationStatistic'); // API URL'i burada olmalı
+        const response = await fetch('studysession/getDateStudyDurationStatistic', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
         console.log("Date - Duration Chart Data :");
         console.log(data);

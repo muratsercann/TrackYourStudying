@@ -1,13 +1,14 @@
 ﻿using DbManagement.Repositories;
 using DbManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrackYourStudyingApp.DTO;
 
 namespace TrackYourStudyingApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class UserController : Controller
+    [Route("[controller]")]//setupProxy.js/context içerisine 'user' eklenmesi gerekli
+    public class UserController : ControllerBase
     {
         private IConfiguration? _config;
         private readonly UserService _userService;
@@ -18,6 +19,7 @@ namespace TrackYourStudyingApp.Controllers
             _config = config;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO resourceDTO, CancellationToken cancellationToken)
         {
@@ -39,6 +41,7 @@ namespace TrackYourStudyingApp.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginResourceDTO resourceDTO, CancellationToken cancellationToken)
         {
@@ -60,11 +63,5 @@ namespace TrackYourStudyingApp.Controllers
             }
         }
 
-
-        [HttpGet("login2")]
-        public IActionResult Login2()
-        {
-            return Ok("Login2 başarılı");
-        }
     }
 }

@@ -98,14 +98,28 @@ export function SessionForm({
             return;
         }
 
-        const response = await fetch('topic/getTopicsBySubjectId/' + selectedSubject.id); // API URL'i burada olmalı
+        const response = await fetch('topic/getTopicsBySubjectId/' + selectedSubject.id, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
         console.log("Seçilen Ders konuları :");
         console.log(data);
         setTopics(data);
     }
     async function populateSubject() {
-        const response = await fetch('subject'); // API URL'i burada olmalı
+        const response = await fetch('subject', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
         setSubjects(data);
         setLoading(false);
@@ -448,6 +462,7 @@ export function SessionForm({
                 const response = await fetch(`studysession/${session.id}`, {
                     method: 'PUT', // Veya 'POST' olarak ayarlayabilirsiniz
                     headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData),
@@ -473,6 +488,7 @@ export function SessionForm({
                 const response = await fetch('/studysession/addNewSession', {
                     method: 'POST',
                     headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData),

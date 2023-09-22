@@ -24,17 +24,18 @@ namespace TrackYourStudyingApp.Controllers
             _sessionService = new SessionService(repo);
         }
 
-        #region Charts Api
-        /// <summary>
-        /// Hangi tarihte hangi derslerin çalışıldığı bilgisini sunar
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Authorize]
         public IEnumerable<StudySessionByDate> Get()
         {
             return _sessionService.GetStudySessionsByDate();
         }
+
+        #region Charts Api
+        /// <summary>
+        /// Hangi tarihte hangi derslerin çalışıldığı bilgisini sunar
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet("GetDateStudyDurationStatistic")]
         [Authorize]

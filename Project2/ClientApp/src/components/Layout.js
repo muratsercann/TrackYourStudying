@@ -8,19 +8,17 @@ import { Main } from './ReactPlayGround/Main'
 import { DropdownTest } from './ReactPlayGround/DropdownTest'
 import { Charts } from './Charts'
 
-export class Layout extends Component {
-    static displayName = Layout.name;
+export function Layout({ children }) {
 
-    render() {
-        return (
-            <div>
-                <NavMenu />
-                <Container tag="main">
-                    {this.props.children}
-                </Container>
-            </div>
-        );
-    }
+
+    return (
+        <div>
+            <NavMenu />
+            <Container tag="main">
+                {children}
+            </Container>
+        </div>
+    );
 }
 
 

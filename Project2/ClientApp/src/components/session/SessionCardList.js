@@ -1,14 +1,14 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { SessionCard } from './SessionCard';
 import { SessionForm } from '../forms/SessionForm.js';
-
+import { Redirect, Route, Routes, Navigate, redirect } from 'react-router-dom';
 export function SessionCardList() {
-
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isReload, setIsReload] = useState(false);
     const [addButtonVisibility, setAddButtonVisibility] = useState(true);
     const [isSessionFormOpen, setIsSessionFormOpen] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
 
     let reloadSessions = function () {
         setLoading(true);
@@ -60,12 +60,26 @@ export function SessionCardList() {
 
     useEffect(() => {
         //burda if(isReload) { populateSessions }şeklinde yapılabilir. 
-        populateSessions();
+        if (localStorage.getItem('token') !== null) {
+            setIsAuthorized(true);
+            populateSessions();
+        }
+        else {
+
+        }
+               
     }, [isReload]);
 
 
     async function populateSessions() {
-        const response = await fetch('studysession');//change with getSessions
+        const response = await fetch('studysession', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
 
         console.log("in SessionCardList, await fetch('studysession') -> sessions by date :  ");

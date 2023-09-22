@@ -12,7 +12,14 @@ export function Chart_SubjectQuestion() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getSubjectSolvedQuestionsStatistic'); // API URL'i burada olmalı
+        const response = await fetch('studysession/getSubjectSolvedQuestionsStatistic', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
         console.log("Subject - Question Chart Data :");
         console.log(data);

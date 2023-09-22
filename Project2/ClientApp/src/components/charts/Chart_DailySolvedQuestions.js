@@ -13,7 +13,14 @@ export function Chart_DailySolvedQuestions() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getDateSolvedQuestionsStatistic'); // API URL'i burada olmalı
+        const response = await fetch('studysession/getDateSolvedQuestionsStatistic', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
         console.log("Date - Question Chart Data :");
         console.log(data);

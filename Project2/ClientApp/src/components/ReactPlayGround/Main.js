@@ -37,7 +37,14 @@ export function Main() {
     }, []);
 
     async function populateData() {
-        const response = await fetch('subject'); // API URL'i burada olmalı
+        const response = await fetch('subject', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
+
+        });
         const data = await response.json();
         setSubjects(data);
         setLoading(false);

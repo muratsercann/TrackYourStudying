@@ -2,6 +2,7 @@ import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Charts } from "./components/Charts";
 import { Home } from "./components/Home";
+import { Login } from "./components/Login";
 import { SessionCardList } from "./components/session/SessionCardList";
 
 const AppRoutes = [
@@ -16,6 +17,10 @@ const AppRoutes = [
     {
         path: '/graphics',
         element: <Charts />
+    },
+    {
+        path: '/login', 
+        element: <Login />
     }
 ];
 

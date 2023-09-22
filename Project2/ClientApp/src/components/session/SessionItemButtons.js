@@ -21,6 +21,10 @@ export function SessionItemButtons({ session, reloadSessions, changeAddButtonVis
 
         const response = await fetch('studysession/deletesession/' + session.id, {
             method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+            },
         });
 
         if (response.ok) {
