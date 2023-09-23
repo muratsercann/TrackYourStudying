@@ -1,7 +1,7 @@
 ﻿import Modal from 'react-modal';
 import React, { useState, useEffect } from 'react';
-
-
+import { Route, Routes, Navigate, redirect } from 'react-router-dom';
+import utils from '../../utils.js'
 // Modal stilini özelleştirin
 const customStyles = {
     content: {
@@ -98,35 +98,39 @@ export function SessionForm({
             return;
         }
 
-        const response = await fetch('topic/getTopicsBySubjectId/' + selectedSubject.id, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
+        const response = await utils.apiRequest.topic.topicsBySubjectId(selectedSubject.id);
 
-        });
-        const data = await response.json();
-        console.log("Seçilen Ders konuları :");
-        console.log(data);
-        setTopics(data);
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Seçilen Ders konuları :");
+            console.log(data);
+            setTopics(data);
+        }
+        else {
+           console.error( "populate topics error", response );
+        }
+
+
     }
     async function populateSubject() {
-        const response = await fetch('subject', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
+        const response = await utils.apiRequest.subject.subjects();
 
-        });
-        const data = await response.json();
-        setSubjects(data);
+        if (response.ok) {
+            const data = await response.json();
+            setSubjects(data);
+
+            if (session) {
+                setSelectedSubject(data.filter(subject => subject.id === session.subjectId)[0]);
+            }
+        }
+
+        else {
+            console.error("populate subjects error", response );
+        }
+
         setLoading(false);
 
-        if (session) {
-            setSelectedSubject(data.filter(subject => subject.id === session.subjectId)[0]);
-        }
+
     }
     function DateSelector() {
 
@@ -459,23 +463,22 @@ export function SessionForm({
 
         const updateSession = async () => {
             try {
-                const response = await fetch(`studysession/${session.id}`, {
-                    method: 'PUT', // Veya 'POST' olarak ayarlayabilirsiniz
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
+
+                const response = await utils.apiRequest.session.updateSession(session.id, formData);
 
                 if (response.ok) {
                     // Veri güncelleme başarılı oldu
                     console.log('Veri güncellendi.');
                     reloadSessions();
                     // Veriyi yeniden yükleme veya kullanıcı arabiriminizi güncelleme
-                } else {
+                } else if (response.status === 401) {//UnAuthorized
+                    alert("Yetki hatası. Tekar giriş yapın!");
+                    window.location.reload(false);
+                }
+
+                else {
                     // Veri güncelleme başarısız oldu
-                    console.error('Veri güncelleme başarısız oldu.');
+                    console.error("Veri güncelleme başarısız oldu." , response);
                 }
             } catch (error) {
                 console.error('Bir hata oluştu:', error);
@@ -485,22 +488,19 @@ export function SessionForm({
         const handleSubmit = async () => {
 
             try {
-                const response = await fetch('/studysession/addNewSession', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
+                const response = await utils.apiRequest.session.newSession(formData);
 
                 if (response.ok) {
                     alert("Kayıt Başarılı");
                     reloadSessions();
 
                     // Başarılı durum işlemleri
+                } else if (response.status === 401) {//UnAuthorized
+                    alert("Yetki hatası. Tekar giriş yapın!");
+                    window.location.reload(false);
                 } else {
                     alert("Kayıt Başarısız");
+                    console.error("Kayıt Başarısız" , response );
                     // Hata durum işlemleri
                 }
             } catch (error) {

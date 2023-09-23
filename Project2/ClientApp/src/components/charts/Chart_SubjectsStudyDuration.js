@@ -12,20 +12,20 @@ export function Chart_SubjectsStudyDuration() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getSubjectDurationStatistic', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
+        const response = await utils.apiRequest.chart.subjectStudyDuration();
 
-        });
-        const data = await response.json();
-        console.log("Subject - Duration Chart Data :");
-        console.log(data);
-        setData(data);
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Subject - Duration Chart Data :");
+            console.log(data);
+            setData(data);
+        }
+
+        else {
+            console.error("SubjectStudyDurationError", response);
+        }
     }
- 
+
 
     const options = {
         theme: "dark2",

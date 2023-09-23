@@ -12,18 +12,18 @@ export function Chart_DailyStudyHours() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getDateStudyDurationStatistic', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
+        const response = await utils.apiRequest.chart.dailyStudyDuration();
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Date - Duration Chart Data :");
+            console.log(data);
+            setData(data);
+        }
 
-        });
-        const data = await response.json();
-        console.log("Date - Duration Chart Data :");
-        console.log(data);
-        setData(data);
+        else {
+            console.error( "DailyStudyDurationError", response );
+        }
+        
     }
 
     const options = {

@@ -1,5 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { SessionForm } from '../forms/SessionForm';
+import utils from '../../utils';
 
 
 export function SessionItemButtons({ session, reloadSessions, changeAddButtonVisibility }) {
@@ -19,18 +20,16 @@ export function SessionItemButtons({ session, reloadSessions, changeAddButtonVis
         console.log("silinecek session : ");
         console.log(session);
 
-        const response = await fetch('studysession/deletesession/' + session.id, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await utils.apiRequest.session.deleteSession(session.id);
 
         if (response.ok) {
             alert("Silme işlemi başarılı.");
             reloadSessions();
-        } else {
+        } else if (response.status === 401) {//UnAuthorized
+            alert("Yetki hatası. Giriş sayfasına yönlendiriliyor..!");
+            window.location.reload(false);
+        }
+        else {
             alert("Silme işlemi başarısız.");
         }
     }

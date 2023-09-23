@@ -63,5 +63,11 @@ namespace TrackYourStudyingApp.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult Get()
+        {
+            return Ok("Token is valid");
+        }
     }
 }

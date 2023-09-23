@@ -1,4 +1,5 @@
 ﻿import React, { useState } from "react"
+import utils from "../utils";
 
 export function Login({ setToken }) {
     const [username, setUserName] = useState("");
@@ -9,24 +10,19 @@ export function Login({ setToken }) {
     }
 
     async function handleLogin() {
-        const response = await fetch('/user/login', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            }),
-        });
-
-        const data = await response.json();
+        const response = await utils.apiRequest.user.login(username, password);
+                
         console.log("login response : ");
         console.log(response);
-        if (response.ok && data.token) {
+
+        if (response.ok) {
+            const data = await response.json();
             localStorage.setItem('token', data.token);     
             setToken(data.token);
+        }
+        else if (response.status === 400) {//BadRequest
+            alert("Hatalı giriş !");//TODO: msercan Tüm hata mesajları tek bir yerden kontrol edilsin. Alert için ayrı birşey yap
+
         }
         //localStorage.removeItem('myData');
         //localStorage.getItem('token');

@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { SessionCard } from './SessionCard';
 import { SessionForm } from '../forms/SessionForm.js';
-import { Redirect, Route, Routes, Navigate, redirect } from 'react-router-dom';
+import  utils  from '../../utils.js'
+
 export function SessionCardList() {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -72,31 +73,31 @@ export function SessionCardList() {
 
 
     async function populateSessions() {
-        const response = await fetch('studysession', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
+        var response = await utils.apiRequest.session.sessions();
+        if (response.ok) {
 
-        });
-        const data = await response.json();
+            const data = await response.json();
 
-        console.log("in SessionCardList, await fetch('studysession') -> sessions by date :  ");
-        console.log(data);
+            console.log("in SessionCardList, await fetch('studysession') -> sessions by date :  ");
+            console.log(data);
 
-        setSessions(data);
-        setLoading(false);
+            setSessions(data);
+            setLoading(false);
+        }
 
+        else {
+            console.error( 'popuplateSessions error! response' , response );
+        }
     }
 
-    const openSessionForm = () => {
+    const openSessionForm = (e) => {
+        e.preventDefault();
         setIsSessionFormOpen(true);
     };
 
     const AddNewSessionButton = () => {
         return <>
-            <a href="#" className="floating-button" onClick={openSessionForm}>+</a>
+            <a href="" className="floating-button" onClick={openSessionForm}>+</a>
         </>
     };
 

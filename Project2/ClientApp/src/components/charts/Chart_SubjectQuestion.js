@@ -12,18 +12,19 @@ export function Chart_SubjectQuestion() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getSubjectSolvedQuestionsStatistic', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
+        const response = await utils.apiRequest.chart.subjectSolvedQuestion();
 
-        });
-        const data = await response.json();
-        console.log("Subject - Question Chart Data :");
-        console.log(data);
-        setData(data);
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Subject - Question Chart Data :");
+            console.log(data);
+            setData(data);
+        }
+
+        else {
+            console.error( "subjectSolvedQuestionError", response );
+        }
+       
     }
 
     const options = {

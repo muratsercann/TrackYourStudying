@@ -13,18 +13,17 @@ export function Chart_DailySolvedQuestions() {
 
     async function populateChartData() {
 
-        const response = await fetch('studysession/getDateSolvedQuestionsStatistic', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
-
-        });
-        const data = await response.json();
-        console.log("Date - Question Chart Data :");
-        console.log(data);
-        setData(data);
+        const response = await utils.apiRequest.chart.dailySolvedQuestion();
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Date - Question Chart Data :");
+            console.log(data);
+            setData(data);
+        }
+        else {
+            console.error( "DailySolvedQuestionError", response );
+        }
+        
     }
 
 
