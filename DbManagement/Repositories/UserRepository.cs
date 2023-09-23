@@ -36,6 +36,15 @@ namespace DbManagement.Repositories
             {
                 Username = resource.Username,
                 Email = resource.Email,
+                CreationDate = DateTime.Now,
+                DateOfBirth = resource.DateOfBirth,
+                ExamType = resource.ExamType,
+                ExamSubType = resource.ExamSubType,
+                FirstName = resource.FirstName,
+                LastName = resource.LastName,
+                PhoneNumber = resource.PhoneNumber,
+                ProfilePictureUrl = resource.ProfilePictureUrl,
+                UserRole = resource.UserRole,
                 PasswordSalt = PasswordHasher.GenerateSalt()
             };
             user.PasswordHash = PasswordHasher.ComputeHash(resource.Password, user.PasswordSalt, _pepper, _iteration);
@@ -43,7 +52,13 @@ namespace DbManagement.Repositories
             await _dbContext.Users.AddAsync(user, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return new UserResource() { Id = user.Id, Username = user.Username, Email = user.Email };
+            return new UserResource() { 
+                Id = user.Id, 
+                Username = user.Username, 
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PictureUrl = user.ProfilePictureUrl,
+                Email = user.Email };
         }
 
         public async Task<UserResource> Login(LoginResource resource, CancellationToken cancellationToken, IConfiguration config)
@@ -61,6 +76,9 @@ namespace DbManagement.Repositories
             return new UserResource() { 
                 Id = user.Id, 
                 Username = user.Username, 
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PictureUrl = user.ProfilePictureUrl,
                 Email = user.Email, 
                 Token = token };
         }
