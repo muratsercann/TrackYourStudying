@@ -37,7 +37,7 @@ namespace TrackYourStudyingApp.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new { ErrorMessage = e.Message });
+                return BadRequest($"Bir hata oluştu : {e}");
             }
         }
 
@@ -59,7 +59,7 @@ namespace TrackYourStudyingApp.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new { ErrorMessage = e.Message });
+                return BadRequest($"Bir hata oluştu : {e}");
             }
         }
 

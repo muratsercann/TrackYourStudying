@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections;
+using System.Linq.Expressions;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using TrackYourStudyingApp.DTO;
@@ -16,19 +17,55 @@ namespace TrackYourStudyingApp.Controllers
     [Route("[controller]")]
     public class StudySessionController : ControllerBase
     {
-
+        private IConfiguration? _config;
         private readonly SessionService _sessionService;
 
-        public StudySessionController(ISessionRepository repo)
+        private string getUsername(HttpContext? httpContext)
         {
-            _sessionService = new SessionService(repo);
+            try
+            {
+                if (httpContext?.User != null)
+                {
+                    return httpContext.User.Claims.ToList().First(x => x.Type == "UserName").Value;
+                }
+
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
+        public StudySessionController(IConfiguration config, ISessionRepository repo)
+        {
+            try
+            {
+                _sessionService = new SessionService(repo);
+                _config = config;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         [HttpGet]
         [Authorize]
-        public IEnumerable<StudySessionByDate> Get()
+        public IEnumerable<StudySessionByDate> Get(CancellationToken cancellationToken)
         {
-            return _sessionService.GetStudySessionsByDate();
+            try
+            {
+                string username = getUsername(HttpContext);
+                return _sessionService.GetStudySessionsByDate(username);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         #region Charts Api
@@ -41,24 +78,51 @@ namespace TrackYourStudyingApp.Controllers
         [Authorize]
         public IEnumerable<DateStudyDuration> GetDateStudyDurationStatistic()
         {
-            var data = _sessionService.GetDateStudyDurationStatistic();
-            return data;
+            try
+            {
+                string username = getUsername(HttpContext);
+                var data = _sessionService.GetDateStudyDurationStatistic(username);
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         [HttpGet("GetDateSolvedQuestionsStatistic")]
         [Authorize]
         public IEnumerable<DateSolvedQuestions> GetDateSolvedQuestionsStatistic()
         {
-            var data = _sessionService.GetDateSolvedQuestionsStatistic();
-            return data;
+            try
+            {
+                string username = getUsername(HttpContext);
+                var data = _sessionService.GetDateSolvedQuestionsStatistic(username);
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         [HttpGet("GetSubjectDurationStatistic")]
         [Authorize]
         public IEnumerable<SubjectDuration> GetSubjectDurationStatistic()
         {
-            var data = _sessionService.GetSubjectDurationStatistic();
-            return data;
+            try
+            {
+                string username = getUsername(HttpContext);
+                var data = _sessionService.GetSubjectDurationStatistic(username);
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
 
@@ -66,26 +130,50 @@ namespace TrackYourStudyingApp.Controllers
         [Authorize]
         public IEnumerable<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic()
         {
-            var data = _sessionService.GetSubjectSolvedQuestionsStatistic();
-            return data;
+            try
+            {
+                string username = getUsername(HttpContext);
+                var data = _sessionService.GetSubjectSolvedQuestionsStatistic(username);
+                return data;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         #endregion Charts Api
 
         [HttpDelete("DeleteSession/{id}")]
         [Authorize]
-        public IActionResult DeleteSession(int id)
+        public IActionResult DeleteSession(int id, CancellationToken cancellationToken)
         {
-            bool result = _sessionService.DeleteSession(id);
+            try
+            {
+                string username = getUsername(HttpContext);
 
-            if (result)// if (!result || db.StudySessions.Where(s => s.Id == 1).Any())
-            {
-                return Ok($"Deleted session with id : {id}");
+                if (!_sessionService.Any(id, username))
+                {
+                    return BadRequest($"Kullanıcı adı : {username} olan böyle bir çalışma kaydı bulunamadı !");
+                }
+
+                bool result = _sessionService.DeleteSession(id);
+
+                if (result)// if (!result || db.StudySessions.Where(s => s.Id == 1).Any())
+                {
+                    return Ok($"Deleted session with id : {id}");
+                }
+                else
+                {
+                    return BadRequest($"Cannot delete session with id : {id}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest($"Cannot delete session with id : {id}");
+                return BadRequest($"Bir hata oluştu: {ex}");
             }
+
         }
 
         private int CalculateMinutes(string time1, string time2)
@@ -118,12 +206,14 @@ namespace TrackYourStudyingApp.Controllers
         /// <returns></returns>
         [HttpPost("addNewSession")]
         [Authorize]
-        public IActionResult AddNewSession([FromBody] StudySessionDTO formData)
+        public IActionResult AddNewSession([FromBody] StudySessionDTO formData, CancellationToken cancellationToken)
         {
             try
             {
-                StudySession session = new StudySession();
+                string username = getUsername(HttpContext);
 
+                StudySession session = new StudySession();
+                session.UserName = username;
                 session.Date = formData.Date.Date;
                 session.StartTime = formData.StartTime;
                 session.EndTime = formData.EndTime;
@@ -144,7 +234,7 @@ namespace TrackYourStudyingApp.Controllers
             catch (Exception ex)
             {
                 // Hata durumu
-                return BadRequest(new { error = "Bir hata oluştu: " + ex.Message });
+                return BadRequest($"Bir hata oluştu: {ex}");
             }
         }
 
@@ -157,33 +247,41 @@ namespace TrackYourStudyingApp.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize]
-        public IActionResult Update(int id, [FromBody] StudySessionDTO formData)
+        public IActionResult Update(int id, [FromBody] StudySessionDTO formData, CancellationToken cancellationToken)
         {
-            if (!_sessionService.Any(id))
+            try
             {
-                return NotFound(new { error = $"Güncelleme yapabilmek için  - ID = {id} - olan bir session bilgisi bulunamadı !" });
+                string username = getUsername(HttpContext);
+                if (!_sessionService.Any(id, username))
+                {
+                    return NotFound(new { error = $"Güncelleme yapabilmek için {username} kullanıcısına ait - ID = {id} - olan bir çalışma kaydı bulunamadı !" });
+                }
+
+                StudySession session = _sessionService.GetSession(id);
+                session.UserName = username;
+                session.Date = formData.Date;
+                session.StartTime = formData.StartTime;
+                session.EndTime = formData.EndTime;
+                session.SubjectId = formData.SubjectId == 0 ? null : formData.SubjectId;
+                session.TopicId = formData.TopicId == 0 ? null : formData.TopicId;
+                session.SolvedQuestions = formData.SolvedQuestions;
+                session.Correct = formData.Correct;
+                session.InCorrect = formData.InCorrect;
+                session.UnAnswered = formData.UnAnswered;
+                session.DidTopicStudy = formData.DidTopicStudy;
+                session.StudyDurationMinutes = CalculateMinutes(formData.StartTime, formData.EndTime);
+
+                _sessionService.UpdateSession(session);
+
+                return Ok(new { message = "Güncelleme başarılı." });
             }
-
-            StudySession session = _sessionService.GetSession(id);
-            session.UserName = "esercan";//TODO : kullanıcı bilgisi burada geçilecek..
-            session.Date = formData.Date;
-            session.StartTime = formData.StartTime;
-            session.EndTime = formData.EndTime;
-            session.SubjectId = formData.SubjectId == 0 ? null : formData.SubjectId;
-            session.TopicId = formData.TopicId == 0 ? null : formData.TopicId;
-            session.SolvedQuestions = formData.SolvedQuestions;
-            session.Correct = formData.Correct;
-            session.InCorrect = formData.InCorrect;
-            session.UnAnswered = formData.UnAnswered;
-            session.DidTopicStudy = formData.DidTopicStudy;
-            session.StudyDurationMinutes = CalculateMinutes(formData.StartTime, formData.EndTime);
-
-            _sessionService.UpdateSession(session);
-
-            return Ok(new { message = "Güncelleme başarılı." });
+            catch (Exception ex)
+            {
+                return BadRequest($"Bir hata oluştu: {ex}");
+            }
         }
 
-        
+
     }
 }
 

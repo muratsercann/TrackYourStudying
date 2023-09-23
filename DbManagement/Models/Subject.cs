@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,11 @@ namespace DbManagement.Models
         [MaxLength(200)]
         [Required]
         public string Name { get; set; }
+
+        [NotMapped]
+        public string LongName { get {
+                return $"{(Type.Contains("AYT") ? "AYT" : Type)} {Name}";
+            } }
 
         [MaxLength(50)]         
         public string? Code { get; set; }

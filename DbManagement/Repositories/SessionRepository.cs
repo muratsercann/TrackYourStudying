@@ -34,7 +34,7 @@ namespace DbManagement.Repositories
 
         public void CreateSessions(List<StudySession> sessions)
         {
-            throw new NotImplementedException();  
+            throw new NotImplementedException();
         }
 
         public bool DeleteSession(int id)
@@ -62,12 +62,45 @@ namespace DbManagement.Repositories
 
             return session;
         }
-
+        public bool Any(int id, string username)
+        {
+            return _dbContext.StudySessions.Where(session => session.Id == id && session.UserName == username).Any();
+        }
         public List<StudySession> GetSessions()
         {
             var sessions = _dbContext.StudySessions.Include(s => s.Topic).ThenInclude(s => s.Subject).ToList();
 
             return sessions;
+        }
+
+        public List<StudySession> GetSessions(string username)
+        {
+            var sessions = _dbContext.StudySessions.Include(s => s.Topic).ThenInclude(s => s.Subject).Where(s => s.UserName == username).ToList();
+
+            return sessions;
+        }
+
+        public List<StudySessionByDate> GetStudySessionsByDate(string username)
+        {
+            //TODO : (msercan) Burada kullanıcıya göre de filtreleme yapılacak 
+            List<StudySessionByDate> result = (from s in
+                                        _dbContext.StudySessions.Include(s => s.Topic).ThenInclude(s => s.Subject).Where(s => s.UserName == username)
+                                               orderby s.StartTime, s.EndTime
+                                               group s by s.Date.Date into newGroup
+                                               orderby newGroup.Key descending
+                                               select
+                                               new StudySessionByDate
+                                               {
+
+                                                   Date = newGroup.Key,
+                                                   Sessions = newGroup.ToList(),
+                                                   TotalSolvedQuestion =
+                                                   newGroup.Sum(x => x.SolvedQuestions),
+                                                   TotalDurationMinutes =
+                                                   newGroup.Sum(x => x.StudyDurationMinutes)
+                                               }).ToList();
+
+            return result;
         }
 
         public List<StudySessionByDate> GetStudySessionsByDate()
@@ -101,9 +134,10 @@ namespace DbManagement.Repositories
 
         #region İstatistiksel Metodlar
 
-        public List<DateStudyDuration> GetDateStudyDurationStatistic()
+        public List<DateStudyDuration> GetDateStudyDurationStatistic(string username)
         {
             List<DateStudyDuration> result = (from s in _dbContext.StudySessions
+                                              where s.UserName == username
                                               group s by s.Date.Date into newGroup
                                               orderby newGroup.Key ascending
                                               select new DateStudyDuration()
@@ -115,9 +149,10 @@ namespace DbManagement.Repositories
             return result;
         }
 
-        public List<DateSolvedQuestions> GetDateSolvedQuestionsStatistic()
+        public List<DateSolvedQuestions> GetDateSolvedQuestionsStatistic(string username)
         {
             List<DateSolvedQuestions> result = (from s in _dbContext.StudySessions
+                                                where s.UserName == username
                                                 group s by s.Date.Date into newGroup
                                                 orderby newGroup.Key ascending
                                                 select new DateSolvedQuestions()
@@ -129,10 +164,11 @@ namespace DbManagement.Repositories
             return result;
         }
 
-        public List<SubjectDuration> GetSubjectDurationStatistic()
+        public List<SubjectDuration> GetSubjectDurationStatistic(string username)
         {
             List<SubjectDuration> result = (from session in _dbContext.StudySessions.Include(s => s.Subject)
-                                            group session by 
+                                            where session.UserName == username
+                                            group session by
                                             new { session.SubjectId, SubjectName = session.Subject.Name } into newGroup
                                             orderby newGroup.Key.SubjectId ascending
                                             select new SubjectDuration()
@@ -146,11 +182,11 @@ namespace DbManagement.Repositories
             return result;
         }
 
-        public List<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic()
+        public List<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic(string username)
         {
-            List<SubjectSolvedQuestions> result = (from session in _dbContext.StudySessions.Include(s => s.Subject) 
-                                                   where session.SolvedQuestions > 0
-                                                   group session by new 
+            List<SubjectSolvedQuestions> result = (from session in _dbContext.StudySessions.Include(s => s.Subject)
+                                                   where session.SolvedQuestions > 0 && session.UserName == username
+                                                   group session by new
                                                    { session.SubjectId, SubjectName = session.Subject.Name } into newGroup
                                                    orderby newGroup.Key.SubjectId ascending
                                                    select new SubjectSolvedQuestions()

@@ -9,7 +9,6 @@ export function SessionCardList() {
     const [isReload, setIsReload] = useState(false);
     const [addButtonVisibility, setAddButtonVisibility] = useState(true);
     const [isSessionFormOpen, setIsSessionFormOpen] = useState(false);
-    const [isAuthorized, setIsAuthorized] = useState(false);
 
     let reloadSessions = function () {
         setLoading(true);
@@ -61,12 +60,8 @@ export function SessionCardList() {
 
     useEffect(() => {
         //burda if(isReload) { populateSessions }şeklinde yapılabilir. 
-        if (localStorage.getItem('token') !== null) {
-            setIsAuthorized(true);
+        if (utils.getAuthToken() !== null) {
             populateSessions();
-        }
-        else {
-
         }
                
     }, [isReload]);

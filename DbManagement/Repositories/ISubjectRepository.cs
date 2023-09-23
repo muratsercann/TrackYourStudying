@@ -10,6 +10,7 @@ namespace DbManagement.Repositories
     public interface ISubjectRepository
     {
         List<Subject> GetSubjects();
+        List<Subject> GetSubjects(string username);
         Subject GetSubject(int id);
 
         void CreateSubjects(IEnumerable<Subject> subjects);

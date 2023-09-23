@@ -37,6 +37,12 @@ export function Chart_DailySolvedQuestions() {
         },
         axisY: {
             labelFormatter: function (e) {
+                if (utils.isInt(e.value)) {
+                    return e.value;
+                }
+                else {
+                    return "";
+                }
                 return e.value;
             }
         },

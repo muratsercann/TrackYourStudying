@@ -1,4 +1,6 @@
 ﻿using DbManagement;
+using DbManagement.Migrations;
+using DbManagement.Models;
 using DbManagement.Repositories;
 using DbManagement.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +15,30 @@ namespace TrackYourStudyingApp.Controllers
     public class TestController : ControllerBase
     {
         private readonly SessionService _sessionService;
-
+        
         public TestController(ISessionRepository repo)
         {
-            _sessionService = new SessionService(repo);
+            _sessionService = new SessionService(repo);           
         }
+
+        private string getUsername(HttpContext? httpContext)
+        {
+            try
+            {
+                if (httpContext?.User != null)
+                {
+                    return httpContext.User.Claims.ToList().First(x => x.Type == "UserName").Value;
+                }
+
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
 
         [HttpGet("sessions")]
         [Authorize]
@@ -37,7 +58,16 @@ namespace TrackYourStudyingApp.Controllers
         [Authorize]
         public IActionResult Loginget([FromBody] LoginResourceDTO resource)
         {
-            return Ok("Login2 başarılı");
+            string username = getUsername(HttpContext);
+            return Ok($"Login2 başarılı username : {username}");
+        }
+
+        [HttpGet("chartdata")]
+        [Authorize]
+        public ActionResult<ChartsDataModel> ChartData()
+        {
+            string username = getUsername(HttpContext);
+            return _sessionService.GetChartsData(username);
         }
 
 

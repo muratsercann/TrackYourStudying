@@ -1,5 +1,10 @@
 ﻿export default class utils {
 
+    static isInt = (n) => {
+        return Number(n) === n && n % 1 === 0;
+    }
+
+
     //Dakikayı -> 1sa 30dk, 12sa 3dk, 5dk gibi formata dönüştürür.
     static minutesToHours = (minutes) => {
         var hours = Math.floor(minutes / 60);
@@ -230,7 +235,7 @@
             dailyStudyDuration: utils.getDailyStudyDuration,
             subjectSolvedQuestion: utils.getSubjectSolvedQuestion,
             subjectStudyDuration: utils.getSubjectStudyDuration,
-        },        
+        },
 
     }
 

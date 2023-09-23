@@ -1,6 +1,5 @@
 ﻿import Modal from 'react-modal';
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Navigate, redirect } from 'react-router-dom';
 import utils from '../../utils.js'
 // Modal stilini özelleştirin
 const customStyles = {
@@ -50,8 +49,6 @@ export function SessionForm({
         }
     }
 
-    const saveButtonName = getSubmitButtonName();
-
     function getFirsData() {
         if (recordType === "edit" && session) {
             console.log("form bu session bilgisi ile doldurulacak :");
@@ -83,9 +80,13 @@ export function SessionForm({
             setFirstLoad(false);
         }
         if (recordType === "edit") {
-            //setShowAddButton(false);
         }
         Modal.setAppElement('#app');
+
+        if (changeAddButtonVisibility) {
+            changeAddButtonVisibility(false);//sessionCardlist içerisindeki add butonunu devre dışı bırakır..
+        }
+
     }, [firstLoad]);
 
     useEffect(() => {
@@ -107,7 +108,7 @@ export function SessionForm({
             setTopics(data);
         }
         else {
-           console.error( "populate topics error", response );
+            console.error("populate topics error", response);
         }
 
 
@@ -125,7 +126,7 @@ export function SessionForm({
         }
 
         else {
-            console.error("populate subjects error", response );
+            console.error("populate subjects error", response);
         }
 
         setLoading(false);
@@ -194,7 +195,7 @@ export function SessionForm({
                         <option value="">Seçiniz</option>
                         {subjects && subjects.map(s => (
                             <option key={s.id} value={s.id}>
-                                {s.name}
+                                {s.longName}
                             </option>
                         ))}
                     </select>
@@ -389,7 +390,7 @@ export function SessionForm({
                                 <option value="">Seçiniz</option>
                                 {subjects && subjects.map(s => (
                                     <option key={s.id} value={s.id}>
-                                        {s.name}
+                                        {s.longName}
                                     </option>
                                 ))}
                             </select>
@@ -478,7 +479,7 @@ export function SessionForm({
 
                 else {
                     // Veri güncelleme başarısız oldu
-                    console.error("Veri güncelleme başarısız oldu." , response);
+                    console.error("Veri güncelleme başarısız oldu.", response);
                 }
             } catch (error) {
                 console.error('Bir hata oluştu:', error);
@@ -500,7 +501,7 @@ export function SessionForm({
                     window.location.reload(false);
                 } else {
                     alert("Kayıt Başarısız");
-                    console.error("Kayıt Başarısız" , response );
+                    console.error("Kayıt Başarısız", response);
                     // Hata durum işlemleri
                 }
             } catch (error) {
@@ -546,9 +547,7 @@ export function SessionForm({
         };
 
         const form = createForm(data, selectedSubject);
-        if (changeAddButtonVisibility) {
-            changeAddButtonVisibility(false);
-        }
+
         return (
             <div>
                 <Modal

@@ -7,10 +7,9 @@ namespace TrackYourStudyingApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TopicController
+    public class TopicController : ControllerBase
     {
         private readonly TopicService _topicService;
-
         public TopicController(ITopicRepository repo)
         {
             _topicService = new TopicService(repo);
@@ -20,14 +19,29 @@ namespace TrackYourStudyingApp.Controllers
         [Authorize]
         public IEnumerable<DbManagement.Models.Topic> Get()
         {
-            return _topicService.GetTopics();
+            try
+            {
+                return _topicService.GetTopics();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpGet("GetTopicsBySubjectId/{subjectId}")]
         [Authorize]
         public IEnumerable<DbManagement.Models.Topic> GetTopicsBySubjectId(int subjectId)
         {
-            return _topicService.GetTopics(subjectId);
+            try
+            {
+                return _topicService.GetTopics(subjectId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
     }

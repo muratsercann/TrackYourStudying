@@ -22,6 +22,11 @@ namespace DbManagement.Services
             return _subjectRepository.GetSubjects();
         }
 
+        public IEnumerable<Subject> GetSubjects(string username)
+        {
+            return _subjectRepository.GetSubjects(username);
+        }
+
         public Subject GetSubject(int id)
         {
             return _subjectRepository.GetSubject(id);

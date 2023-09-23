@@ -36,7 +36,12 @@ export function Chart_DailyStudyHours() {
         },
         axisY: {
             labelFormatter: function (e) {
-                return utils.convertMinutesToTimeFormat(e.value);
+                if (utils.isInt(e.value)) {
+                    return utils.convertMinutesToTimeFormat(e.value);
+                }
+                else {
+                    return "";
+                }
             }
         },
         axisX: {

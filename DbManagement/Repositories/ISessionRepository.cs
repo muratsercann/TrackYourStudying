@@ -14,7 +14,12 @@ namespace DbManagement.Repositories
         void CreateSessions(List<StudySession> session);
 
         List<StudySession> GetSessions();
+
+        List<StudySession> GetSessions(string userName);
+
         StudySession GetSession(int id);
+
+        bool Any(int id, string username);
 
         bool DeleteSession(int id);
 
@@ -22,11 +27,13 @@ namespace DbManagement.Repositories
 
         List<StudySessionByDate> GetStudySessionsByDate();
 
+        List<StudySessionByDate> GetStudySessionsByDate(string username);
+
         bool Any(int id);
 
-        List<DateStudyDuration> GetDateStudyDurationStatistic();
-        List<DateSolvedQuestions> GetDateSolvedQuestionsStatistic();
-        List<SubjectDuration> GetSubjectDurationStatistic();
-        List<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic();
+        List<DateStudyDuration> GetDateStudyDurationStatistic(string username);
+        List<DateSolvedQuestions> GetDateSolvedQuestionsStatistic(string username);
+        List<SubjectDuration> GetSubjectDurationStatistic(string username);
+        List<SubjectSolvedQuestions> GetSubjectSolvedQuestionsStatistic(string username);
     }
 }
