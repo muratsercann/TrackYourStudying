@@ -2,174 +2,114 @@
 import Modal from 'react-modal';
 
 
-// Modal stilini özelleştirin
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        width: '80%', // Genişlik
-        maxHeight: '80vh', // Yükseklik
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: '#343a40',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '20px',
-        color: '#fff',
-        overflow: 'auto', // Gerektiğinde kaydırma çubukları ekle
-    },
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-};
-
 export function Main() {
-    const [subjects, setSubjects] = useState([]);
-    const [selectedSubject, setSelectedSubject] = useState({});
-    const [topics, setTopics] = useState([]);
+    const [selectedLink, setSelectedLink] = useState("");
     const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     useEffect(() => {
-        populateData();
-        Modal.setAppElement('#app');
-    }, []);
-
-    async function populateData() {
-        const response = await fetch('subject', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            },
-
-        });
-        const data = await response.json();
-        setSubjects(data);
-        setLoading(false);
-    }
-
-    function createForm(data, selectedSubject) {
-
-        function onSubjectChanged(event) {
-            const selectedOption = subjects.find(s => s.id.toString() === event.target.value);
-            setSelectedSubject(selectedOption);
-            setTopics(selectedOption.topics);
+        console.log("useEffect");
+        if (selectedLink) {
+            setLoading(false);
         }
+    }, [selectedLink]);
 
-        return (
-            <form>
-                <div className="dateSelector">
-                    {/*Date*/}
-                    <div className="mb-3">
-                        <label htmlFor="date" className="form-label">Tarih :</label>
-                        <input type="date" className="form-control" id="date" ></input>
-                    </div>
-                    {/*Time*/}
-                    <div className="timeSelector">
-                        <div className="mb-3">
-                            <label htmlFor="time1" className="form-label">Başlangıç Saati :</label>
-                            <input type="time" className="form-control" id="time1" />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="time2" className="form-label">Bitiş Saati :</label>
-                            <input type="time" className="form-control" id="time2" />
-                        </div>
-                    </div>
-                    {/*Subject*/}
-                    <div className="subjectDropdown">
-                        <div className="mb-3">
-                            <label htmlFor="subject" className="form-label">Ders:</label>
-                            <select className="form-select" id="subject" onChange={e => onSubjectChanged(e)}>
-                                {subjects.map(s => (
-                                    <option key={s.id} value={s.id}>
-                                        {s.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-                    {/*Topic*/}
-                    <div className="topicDropdown">
-                        <div className="mb-3">
-                            <label htmlFor="subject" className="form-label">Konu :</label>
-                            <select className="form-select" id="subject">
-                                {topics.map(t => (
-                                    <option key={t.id} value={t.id}>
-                                        {t.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-                    {/*Topic Review*/}
-                    <div className="mb-3 topicReviewCheckbox">
-                        <div className="form-check">
-                            <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="topicStudy"
-                            />
-                            <label className="form-check-label" htmlFor="topicStudy">
-                                Konu Çalışması
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        );
+    const Page1 = () => {
+        return <div>Page1</div>
+    };
+    const Page2 = () => {
+        return <div>Page2</div>
+    };
+    const Page3 = () => {
+        return <div>Page3</div>
+    };
+    const Page4 = () => {
+        return <div>Page4</div>
+    };
+
+    const onClick1 = () => {
+        console.log("clicked_1");
+        setSelectedLink("p1");
+    }
+    const onClick2 = () => {
+        console.log("clicked_2");
+        setSelectedLink("p2");
     }
 
-    function renderFormElements(data, selectedSubject) {
-
-        const openModal = () => {
-            setIsModalOpen(true);
-        };
-
-        const closeModal = () => {
-            setIsModalOpen(false);
-        };
-
-        const handleSave = () => {
-            // Kaydetme işlemleri burada yapılabilir
-            closeModal();
-        };
-
-        var form = createForm(data, selectedSubject);
-        return (
-            <div>
-                <button onClick={openModal}>Modal Aç</button>
-                <Modal
-                    isOpen={isModalOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Örnek Modal"
-                    shouldCloseOnOverlayClick={false}
-                    style={customStyles}
-                >
-                    <h2>Seçili çalışmayı silmek istediğinizden emin misiniz?</h2>
-
-                    <div className="d-grid gap-1">
-                        <button onClick={handleSave} className="btn btn-success">Sil</button>
-                        <button onClick={closeModal} className="btn btn-secondary">İptal</button>
-                    </div>
-                </Modal>
-            </div>
-        );
+    const onClick3 = () => {
+        console.log("clicked_3");
+        setSelectedLink("p3");
     }
 
-    let contents = loading ? (
-        <p>
-            <em>Loading...</em>
-        </p>
-    ) : (
-        renderFormElements(subjects, selectedSubject)
-    );
+    const onClick4 = () => {
+        console.log("clicked_4");
+        setSelectedLink("p4");
+    }
 
+    const createContent = () => {
+        if (selectedLink == "p1") {
+            return <Page1 />;
+        }
+        if (selectedLink == "p2") {
+            return <Page2 />;
+        }
+        if (selectedLink == "p3") {
+            return <Page3 />;
+        }
+        if (selectedLink == "p4") {
+            return <Page4 />;
+        }
+    };
+
+
+
+    const content = loading ? <div>Loading...</div> : createContent();
 
     return (
-        <div id="app">{contents}</div>
+        <>
+            <a href="" className="floating-button">+</a>
+            <div className="md-5">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" href="#">Navbar</a>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <a className="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Link</a>
+                                </li>
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dropdown
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li><a className="dropdown-item" href="#">Action</a></li>
+                                        <li><a className="dropdown-item" href="#">Another action</a></li>
+                                        <li> <hr className="dropdown-divider"></hr></li>
+                                        <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+                                </li>
+                            </ul>
+                            <form className="d-flex" role="search">
+                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                                <button className="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
 
+                {content}
+
+            </div>
+        </>
     );
 
 }
