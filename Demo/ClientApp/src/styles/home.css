@@ -1,4 +1,8 @@
-﻿.home-container {
+﻿.appNavbar{
+    display: flex;
+}
+
+.home-container {
     width: 100%;
     height: 100%;
 }
@@ -18,6 +22,9 @@
     align-content: center;
 }
 
-.home-content-filter{
-    width:200px;
+.home-content .filter{
+    width:270px;
+}
+.home-content .filter select{
+    /* background: var(--tys-blue-gradient); */
 }

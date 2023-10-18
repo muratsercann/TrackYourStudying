@@ -1,4 +1,11 @@
-﻿.header-container {
+﻿.offcanvas {
+    width: 80%;
+    /* Genişlik değerini yüzde cinsinden ihtiyacınıza göre ayarlayın */
+    background: var(--tys-blue-gradient);
+    color: white;
+}
+
+.header-container {
     height: 300px;
     width: 100%;
     position: relative;
@@ -46,4 +53,47 @@
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20%;
+    align-items: center;
+
+}
+
+.menuItem {
+    width: 80%;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.144);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.menuItem:hover {
+    background-color: #ffffff6e;
+}
+
+.menuItem .icon {
+    width: 80px;
+}
+
+.menuItem .label {
+    /* width: 150px;
+    height: 60px;
+    margin-left: 10px;
+    color: #06bf77;
+    /* font-weight: bold; 
+    font-size: 25px; */
+}
+
+.AiFillHome {
+    /* color: rgb(150, 23, 23) !important; */
 }

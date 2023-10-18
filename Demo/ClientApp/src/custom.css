@@ -14,7 +14,8 @@ code {
 }
 
 :root {
-    --tys-blue-gradient: linear-gradient(to top right, #38b6ff, #44489a);
+    --tys-blue-gradient: linear-gradient(to top right, #02cbe6, #444b9d);
+    --tys-session-pin-background-color: #06bf77;
 }
 
 body {
