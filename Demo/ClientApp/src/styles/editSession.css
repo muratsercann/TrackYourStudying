@@ -1,0 +1,103 @@
+.editSession .container {
+    display: flex;
+    align-items: flex-start;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 150px;
+}
+
+
+
+.editSession .container .inputs-header {
+    /* background-color :red; */
+    width: 100%;
+    text-align: left;
+    font-weight: 500;
+    font-size: 15px;
+    color: #3E4150;
+    margin-top: 25px;
+}
+
+.editSession .container .separator {
+    position: relative;
+    width: 100%;
+}
+
+.editSession .container .separator .bar1 {
+    width: 100%;
+    height: 3px;
+    background-color: rgb(128 128 128 / 15%);
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.editSession .container .separator .bar2 {
+    width: 30%;
+    height: 3px;
+    background-color: rgb(128 128 128 / 15%);
+    margin-top: 5px;
+    float: right;
+    border-radius: 5px;
+
+}
+
+.editSession .container .input-label {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    margin-top: 20px;
+    text-align: left;
+    margin-left: 2px;
+}
+
+.editSession .container .input {
+    width: 100%;
+}
+
+.editSession .container .input input {
+    width: 100%;
+    height: 35px;
+    text-align: left;
+    /* border: solid 3px  rgb(128 128 128 / 85%); */
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.container .time {
+    width: 100%;
+}
+
+.customRow {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.customCol {
+    width: 50%;
+}
+
+.sep {
+    width: 10px !important;
+}
+
+
+.submitButtons {
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.submitButtons .btn {
+    width: 100%;
+}
+
+
