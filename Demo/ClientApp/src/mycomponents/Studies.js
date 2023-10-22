@@ -135,7 +135,6 @@ export default function Studies() {
 
     return (
         <div className='studies'>
-            <Header header='Çalışmalar' />
             <div className="content">
                 {data.map(item =>
                     <div className='date-container' key={item.date}>

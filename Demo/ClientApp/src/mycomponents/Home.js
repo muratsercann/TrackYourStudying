@@ -47,7 +47,7 @@ export default function Home() {
 
     return (
         <div className='home-container'>
-            <Header header='Ders Takip'/>
+            
 
             <div className="home-content">
 
@@ -61,7 +61,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                {data.map(item => <HomeContentItem header={item.header} icon={item.icon} label={item.label} />)}
+                {data.map(item => <HomeContentItem key={item.header} header={item.header} icon={item.icon} label={item.label} />)}
 
             </div>
         </div>

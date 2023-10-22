@@ -10,33 +10,13 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Nav from 'react-bootstrap/Nav';
 
 
-export default function Header({header}) {
+export default function Header({ header, pages, setSelectedPage }) {
     const [show, setShow] = useState(false);
 
     const handleMenuClose = () => setShow(false);
     const handleMenuShow = () => setShow(true);
 
 
-    const menuData = [
-        {
-            key : 1,
-            icon: <AiFillHome color='white' size={30} />,
-            label: 'Ana Sayfa',
-        }, {
-            key : 2,
-            icon: <AiFillHome color='white' size={30} />,
-            label: 'Çalışmalarım',
-        }, {
-            key : 3,
-            icon: <AiFillHome color='white' size={30} />,
-            label: 'Denemelerim',
-        }, {
-            key : 4,
-            icon: <AiFillHome color='white' size={30} />,
-            label: 'Grafikler',
-        },
-
-    ];
 
     return (
         <div className='header-container'>
@@ -63,17 +43,22 @@ export default function Header({header}) {
                         {/* <Offcanvas.Title>Offcanvas</Offcanvas.Title> */}
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-
-                        {menuData.map(item =>
-                            <div className='menuItem' key={item.key}>
-                                <div className='icon'>
-                                    {item.icon}
+                        {
+                            pages.map(item => {
+                                const handleMenuSelected = () => {
+                                    setShow(false);
+                                    setSelectedPage(item);
+                                };
+                                return <div className='menuItem' onClick={handleMenuSelected} key={item.key}>
+                                    <div className='icon'>
+                                        {item.icon}
+                                    </div>
+                                    <div className='label' >
+                                        {item.label}
+                                    </div>
                                 </div>
-                                <div className='label' >
-                                    {item.label}
-                                </div>
-                            </div>
-                        )}
+                            }
+                            )}
                     </Offcanvas.Body>
                 </div>
             </Offcanvas>
