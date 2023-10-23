@@ -137,3 +137,20 @@
 
 
 } */
+
+.rounded-button {
+    width: 50px; /* Düğmenin genişliği */
+    height: 50px; /* Düğmenin yüksekliği */
+    background-color: #007bff; /* Düğmenin arka plan rengi */
+    color: #fff; /* Düğme metin rengi */
+    border: none; /* Kenarlık yok */
+    border-radius: 50%; /* Düğme yuvarlaklığını sağlar */
+    font-size: 16px; /* Yazı boyutu */
+    position: fixed; /* Düğmenin sabit pozisyonda olmasını sağlar */
+    bottom: 20px; /* Ekranın altına olan mesafe (istediğiniz gibi ayarlayabilirsiniz) */
+    right: 20px; /* Ekranın sağına olan mesafe (istediğiniz gibi ayarlayabilirsiniz) */
+}
+
+.rounded-button:hover {
+    background-color: #0056b3; /* Farenin üzerine gelindiğinde arka plan rengi */
+}

@@ -10,11 +10,12 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Nav from 'react-bootstrap/Nav';
 
 
-export default function Header({ header, pages, setSelectedPage }) {
-    const [show, setShow] = useState(false);
+export default function Header({ header, pages, selectedPage, setSelectedPage }) {
+    const [showOffcanvas, setOffcanvasShow] = useState(false);
+    const [showNavbar, setShowNavbar] = useState(true);
 
-    const handleMenuClose = () => setShow(false);
-    const handleMenuShow = () => setShow(true);
+    const handleMenuClose = () => { setOffcanvasShow(false); setShowNavbar(true); };
+    const handleMenuShow = () => { setOffcanvasShow(true); setShowNavbar(false); };
 
 
 
@@ -22,7 +23,8 @@ export default function Header({ header, pages, setSelectedPage }) {
         <div className='header-container'>
             <div className='header-header'>
 
-                <div onClick={handleMenuShow} className="appNavbar"><BsList size={40} color="white" /></div>
+                {showNavbar &&
+                    <div onClick={handleMenuShow} className="appNavbar"><BsList size={40} color="white" /></div>}
                 <div className="profileIcon"><BiSolidUserCircle size={50} /></div>
                 <div className='header-icon'>
                     <PiStudent color="white" weight="fill" size={70} />
@@ -37,7 +39,7 @@ export default function Header({ header, pages, setSelectedPage }) {
 
             {/* Menu */}
 
-            <Offcanvas show={show} onHide={handleMenuClose}>
+            <Offcanvas show={showOffcanvas} onHide={handleMenuClose}>
                 <div className='custom-offcanvas'>
                     <Offcanvas.Header closeButton closeVariant='white'>
                         {/* <Offcanvas.Title>Offcanvas</Offcanvas.Title> */}
@@ -46,10 +48,16 @@ export default function Header({ header, pages, setSelectedPage }) {
                         {
                             pages.map(item => {
                                 const handleMenuSelected = () => {
-                                    setShow(false);
+                                    handleMenuClose();
                                     setSelectedPage(item);
                                 };
-                                return <div className='menuItem' onClick={handleMenuSelected} key={item.key}>
+
+                                let className = 'menuItem';
+                                if (selectedPage.key == item.key) {
+                                    className += ' selected'
+                                }
+
+                                return <div className={className} onClick={handleMenuSelected} key={item.key}>
                                     <div className='icon'>
                                         {item.icon}
                                     </div>
@@ -62,6 +70,7 @@ export default function Header({ header, pages, setSelectedPage }) {
                     </Offcanvas.Body>
                 </div>
             </Offcanvas>
+
         </div >
     );
 }

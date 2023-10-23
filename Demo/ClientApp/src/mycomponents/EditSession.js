@@ -7,7 +7,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function EditSession() {
+export default function EditSession({ close }) {
+
+    window.scrollTo(0, 0); // Sayfanın en üstüne kaydır
 
     const subjects = [
         { id: 1, value: "Matematik" },
@@ -15,15 +17,24 @@ export default function EditSession() {
         { id: 3, value: "Fizik" },
         { id: 4, value: "Kimya" },
         { id: 5, value: "Biyoloji" },
-        { id: 5, value: "Tarih" },
+        { id: 6, value: "Tarih" },
     ];
 
     const topics = [{ id: 1, value: "Topic1" }, { id: 2, value: "Topic2" }, { id: 3, value: "Topic3" }];
 
+    const handleSave = (e) => {
+        e.preventDefault();
+        close();
+    }
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        close();
+    }
+
+
     return (
         <div className="editSession">
-            <Header header='Yeni Çalışma' />
-
             <div className="container">
                 {/*TARİH VE SAATLER*/}
                 <div className='inputs-header'>
@@ -156,13 +167,13 @@ export default function EditSession() {
 
                 <div className='submitButtons customRow'>
                     <div className='customCol'>
-                        <button type="button" class="btn btn-secondary">İptal</button>
+                        <button type="button" onClick={handleCancel} className="btn btn-secondary">İptal</button>
                     </div>
 
                     <div className='customCol sep'></div>
 
                     <div className='customCol'>
-                        <button type="button" class="btn btn-primary">Kaydet</button>
+                        <button type="button" onClick={handleSave} className="btn btn-primary">Kaydet</button>
                     </div>
                 </div>
 

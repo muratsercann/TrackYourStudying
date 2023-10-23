@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/studies.css'
 import Header from './Header'
 import HomeContentItem from './HomeContentItem'
 import { PiTimerBold, PiTimerLight } from "react-icons/pi"
 import Session from './Session'
+import EditSession from './EditSession'
 
-export default function Studies() {
+export default function Studies({ pageInfo }) {
+    const [buttonVisibility, setButtonVisibility] = useState(true);
 
     const data = [
         {
@@ -133,21 +135,38 @@ export default function Studies() {
         }
     ];
 
-    return (
-        <div className='studies'>
-            <div className="content">
-                {data.map(item =>
-                    <div className='date-container' key={item.date}>
-                        <div className='header'>{item.date}</div>
-                        {item.sessions.map(session =>
-                            <Session key={session.time} session={session} />
-                        )}
-                    </div>
-                )}
-            </div>
+    const handleNewClick = (e) => {
+        e.preventDefault();
+        setButtonVisibility(false);
+        pageInfo.changePageHeader("Yeni Kayıt");
+    }
 
-        </div>
-    );
+    const onClose = () => {
+        setButtonVisibility(true);
+    }
+
+    return (<>
+        {buttonVisibility &&
+            <div className='studies'>
+                <div className="content">
+                    {data.map(item =>
+                        <div className='date-container' key={item.date}>
+                            <div className='header'>{item.date}</div>
+                            {item.sessions.map(session =>
+                                <Session key={session.time} session={session} />
+                            )}
+                        </div>
+                    )}
+                </div>
+
+            </div>
+        }
+
+        {!buttonVisibility &&
+            <EditSession close={onClose} />
+        }
+        {buttonVisibility && <button onClick={handleNewClick} className="rounded-button" id="fixed-button">+</button>}
+    </>);
 
 
 }
