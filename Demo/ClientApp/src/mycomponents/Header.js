@@ -39,7 +39,7 @@ export default function Header({ header, pages, selectedPage, setSelectedPage })
 
             {/* Menu */}
 
-            <Offcanvas show={showOffcanvas} onHide={handleMenuClose}>
+            <Offcanvas show={showOffcanvas} onHide={handleMenuClose} >
                 <div className='custom-offcanvas'>
                     <Offcanvas.Header closeButton closeVariant='white'>
                         {/* <Offcanvas.Title>Offcanvas</Offcanvas.Title> */}

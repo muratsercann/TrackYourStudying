@@ -22,7 +22,7 @@ export default function ToastDialog({ toast, setToast }) {
   }
 
   return (<>
-    <div style={{ width:'100%', display:'flex', justifyContent:'center', position: 'fixed', top: '10px', zIndex: '99999' }}>
+    <div className='customToast' style={{ width:'100%', display:'flex', justifyContent:'center', position: 'fixed', top: '10px', zIndex: '99999' }}>
       <Toast
         className="d-inline-block m-1"
         onClose={onClose}

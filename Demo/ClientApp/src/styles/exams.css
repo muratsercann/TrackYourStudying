@@ -4,15 +4,18 @@
     display: flex;
     justify-content: center;
     color: rgb(48, 47, 47);
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 
 .exams.container .examItem {
     position: relative;
-    padding: 30px;
-    background-color: #8080801c;
+    padding: 10px;
+    background-color: #c1c1c11c;
     border-radius: 5px;
-    width: 450px;
-
+    width: 100%;
+    margin-bottom: 75px;
 }
 
 .examItem .header-container {
@@ -22,16 +25,18 @@
     left: 0px;
     display: flex;
     justify-content: center;
+    height: auto;
 }
 
 .examItem .header {
     color: white;
-    background: linear-gradient(to top right, #06BF77, #006065);
-    width: 150px;
+    /* background: linear-gradient(to top right, #06BF77, #006065); */
+    background-color: #579371;
+    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px;
+    height: 33px;
     border-radius: 5px;
     padding: 10px;
 }
@@ -40,6 +45,8 @@
 
 .exams.container .examItem .content {
     margin-left: 22px;
+    margin-top: 28px;
+    margin-bottom: 28px;
 }
 
 .col.th {
@@ -47,13 +54,25 @@
     border-bottom: 2px solid gray; */
     text-align: center;
     font-weight: 500;
+    background-color: white;
 }
 
 .col {
     text-align: center;
     width: 50px;
+    border: 1px solid #96959521;
+    padding: 4px;
 }
 
+.col1 {
+    min-width: 150px !important;
+    text-align: left;
+}
+
+.col.col1.th{
+    border: none;
+    background-color: transparent;
+}
 .row {
     width: 100%;
     height: auto;
@@ -62,42 +81,40 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    color: #313030;
 }
-
-.row {
-    padding: 5px;
-    color: white;
-}
-
 .row0 {
     /* background-color: white; */
     color: rgb(63, 63, 63);
 }
 
 .row1 {
-    background-color: #2389c0;
+    /* background-color: #2389c0; */
 }
 
 .row2 {
-    background-color: #1382be;
+    /* background-color: #47a2d3; */
 }
 
+/* 
 .row3 {
     background-color: #2389c0;
 }
 
 .row4 {
     background-color: #1382be;
-}
+} */
 
 .rowTotal {
-    background-color: #0a5a85;
+    /* font-weight: 600; */
+    background-color: #10a150;
+    color: azure;
 }
 
 .examItem .actionButtons {
     position: absolute;
     right: 5px;
-    top: 3px;
+    top: 7px;
     z-index: 11111;
 }
 
@@ -114,4 +131,3 @@
     /* background-color: red; */
     opacity: 100%;
 }
-
