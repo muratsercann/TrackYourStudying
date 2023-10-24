@@ -10,6 +10,7 @@ import Header from './mycomponents/Header';
 import Studies from './mycomponents/Studies';
 import { AiFillHome } from "react-icons/ai";
 import Spinner from 'react-bootstrap/Spinner';
+import Exams from './mycomponents/Exams';
 
 export default function App() {
     const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ export default function App() {
             key: 2,
             icon: <AiFillHome color='white' size={30} />,
             label: 'Denemelerim',
-            page: <Home />
+            page: <Exams />
         }, {
             key: 3,
             icon: <AiFillHome color='white' size={30} />,
@@ -54,7 +55,7 @@ export default function App() {
     ];
 
 
-    const [selectedPage, setSelectedPage] = useState(pages[0]);
+    const [selectedPage, setSelectedPage] = useState(pages[1]);
     let content;
     if (loading) {
         content = <div className='spinner-container'><Spinner variant="success" /></div>;

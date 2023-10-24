@@ -53,13 +53,15 @@ export default function Header({ header, pages, selectedPage, setSelectedPage })
                                 };
 
                                 let className = 'menuItem';
+                                let icon = undefined;
                                 if (selectedPage.key == item.key) {
-                                    className += ' selected'
+                                    className += ' selected';
+                                    icon = React.cloneElement(item.icon, { color: '#248ac1' });
                                 }
 
                                 return <div className={className} onClick={handleMenuSelected} key={item.key}>
                                     <div className='icon'>
-                                        {item.icon}
+                                        {icon != undefined ? icon : item.icon}
                                     </div>
                                     <div className='label' >
                                         {item.label}

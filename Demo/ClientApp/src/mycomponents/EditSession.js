@@ -24,11 +24,13 @@ export default function EditSession({ close }) {
 
     const handleSave = (e) => {
         e.preventDefault();
+        window.scrollTo(0, 0); // Sayfanın en üstüne kaydır
         close();
     }
 
     const handleCancel = (e) => {
         e.preventDefault();
+        window.scrollTo(0, 0); // Sayfanın en üstüne kaydır
         close();
     }
 
@@ -159,7 +161,7 @@ export default function EditSession({ close }) {
 
                     <div className='customCol'>
                         <div className="input-label form-label" htmlFor="net" >Net : </div>
-                        <div className="input"> <input type='time' className='form-control' id='net' ></input> </div>
+                        <div className="input"> <input type='number' className='form-control' id='net' ></input> </div>
                     </div>
                 </div>
 

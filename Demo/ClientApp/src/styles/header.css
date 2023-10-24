@@ -53,7 +53,10 @@
     cursor: pointer;
 }
 
-
+.appNavbar :hover {
+    background-color: #54a7d1;
+    border-radius: 5px;
+}
 
 .header-header .profileIcon {
     position: absolute;
@@ -94,7 +97,8 @@
 }
 
 .menuItem.selected {
-    background-color: #ffffff6e;
+    background-color: white;
+    color: #248ac1;
 }
 
 .menuItem .label {

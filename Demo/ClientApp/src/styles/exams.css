@@ -1,0 +1,117 @@
+.exams.container {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    color: rgb(48, 47, 47);
+}
+
+.exams.container .examItem {
+    position: relative;
+    padding: 30px;
+    background-color: #8080801c;
+    border-radius: 5px;
+    width: 450px;
+
+}
+
+.examItem .header-container {
+    width: 100%;
+    position: absolute;
+    top: -15px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.examItem .header {
+    color: white;
+    background: linear-gradient(to top right, #06BF77, #006065);
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+
+.exams.container .examItem .content {
+    margin-left: 22px;
+}
+
+.col.th {
+    /* border-right: 2px solid gray;
+    border-bottom: 2px solid gray; */
+    text-align: center;
+    font-weight: 500;
+}
+
+.col {
+    text-align: center;
+    width: 50px;
+}
+
+.row {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.row {
+    padding: 5px;
+    color: white;
+}
+
+.row0 {
+    /* background-color: white; */
+    color: rgb(63, 63, 63);
+}
+
+.row1 {
+    background-color: #2389c0;
+}
+
+.row2 {
+    background-color: #1382be;
+}
+
+.row3 {
+    background-color: #2389c0;
+}
+
+.row4 {
+    background-color: #1382be;
+}
+
+.rowTotal {
+    background-color: #0a5a85;
+}
+
+.examItem .actionButtons {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    z-index: 11111;
+}
+
+.editButton,
+.deleteButton {
+    opacity: 70%;
+    cursor: pointer;
+    float: left;
+    margin-left: 5px;
+}
+
+.editButton:hover,
+.deleteButton:hover {
+    /* background-color: red; */
+    opacity: 100%;
+}
+
