@@ -1,0 +1,171 @@
+.editExam.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -50px;
+    position: relative;
+    color: #212529;
+}
+
+.content {
+    /* width: 100%; */
+    margin-bottom: 150px;
+    padding: 20px;
+}
+
+.editExam input {
+    width: 70px;
+    border: 1px solid rgba(128, 128, 128, 0.11);
+    border-radius: 5px;
+    color: #212529;
+}
+
+.editExam input:focus {
+    outline: 2px solid rgba(128, 128, 128, 0.384);
+    /* Mavi renkli ve 2 piksel kalınlığında bir outline */
+}
+
+
+.editExam .customRow {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 5px;
+}
+
+.editExam .customCol {
+    width: 65px;
+    display: flex;
+    justify-content: center;
+}
+
+.editExam .customCol input {
+    width: 90%;
+}
+
+.editExam .col1 {
+    width: 140px;
+    justify-content: flex-start;
+}
+
+.editExam .rowSeparator {
+    width: 100%;
+    height: 2px;
+    background-color: #ababab57;
+}
+
+.editExam .mb-3.nav.nav-tabs {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    color: #737373;
+    font-weight: 500;
+}
+
+.editExam .nav-link.active {
+
+    border: 0px solid #06BF77;
+    /* background-color: green;  */
+    /* color: white; */
+    border-bottom: 4px solid #06BF77;
+
+}
+
+.editExam .nav-link.active:hover {
+    border-bottom: 4px solid #06BF77 !important;
+}
+
+.editExam .nav-link {
+    color: gray;
+    width: 130px;
+}
+
+.editExam .nav-tabs {
+    border-bottom: 0px solid #06BF77 !important;
+}
+
+.editExam .nav-tabs .nav-link:hover {
+    border: 0px solid gray;
+    border-bottom: 4px solid #8080804f;
+}
+
+.editExam .nav-item button {
+    border: 0px solid gray;
+}
+
+.editExam .submitButtons {
+    margin-top: 35px;
+    font-size: 15px;
+}
+
+.editExam .submitButtons .btn {
+    width: 100%;
+    height: 100%;
+
+}
+
+.editExam .submitButtons .customCol {
+    width: 120px;
+    height: 50px;
+}
+
+.editExam .date-input {
+    margin-bottom: 30px;
+    margin-top: 41px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.editExam .date-input label {
+    margin-right: 30px;
+}
+
+.editExam .form-input {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    /* padding-left: 20px; */
+}
+
+.editExam .form-input label{
+    width: 120px;
+}
+
+.editExam .tab-content{
+    padding-top: 20px;
+}
+
+
+.editExam .formTable{
+    margin-bottom  : 30px;
+}
+
+.editExam .form-input input{
+    justify-content: left;
+    align-items: top;
+}
+
+.editExam textarea{
+    border :1px solid rgba(128, 128, 128, 0.39);
+    border-radius: 5px;
+    width: 150px;
+    height: 159px;
+    padding: 5px;
+    font-size: 13px;
+}
+
+.editExam textarea:focus{
+    border: 0px solid gray;
+    outline: 2px solid rgba(128, 128, 128, 0.39);
+}

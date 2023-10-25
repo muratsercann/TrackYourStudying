@@ -57,24 +57,24 @@
     background-color: white;
 }
 
-.col {
+.examItem .col {
     text-align: center;
     width: 50px;
     border: 1px solid #96959521;
     padding: 4px;
 }
 
-.col1 {
+.examItem .col1 {
     min-width: 150px !important;
     text-align: left;
 }
 
-.col.col1.th{
+.examItem .col.col1.th{
     border: none;
     background-color: transparent;
 }
-.row {
-    width: 100%;
+.examItem .row {
+    /* width: 100%; */
     height: auto;
     display: flex;
     flex-direction: row;
@@ -83,29 +83,29 @@
     align-content: center;
     color: #313030;
 }
-.row0 {
+.examItem .row0 {
     /* background-color: white; */
     color: rgb(63, 63, 63);
 }
 
-.row1 {
+.examItem .row1 {
     /* background-color: #2389c0; */
 }
 
-.row2 {
+.examItem .row2 {
     /* background-color: #47a2d3; */
 }
 
 /* 
-.row3 {
+.examItem .row3 {
     background-color: #2389c0;
 }
 
-.row4 {
+.examItem .row4 {
     background-color: #1382be;
 } */
 
-.rowTotal {
+.examItem .rowTotal {
     /* font-weight: 600; */
     background-color: #10a150;
     color: azure;
@@ -131,3 +131,4 @@
     /* background-color: red; */
     opacity: 100%;
 }
+

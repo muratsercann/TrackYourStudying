@@ -11,6 +11,7 @@ import Studies from './mycomponents/Studies';
 import { AiFillHome } from "react-icons/ai";
 import Spinner from 'react-bootstrap/Spinner';
 import Exams from './mycomponents/Exams';
+import EditExam from './mycomponents/EditExam';
 
 export default function App() {
     const [loading, setLoading] = useState(false);
@@ -51,11 +52,17 @@ export default function App() {
             label: 'Yeni Kayıt',
             page: <EditSession />
         },
+        {
+            key: 5,
+            icon: <AiFillHome color='white' size={30} />,
+            label: 'Yeni Deneme',
+            page: <EditExam />
+        },
 
     ];
 
 
-    const [selectedPage, setSelectedPage] = useState(pages[1]);
+    const [selectedPage, setSelectedPage] = useState(pages[5]);
     let content;
     if (loading) {
         content = <div className='spinner-container'><Spinner variant="success" /></div>;

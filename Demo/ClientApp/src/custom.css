@@ -69,6 +69,7 @@ code {
   /* Ekranın altına olan mesafe (istediğiniz gibi ayarlayabilirsiniz) */
   right: 20px;
   /* Ekranın sağına olan mesafe (istediğiniz gibi ayarlayabilirsiniz) */
+  z-index: 11112;
 }
 
 .rounded-button:hover {
