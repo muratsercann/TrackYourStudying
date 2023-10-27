@@ -9,6 +9,8 @@ import HomeContentItem from './HomeContentItem'
 import { PiTimerBold, PiTimerLight } from "react-icons/pi";
 export default function EditExam() {
     const [key, setKey] = useState('TYT');
+    const [examResult, setExamResult] = useState([]);
+
 
     const examTypes = [
         {
@@ -43,17 +45,130 @@ export default function EditExam() {
         e.preventDefault();
     }
 
+    // const handleCorrectAnswerChange = (event) => {
+    //     const newFormData = { ...examResult, date: event.target.value };
+    //     setExamResult(newFormData);
+    // }
+    const updateResult = (subjectName, propName, value) => {
+
+        const calculateNet = (item) => {
+            let correct = propName === 'correct' ? value : item.correct;
+            let inCorrect = propName === 'inCorrect' ? value : item.inCorrect;
+            if (!correct) {
+                correct = 0;
+            }
+
+            if (!inCorrect) {
+                inCorrect = 0;
+            }
+
+            let net = correct - (inCorrect / 4);
+
+
+            console.log(subjectName, { net: net });
+
+            return net;
+        }
+
+        const itemIndex = examResult.findIndex(item => item.subject === subjectName);
+        let newData;
+        if (itemIndex >= 0) {
+            newData = examResult.map(item => {
+                if (item.subject === subjectName) {
+                    return { ...item, [propName]: value, net: calculateNet(item) }
+                }
+                return item;
+            });
+        }
+
+        else {
+            newData = [...examResult];
+            let item = {
+                subject: subjectName, [propName]: value
+            }
+
+            item = { ...item, net: calculateNet(item) };
+            newData.push(item);
+        }
+
+        //Total Counts Calculation
+        const totalCorrect = newData
+            .filter(item => item.subject !== 'Total')
+            .reduce((accumulator, item) => {
+                if (item.correct) {
+                    return accumulator + item.correct;
+                }
+                else {
+                    return accumulator;
+                }
+            }, 0);
+
+        const totalIncorrect = newData
+            .filter(item => item.subject !== 'Total')
+            .reduce((accumulator, item) => {
+                if (item.inCorrect) {
+                    return accumulator + item.inCorrect;
+                }
+                else {
+                    return accumulator;
+                }
+            }, 0);
+
+        const totalNet = newData
+            .filter(item => item.subject !== 'Total')
+            .reduce((accumulator, item) => {
+                if (item.net) {
+                    return accumulator + item.net;
+                }
+                else {
+                    return accumulator;
+                }
+            }, 0);
+
+
+        const totalIndex = examResult.findIndex(item => item.subject === "Total");
+        if (totalIndex >= 0) {
+            newData = newData.map(item => {
+                if (item.subject === "Total") {
+                    return {
+                        ...item,
+                        correct: totalCorrect,
+                        inCorrect: totalIncorrect,
+                        net: totalNet
+                    };
+                }
+                return item;
+            });
+        }
+        else {
+            newData.push({
+                subject: "Total", correct: totalCorrect, inCorrect: totalIncorrect, net: totalNet,
+            });
+        }
+
+
+
+        setExamResult(newData);
+        console.log('ExamResult', newData);
+    }
+
+
+    const getNetValue = (subjectName) => {
+        let item = examResult.find(item => item.subject === subjectName);
+        if (item && item.net) {
+            return item.net;
+        }
+        else {
+            return 0;
+        }
+    }
+
     return (
         <div className='editExam container'>
             <div className='content'>
-                <Tabs
-                    id="controlled-tab-example"
-                    activeKey={key}
-                    onSelect={(k) => setKey(k)}
-                    className="mb-3"
-                >
+                <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3" >
                     {examTypes.map(examType =>
-                        <Tab eventKey={examType.name} title={examType.name}>
+                        <Tab key={examType.name} eventKey={examType.name} title={examType.name}>
 
                             <div className='formTable'>
                                 <div className='header'>
@@ -70,16 +185,25 @@ export default function EditExam() {
                                     if (item.name.toLowerCase() === 'toplam') {
                                         disabled = true;
                                     }
-                                    return (<><div className='customRow'>
+
+                                    let handleCorrectAnswerChange = (event) => {
+                                        updateResult(item.name, 'correct', event.target.valueAsNumber);
+                                    }
+
+                                    let handleInCorrectAnswerChange = (event) => {
+                                        updateResult(item.name, 'inCorrect', event.target.valueAsNumber);
+                                    }
+
+                                    return (<><div key={item.name} className='customRow'>
                                         <div className='customCol col1'>{item.name}</div>
                                         <div className='customCol'>
-                                            <input id={'correctAnswers_' + index} type='number' disabled={disabled} />
+                                            <input id={'correctAnswers_' + index} onChange={handleCorrectAnswerChange} type='number' disabled={disabled} />
                                         </div>
                                         <div className='customCol'>
-                                            <input id={'incorrectAnswers_' + index} type='number' disabled={disabled} />
+                                            <input id={'incorrectAnswers_' + index} onChange={handleInCorrectAnswerChange} type='number' disabled={disabled} />
                                         </div>
                                         <div className='customCol'>
-                                            <input id={'net_' + index} type='number' disabled={true} />
+                                            <input id={'net_' + index} type='number' value={getNetValue(item.name)} disabled={true} />
                                         </div>
                                     </div>
                                         <div className='rowSeparator' />
