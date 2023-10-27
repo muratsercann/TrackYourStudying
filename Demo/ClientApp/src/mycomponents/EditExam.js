@@ -168,6 +168,7 @@ export default function EditExam() {
             <div className='content'>
                 <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3" >
                     {examTypes.map(examType =>
+
                         <Tab key={examType.name} eventKey={examType.name} title={examType.name}>
 
                             <div className='formTable'>
@@ -194,7 +195,7 @@ export default function EditExam() {
                                         updateResult(item.name, 'inCorrect', event.target.valueAsNumber);
                                     }
 
-                                    return (<><div key={item.name} className='customRow'>
+                                    return (<div key={item.name}> <div className='customRow'>
                                         <div className='customCol col1'>{item.name}</div>
                                         <div className='customCol'>
                                             <input id={'correctAnswers_' + index} onChange={handleCorrectAnswerChange} type='number' disabled={disabled} />
@@ -207,7 +208,7 @@ export default function EditExam() {
                                         </div>
                                     </div>
                                         <div className='rowSeparator' />
-                                    </>
+                                    </div>
                                     );
                                 }
                                 )}
