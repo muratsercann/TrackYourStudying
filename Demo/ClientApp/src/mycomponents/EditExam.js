@@ -10,7 +10,9 @@ import { PiTimerBold, PiTimerLight } from "react-icons/pi";
 export default function EditExam() {
     const [key, setKey] = useState('TYT');
     const [examResult, setExamResult] = useState([]);
+    const [formData, setFormData] = useState({});
 
+    const [validationMessage, setValidationMessage] = useState([]);
 
     const examTypes = [
         {
@@ -19,7 +21,7 @@ export default function EditExam() {
                 { name: 'Matematik', questionCount: 40 },
                 { name: 'Fen Bilimleri', questionCount: 20 },
                 { name: 'Sosyal Bilgiler', questionCount: 20 },
-                { name: 'Toplam', questionCount: 120 },
+                { name: 'Total', questionCount: 120 },
             ],
         }, {
 
@@ -29,7 +31,7 @@ export default function EditExam() {
                 { name: 'Fizik' },
                 { name: 'Kimya' },
                 { name: 'Biyoloji' },
-                { name: 'Toplam', questionCount: 80 }
+                { name: 'Total', questionCount: 80 }
             ]
         }
 
@@ -43,6 +45,10 @@ export default function EditExam() {
 
     const handleSave = (e) => {
         e.preventDefault();
+        if (formData.Date) {
+
+        }
+
     }
 
     // const handleCorrectAnswerChange = (event) => {
@@ -152,6 +158,25 @@ export default function EditExam() {
         console.log('ExamResult', newData);
     }
 
+    const getCorrectValue = (subjectName) => {
+        let item = examResult.find(item => item.subject === subjectName);
+        if (item && item.correct) {
+            return item.correct;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    const getInCorrectValue = (subjectName) => {
+        let item = examResult.find(item => item.subject === subjectName);
+        if (item && item.inCorrect) {
+            return item.inCorrect;
+        }
+        else {
+            return 0;
+        }
+    }
 
     const getNetValue = (subjectName) => {
         let item = examResult.find(item => item.subject === subjectName);
@@ -183,7 +208,7 @@ export default function EditExam() {
 
                                 {examType.subjects.map((item, index) => {
                                     let disabled = false;
-                                    if (item.name.toLowerCase() === 'toplam') {
+                                    if (item.name === 'Total') {
                                         disabled = true;
                                     }
 
@@ -195,18 +220,41 @@ export default function EditExam() {
                                         updateResult(item.name, 'inCorrect', event.target.valueAsNumber);
                                     }
 
-                                    return (<div key={item.name}> <div className='customRow'>
-                                        <div className='customCol col1'>{item.name}</div>
-                                        <div className='customCol'>
-                                            <input id={'correctAnswers_' + index} onChange={handleCorrectAnswerChange} type='number' disabled={disabled} />
+                                    return (<div key={item.name}>
+                                        <div className='customRow'>
+                                            <div className='customCol col1'>{item.name}</div>
+                                            <div className='customCol'>
+                                                <input id={'correctAnswers_' + index}
+                                                    value={(() => {
+                                                        let correct = getCorrectValue(item.name);
+                                                        if (correct > 0) {
+                                                            return correct;
+                                                        }
+                                                    })()}
+                                                    min={0}
+                                                    onChange={disabled ? null : handleCorrectAnswerChange} type='number' disabled={disabled} />
+                                            </div>
+                                            <div className='customCol'>
+                                                <input id={'incorrectAnswers_' + index}
+                                                    value={(() => {
+                                                        let inCorrect = getInCorrectValue(item.name);
+                                                        if (inCorrect > 0) {
+                                                            return inCorrect;
+                                                        }
+                                                    })()}
+                                                    min={0}
+                                                    onChange={disabled ? null : handleInCorrectAnswerChange} type='number' disabled={disabled} />
+                                            </div>
+                                            <div className='customCol'>
+                                                <input id={'net_' + index} type='number'
+                                                    value={(() => {
+                                                        let net = getNetValue(item.name);
+                                                        return net;
+                                                    })()}
+
+                                                    disabled={true} />
+                                            </div>
                                         </div>
-                                        <div className='customCol'>
-                                            <input id={'incorrectAnswers_' + index} onChange={handleInCorrectAnswerChange} type='number' disabled={disabled} />
-                                        </div>
-                                        <div className='customCol'>
-                                            <input id={'net_' + index} type='number' value={getNetValue(item.name)} disabled={true} />
-                                        </div>
-                                    </div>
                                         <div className='rowSeparator' />
                                     </div>
                                     );
@@ -224,6 +272,11 @@ export default function EditExam() {
                                 <div><textarea type='text' style={{ width: '150px', height: '80px', padding: '5px' }}></textarea></div>
                             </div>
 
+                            {validationMessage.length >= 0 &&
+                                <div className='error-message-container'>
+
+                                </div>
+                            }
                             <div className='submitButtons customRow'>
                                 <div className='customCol'>
                                     <button type="button" onClick={handleCancel} className="btn btn-secondary">İptal</button>
@@ -240,6 +293,6 @@ export default function EditExam() {
                     )}
                 </Tabs>
             </div>
-        </div>
+        </div >
     );
 }
